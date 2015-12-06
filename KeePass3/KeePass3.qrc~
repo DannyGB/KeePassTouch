@@ -1,0 +1,14 @@
+<RCC>
+    <qresource prefix="/">
+        <file>Main.qml</file>
+    </qresource>
+    <qresource prefix="/">
+        <file>OpenDatabase.qml</file>
+    </qresource>
+	    <qresource prefix="/">
+        <file>Entry.qml</file>
+    </qresource>
+    <qresource prefix="/">
+        <file>EntryModel.qml</file>
+    </qresource>
+</RCC>

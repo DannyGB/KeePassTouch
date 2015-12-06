@@ -1,0 +1,8 @@
+[Desktop Entry]
+_Name=KeePass3
+Exec=KeePass3
+Icon=KeePass3/KeePass3.png
+Terminal=false
+Type=Application
+X-Ubuntu-Touch=true
+
