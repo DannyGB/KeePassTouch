@@ -20,8 +20,8 @@ Page {
             id: dbText
             placeholderText: "type database url here"
             width: parent.width
-            //text: "/home/phablet/Documents/test.kdbx"
-            text: "../../test.kdbx"
+            text: "/home/phablet/Documents/test.kdbx"
+            //text: "../../test.kdbx"
         }
 
         TextField {

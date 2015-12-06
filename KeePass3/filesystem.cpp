@@ -323,10 +323,10 @@ void Filesystem::openFile(QString url, QString password) {
     const char* xml = read.data();
     assert(read.size() > 0);
     ReadXmlFile *readXml = new ReadXmlFile(xml, read.size());
-    vector<PasswordEntry> names = readXml->GetTopGroup();
+    vector<TreeNode> names = readXml->GetTopGroup();
 
     for(int i=0;i<names.size();i++) {
-        model->addPasswordEntry(names[i]);
+        model->addPasswordEntry(names[i].passwordEntry());
     }
 
     m_dbState = open;

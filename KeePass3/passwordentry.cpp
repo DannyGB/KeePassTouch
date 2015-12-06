@@ -1,45 +1,11 @@
 #include "passwordentry.h"
 
-/*QString m_title;
-
-PasswordEntry::PasswordEntry(QObject *parent) :
-    QObject(parent)
+PasswordEntry::PasswordEntry()
 {
 }
 
-PasswordEntry::PasswordEntry(const QString &title, const QString &password, QObject *parent) :
-    QObject(parent), m_title(title), m_password(password)
-{
-}
-
-QString PasswordEntry::title() const
-{
-    return m_title;
-}
-
-void PasswordEntry::setTitle(const QString &title)
-{
-    if(title != m_title) {
-        m_title = title;
-        emit titleChanged();
-    }
-}
-
-QString PasswordEntry::password() const
-{
-    return m_password;
-}
-
-void PasswordEntry::setPassword(const QString &password)
-{
-    if(password != m_password) {
-        m_password = password;
-        emit passwordChanged();
-    }
-}*/
-
-PasswordEntry::PasswordEntry(const QString &title, const QString &password)
-    : m_title(title), m_password(password)
+PasswordEntry::PasswordEntry(const QString &title, const QString &password, PasswordEntryType entryType)
+    : m_title(title), m_password(password), m_entryType(entryType)
 {
 }
 

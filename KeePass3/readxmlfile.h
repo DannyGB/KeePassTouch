@@ -2,7 +2,7 @@
 #define READXMLFILE_H
 
 #include "passwordentry.h"
-
+#include "treenode.h"
 #include <string>
 #include <vector>
 
@@ -16,9 +16,7 @@ class ReadXmlFile
 {
 public:
     ReadXmlFile(const char*, size_t);
-    vector<PasswordEntry> GetTopGroup();
-    vector<PasswordEntry> GetGroupAt(const char*);
-
+    vector<TreeNode> GetTopGroup();
 };
 
 #endif // READXMLFILE_H

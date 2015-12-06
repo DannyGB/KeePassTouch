@@ -140,7 +140,8 @@ SOURCES += main.cpp \
     cryptopp/algparam.cpp \
     cryptopp/algebra.cpp \
     cryptopp/adler32.cpp \
-    cryptopp/3way.cpp
+    cryptopp/3way.cpp \
+    treenode.cpp
 
 RESOURCES += KeePass3.qrc
 
@@ -321,7 +322,8 @@ HEADERS += \
     cryptopp/aes.h \
     cryptopp/adler32.h \
     cryptopp/adhoc.cpp.proto \
-    cryptopp/3way.h
+    cryptopp/3way.h \
+    treenode.h
 
 DISTFILES += \
     OpenDatabase.qml \

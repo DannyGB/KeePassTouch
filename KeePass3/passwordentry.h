@@ -31,17 +31,38 @@ private:
     QString m_password;
 };*/
 
+enum PasswordEntryType : int
+{
+    NotSet,
+    Group,
+    Password
+};
+
 class PasswordEntry
 {
 public:
-    PasswordEntry(const QString &title, const QString &password);
+    PasswordEntry();
+    PasswordEntry(const QString &title, const QString &password, PasswordEntryType entryType);
 
     QString title() const;
+    void title(const QString title)
+    {
+        m_title = title;
+    }
+
     QString password() const;
+
+    void password(const QString password)
+    {
+        m_password = password;
+    }
+
+    PasswordEntryType entryType();
 
 private:
     QString m_title;
     QString m_password;
+    PasswordEntryType m_entryType;
 };
 
 class PasswordEntryModel : public QAbstractListModel
