@@ -16,7 +16,7 @@ public:
     ~Filesystem();
     Q_INVOKABLE void openFile(QString, QString);
     Q_INVOKABLE void closeFile();
-    PasswordEntryModel createModel();
+    PasswordEntryModel* createModel();
 
 Q_SIGNALS:
     void error(QString msg);

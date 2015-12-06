@@ -10,16 +10,10 @@ int main(int argc, char *argv[])
 {
     QGuiApplication app(argc, argv);
 
-    PasswordEntryModel model;
-    model.addPasswordEntry(PasswordEntry("Sample", "1234"));
-    model.addPasswordEntry(PasswordEntry("elpmaS", "4321"));
-
-
     Filesystem fs;
-//    PasswordEntryModel model = fs.createModel();
+    PasswordEntryModel* model = fs.createModel();
 
     qmlRegisterType<Filesystem>("KeePass3", 1, 0, "Filesystem");
-    //qmlRegisterType<PasswordEntry>("KeePass3", 1, 0, "PasswordEntry");
 
     QQuickView view;
     view.setSource(QUrl(QStringLiteral("qrc:///Main.qml")));
@@ -27,7 +21,7 @@ int main(int argc, char *argv[])
 
     QQmlContext *ctxt = view.rootContext();
     ctxt->setContextProperty("fileSystem", &fs);
-    ctxt->setContextProperty("passwordEntryModel", &model);
+    ctxt->setContextProperty("passwordEntryModel", model);
     view.show();
     return app.exec();
 }

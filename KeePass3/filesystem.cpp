@@ -66,6 +66,7 @@ const uint FileSignaturePreRelease2 = 0xB54BFB66;
 const uint FileVersionCriticalMask = 0xFFFF0000;
 const uint FileVersion32 = 0x00030001;
 
+PasswordEntryModel* model;
 
 Filesystem::Filesystem(QObject *parent) :
     QObject(parent)
@@ -75,14 +76,14 @@ Filesystem::Filesystem(QObject *parent) :
 Filesystem::~Filesystem() {
 }
 
-/*PasswordEntryModel Filesystem::CreateModel()
+PasswordEntryModel* Filesystem::createModel()
 {
-    PasswordEntryModel model;
-    model.addPasswordEntry(PasswordEntry("Sample", "1234"));
-    model.addPasswordEntry(PasswordEntry("elpmaS", "4321"));
+    model = new PasswordEntryModel();
+    //model->addPasswordEntry(PasswordEntry("Sample", "1234"));
+    //model->addPasswordEntry(PasswordEntry("elpmaS", "4321"));
 
-    return model
-}*/
+    return model;
+}
 
 void Filesystem::closeFile() {
     if(m_dbState != open) {
@@ -322,8 +323,11 @@ void Filesystem::openFile(QString url, QString password) {
     const char* xml = read.data();
     assert(read.size() > 0);
     ReadXmlFile *readXml = new ReadXmlFile(xml, read.size());
-    //vector<const char *> names = readXml->GetTopGroup();
-    QList<QObject*> entries = readXml->GetTopGroup();
+    vector<PasswordEntry> names = readXml->GetTopGroup();
+
+    for(int i=0;i<names.size();i++) {
+        model->addPasswordEntry(names[i]);
+    }
 
     m_dbState = open;
 

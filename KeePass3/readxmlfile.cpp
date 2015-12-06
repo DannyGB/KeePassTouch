@@ -1,6 +1,5 @@
 #include "readxmlfile.h"
 #include "passwordentry.h"
-//#include "passwordentrymodel.h"
 
 #include <assert.h>
 #include <vector>
@@ -21,19 +20,14 @@ ReadXmlFile::ReadXmlFile(const char* xml, size_t size)
     m_size = size;
 }
 
-//vector<const char *> ReadXmlFile::GetTopGroup()
-QList<QObject*> ReadXmlFile::GetTopGroup()
+vector<PasswordEntry> ReadXmlFile::GetTopGroup()
 {
     XMLDocument doc;
     doc.Parse(m_xml, m_size);
 
     // Need to return a list of something (at least UUID and name but perhaps the whole thing)
     // This we then push up to QT for display in a list
-
-
-    //PasswordEntryModel model;
-    //vector<const char *> names;
-    QList<QObject*> entries;
+    vector<PasswordEntry> names;
     XMLElement* keePassFile = doc.FirstChildElement("KeePassFile");
 
     if(keePassFile == 0) {
@@ -44,11 +38,7 @@ QList<QObject*> ReadXmlFile::GetTopGroup()
     XMLElement* group = root->FirstChildElement("Group");
 
     XMLElement* next = group->FirstChildElement("Name");
-    //model.addPasswordEntry(PasswordEntry(next->GetText(), "testing"));
-    //names.push_back(next->GetText());
-    //PasswordEntry* password;
-    //password->title(next->GetText());
-    //entries.push_back(new PasswordEntry(next->GetText(), "test1"));
+    names.push_back(PasswordEntry(next->GetText(), "Group Name"));
 
     do {
         next = next->NextSiblingElement();
@@ -60,11 +50,7 @@ QList<QObject*> ReadXmlFile::GetTopGroup()
                         XMLElement* key = str->FirstChildElement("Key");
                         if(key != 0) {
                             if(strcmp(key->GetText(), "Title") == 0) {
-                               // names.push_back(key->NextSiblingElement("Value")->GetText());
-                                //PasswordEntry* password;
-                                //password->title(next->GetText());
-                                //entries.push_back(new PasswordEntry(key->NextSiblingElement("Value")->GetText(), "test1"));
-                               // model.addPasswordEntry(PasswordEntry(key->NextSiblingElement("Value")->GetText(), "testing"));
+                                names.push_back(PasswordEntry(key->NextSiblingElement("Value")->GetText(), "Goup Name"));
                             }
                         }
                     }
@@ -77,16 +63,10 @@ QList<QObject*> ReadXmlFile::GetTopGroup()
     }
     while(next != 0);
 
-   /* QQuickView view;
-       view.setResizeMode(QQuickView::SizeRootObjectToView);
-       QQmlContext *ctxt = view.rootContext();
-       ctxt->setContextProperty("passwordEntryModel", &model);*/
-
-    return entries;
+    return names;
 }
 
-vector<string> ReadXmlFile::GetGroupAt(const char* UUID)
+vector<PasswordEntry> ReadXmlFile::GetGroupAt(const char* UUID)
 {
-
 }
 

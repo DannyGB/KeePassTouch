@@ -16,9 +16,8 @@ class ReadXmlFile
 {
 public:
     ReadXmlFile(const char*, size_t);
-    //vector<const char *> GetTopGroup();
-    QList<QObject*> GetTopGroup();
-    vector<string> GetGroupAt(const char*);
+    vector<PasswordEntry> GetTopGroup();
+    vector<PasswordEntry> GetGroupAt(const char*);
 
 };
 
