@@ -1,10 +1,7 @@
 #include "sha256.h"
 
-#include <crypto++/modes.h>
-#include <crypto++/aes.h>
-#include <crypto++/filters.h>
-#include <crypto++/sha.h>
-#include <crypto++/hex.h>
+#include "/home/dan/KeePass3/KeePass3/cryptopp/modes.h"
+#include "/home/dan/KeePass3/KeePass3/cryptopp/sha.h"
 
 using namespace std;
 

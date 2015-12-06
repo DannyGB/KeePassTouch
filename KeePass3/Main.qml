@@ -11,7 +11,7 @@ MainView {
     objectName: "mainView"
 
     // Note! applicationName needs to match the "name" field of the click manifest
-    applicationName: "keepass3.username"
+    applicationName: "keepass3.dannygb"
 
     /*
      This property enables the application to change orientation
@@ -22,31 +22,12 @@ MainView {
     width: units.gu(100)
     height: units.gu(75)
 
-    ListModel {
-        id: listModel
-       ListElement {
-            title: "Sample Entry"
-            password: "mVXV8qbCKYU="
-        }
-        ListElement {
-            title: "Sample Entry #2"
-            password: "MMywJOk="
-        }
-    }
-
-    function fillListModel(items) {
-        for(var i=0;i<items.length;i++) {
-            listModel.append({title: items[i], password: 'testing'});
-        }
-    }
-
    Filesystem {
         id: filesystem
         onError: {
             PopupUtils.open(dialog, '', {text: i18n.tr(msg)});
         }
-        onSuccess: {
-            fillListModel(vl);
+        onSuccess: {            
             pageStack.push(listEntryItems);
         }
     }
@@ -84,7 +65,7 @@ MainView {
                     text: i18n.tr("Sign out")
                     onClicked: {
                         PopupUtils.close(settingsDisabledDialog)
-                       // filesystem.closeFile()
+                        filesystem.closeFile()
                         pageStack.clear()
                         pageStack.push(openDatabase)
 

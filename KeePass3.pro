@@ -38,5 +38,3 @@ unittest.commands = /usr/bin/qmltestrunner -input $$PWD/KeePass3/tests/unit
 unittest.depends  = sub-KeePass3
 
 QMAKE_EXTRA_TARGETS += aptest unittest
-
-

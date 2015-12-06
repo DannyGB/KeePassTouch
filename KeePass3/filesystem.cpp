@@ -4,16 +4,6 @@
 #include <string>
 #include <QVariant>
 
-#include <crypto++/modes.h>
-#include <crypto++/aes.h>
-#include <crypto++/filters.h>
-#include <crypto++/sha.h>
-#include <crypto++/hex.h>
-#include <crypto++/osrng.h>
-
-#include <qqmlcontext.h>
-#include <QtQuick/qquickview.h>
-
 #include "readxmlfile.h"
 #include "hashedblockstream.h"
 #include "compositekey.h"
@@ -21,13 +11,11 @@
 #include "salsa20.h"
 #include "passwordentry.h"
 
-/*#include "/home/dan/KeePass/libs/modes.h"
-#include "/home/dan/KeePass/libs/aes.h"
-#include "/home/dan/KeePass/libs/sha.h"
-#include "/home/dan/KeePass/libs/hex.h"
-#include "/home/dan/KeePass/libs/filters.h"
-#include "/home/dan/KeePass/libs/osrng.h"*/
-//#include "/home/dan/KeePass/libs/xml/tinyxml2.h"
+#include "/home/dan/KeePass3/KeePass3/cryptopp/modes.h"
+#include "/home/dan/KeePass3/KeePass3/cryptopp/aes.h"
+#include "/home/dan/KeePass3/KeePass3/cryptopp/filters.h"
+#include "/home/dan/KeePass3/KeePass3/cryptopp/sha.h"
+#include "/home/dan/KeePass3/KeePass3/cryptopp/osrng.h"
 
 using namespace std;
 
@@ -87,6 +75,15 @@ Filesystem::Filesystem(QObject *parent) :
 Filesystem::~Filesystem() {
 }
 
+/*PasswordEntryModel Filesystem::CreateModel()
+{
+    PasswordEntryModel model;
+    model.addPasswordEntry(PasswordEntry("Sample", "1234"));
+    model.addPasswordEntry(PasswordEntry("elpmaS", "4321"));
+
+    return model
+}*/
+
 void Filesystem::closeFile() {
     if(m_dbState != open) {
         return;
@@ -98,7 +95,7 @@ void Filesystem::closeFile() {
     m_dbState = closed;
 }
 
-void Filesystem::openFile(QString url, QString password) {        
+void Filesystem::openFile(QString url, QString password) {
 
     if(m_dbState == open) {
         closeFile();
@@ -327,20 +324,6 @@ void Filesystem::openFile(QString url, QString password) {
     ReadXmlFile *readXml = new ReadXmlFile(xml, read.size());
     //vector<const char *> names = readXml->GetTopGroup();
     QList<QObject*> entries = readXml->GetTopGroup();
-
-    //for(int i = 0; i<entries.size();i++) {
-        //QString str(names[i]);
-        //QObject *obj = qvariant_cast<QObject*>(entries[i]);
-        //m_vl.append(obj);
-    //    m_vl.append(qVariantFromValue((QObject*)entries[i]));
-    //}
-
-/*   QQuickView view;
-        QQmlContext *ctxt = view.rootContext();
-        ctxt->setContextProperty("passwordEntryModel", QVariant::fromValue(entries));
-
-    view.setSource(QUrl("qrc:ListEntryItems.qml"));
-*/
 
     m_dbState = open;
 

@@ -2,7 +2,8 @@
 #define COMPOSITEKEY_H
 
 #include <QObject>
-#include <crypto++/modes.h>
+//#include <crypto++/modes.h>
+#include "/home/dan/KeePass3/KeePass3/cryptopp/modes.h"
 
 using namespace std;
 

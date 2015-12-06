@@ -1,18 +1,21 @@
 //#include <pthread.h>
-#include <cryptopp/modes.h>
+
+/*
+ * #include <cryptopp/modes.h>
 #include <crypto++/aes.h>
 #include <crypto++/filters.h>
 #include <crypto++/cryptlib.h>
 #include <crypto++/rijndael.h>
+*/
 
 #include "compositekey.h"
 #include "sha256.h"
 
-/*#include "/home/dan/KeePass/libs/modes.h"
-#include "/home/dan/KeePass/libs/aes.h"
-#include "/home/dan/KeePass/libs/filters.h"
-#include </home/dan/KeePass/libs/cryptlib.h>
-#include </home/dan/KeePass/libs/rijndael.h>*/
+#include "/home/dan/KeePass3/KeePass3/cryptopp/modes.h"
+#include "/home/dan/KeePass3/KeePass3/cryptopp/aes.h"
+#include "//home/dan/KeePass3/KeePass3/cryptopp/filters.h"
+#include "/home/dan/KeePass3/KeePass3/cryptopp/cryptlib.h"
+#include "/home/dan/KeePass3/KeePass3/cryptopp/rijndael.h"
 
 #define AES256_KEY_LENGTH 32
 #define ROUND_UP_TO_MULTIPLE(numberToRound, multiple) \

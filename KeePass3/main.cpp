@@ -8,12 +8,15 @@
 
 int main(int argc, char *argv[])
 {
-
     QGuiApplication app(argc, argv);
 
     PasswordEntryModel model;
     model.addPasswordEntry(PasswordEntry("Sample", "1234"));
     model.addPasswordEntry(PasswordEntry("elpmaS", "4321"));
+
+
+    Filesystem fs;
+//    PasswordEntryModel model = fs.createModel();
 
     qmlRegisterType<Filesystem>("KeePass3", 1, 0, "Filesystem");
     //qmlRegisterType<PasswordEntry>("KeePass3", 1, 0, "PasswordEntry");
@@ -23,6 +26,7 @@ int main(int argc, char *argv[])
     view.setResizeMode(QQuickView::SizeRootObjectToView);
 
     QQmlContext *ctxt = view.rootContext();
+    ctxt->setContextProperty("fileSystem", &fs);
     ctxt->setContextProperty("passwordEntryModel", &model);
     view.show();
     return app.exec();

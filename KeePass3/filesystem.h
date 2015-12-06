@@ -5,6 +5,8 @@
 #include <QVariant>
 #include <QJsonObject>
 
+#include "passwordentry.h"
+
 class Filesystem : public QObject
 {
     Q_OBJECT    
@@ -12,8 +14,9 @@ class Filesystem : public QObject
 public:
     explicit Filesystem(QObject *parent = 0);
     ~Filesystem();
-    Q_INVOKABLE void openFile(QString, QString);    
+    Q_INVOKABLE void openFile(QString, QString);
     Q_INVOKABLE void closeFile();
+    PasswordEntryModel createModel();
 
 Q_SIGNALS:
     void error(QString msg);

@@ -55,23 +55,10 @@ Page {
                 fill: parent
             }
             spacing: 5
-            //model: EntryModel {}
             model: passwordEntryModel
-            //model: listModel
-            /*model: ListModel {
-                ListElement {
-                    title: pe.title
-                }
-            }*/
-
             delegate: entryDelegate
             focus: true
             }
         }
     }
-
-   /* PasswordEntry {
-        id: pe
-        title: 'sample'
-    }*/
 }

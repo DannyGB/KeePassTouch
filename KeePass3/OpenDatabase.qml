@@ -20,8 +20,8 @@ Page {
             id: dbText
             placeholderText: "type database url here"
             width: parent.width
-            text: "/home/phablet/Documents/test.kdbx"
-            //text: "../test.kdbx"
+            //text: "/home/phablet/Documents/test.kdbx"
+            text: "../../test.kdbx"
         }
 
         TextField {
@@ -39,7 +39,7 @@ Page {
             text: i18n.tr("Open Database")
 
             onClicked: {
-                filesystem.openFile(i18n.tr(dbText.text), i18n.tr(password.text));
+                filesystem.openFile(i18n.tr(dbText.text), i18n.tr(password.text), passwordEntryModel);
             }
         }
     }
