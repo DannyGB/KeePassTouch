@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-06 20:14+0000\n"
+"POT-Creation-Date: 2015-12-07 20:11+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -35,8 +35,4 @@ msgstr ""
 
 #: /home/dan/KeePass3/KeePass3/OpenDatabase.qml:39
 msgid "Open Database"
-msgstr ""
-
-#: /home/dan/build-KeePass3-Desktop-Debug/KeePass3/KeePass3.desktop.h:1
-msgid "KeePass3"
 msgstr ""

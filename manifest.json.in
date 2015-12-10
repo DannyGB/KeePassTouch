@@ -1,6 +1,6 @@
 {
     "name": "keepass3.dannygb",
-    "description": "KeePass3 a Ubuntu Touch implementation of KeepPass2",
+    "description": "KeePass3 an Ubuntu Touch implementation of KeepPass2",
     "architecture": "@CLICK_ARCH@",
     "title": "KeePass3",
     "hooks": {

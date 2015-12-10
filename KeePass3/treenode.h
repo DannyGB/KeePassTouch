@@ -2,34 +2,41 @@
 #define TREENODE_H
 
 #include "passwordentry.h"
+#include <vector>
+
+using namespace std;
 
 class TreeNode
 {
-public:
+public:    
     TreeNode();
-    TreeNode(const PasswordEntry &passwordEntry, const PasswordEntry &next, const PasswordEntry &previous);
+    TreeNode(const PasswordEntry &passwordEntry);
+    TreeNode(const PasswordEntry &passwordEntry, TreeNode* parent);
+    TreeNode(const PasswordEntry &passwordEntry, const vector<TreeNode*> &next, TreeNode* parent);
     PasswordEntry passwordEntry() const;
     void passwordEntry(const PasswordEntry &passwordEntry)
     {
         m_passwordEntry = passwordEntry;
     }
 
-    PasswordEntry next() const;
-    void next(const PasswordEntry &next)
+    vector<TreeNode*> next() const;
+    void next(const vector<TreeNode*> &next)
     {
-        m_passwordEntry = next;
+        m_next = next;
     }
-    PasswordEntry previous() const;
-    void previous(const PasswordEntry &previous)
+
+    TreeNode* parent();
+    void parent(TreeNode* parent)
     {
-        m_passwordEntry = previous;
+        m_parent = parent;
     }
     bool isFirst();
     bool isLast();
+
 private:
     PasswordEntry m_passwordEntry;
-    PasswordEntry m_next;
-    PasswordEntry m_previous;
+    vector<TreeNode*> m_next;
+    TreeNode* m_parent;
 };
 
 #endif // TREENODE_H

@@ -7,13 +7,11 @@
 
 #include "/home/dan/KeePass/libs/xml/tinyxml2.h"
 
-//#include <qqmlcontext.h>
-//#include <QtQuick/qquickview.h>
-
 using namespace tinyxml2;
 
 const char * m_xml;
 size_t m_size;
+TreeNode *lastRead = 0;
 
 ReadXmlFile::ReadXmlFile(const char* xml, size_t size)
 {
@@ -21,14 +19,13 @@ ReadXmlFile::ReadXmlFile(const char* xml, size_t size)
     m_size = size;
 }
 
-vector<TreeNode> ReadXmlFile::GetTopGroup()
+vector<TreeNode*> ReadXmlFile::GetTopGroup()
 {
     XMLDocument doc;
     doc.Parse(m_xml, m_size);
 
-    // Need to return a list of something (at least UUID and name but perhaps the whole thing)
-    // This we then push up to QT for display in a list
-    vector<TreeNode> names;
+    vector<TreeNode*> topLevel;
+    TreeNode* parent = 0;
     XMLElement* keePassFile = doc.FirstChildElement("KeePassFile");
 
     if(keePassFile == 0) {
@@ -39,42 +36,69 @@ vector<TreeNode> ReadXmlFile::GetTopGroup()
     XMLElement* group = root->FirstChildElement("Group");
     XMLElement* next = group->FirstChildElement("Name");
 
-    names.push_back(TreeNode(PasswordEntry(next->GetText(), "", Group), PasswordEntry("", "", NotSet), PasswordEntry("", "", NotSet)));
+    topLevel.push_back(new TreeNode(PasswordEntry(next->GetText(), "", Group)));
+    ReadBranch(next, topLevel, parent);
+    return topLevel;
+}
 
-    // All entries and sub groups in the given group, this will need to be recursive
+void ReadXmlFile::ReadBranch(XMLElement* node, vector<TreeNode*> &current, TreeNode *parent)
+{
     do {
-        next = next->NextSiblingElement();
-        if(next != 0) {
-            if(strcmp(next->Name(), "Entry") == 0) {
-                TreeNode node;
-                PasswordEntry entry;
-                XMLElement* str = next->FirstChildElement("String");
-                do {
-                    if(str != 0) {
-                        XMLElement* key = str->FirstChildElement("Key");
-                        if(key != 0) {
-                            if(strcmp(key->GetText(), "Title") == 0) {
-                                entry.title(key->NextSiblingElement("Value")->GetText());
-                                //names.push_back(TreeNode(PasswordEntry(key->NextSiblingElement("Value")->GetText(), "", Password), PasswordEntry("", "", Password), PasswordEntry("", "", Password)));
-                            }
-
-                            if(strcmp(key->GetText(), "Password") == 0) {
-                                entry.password(key->NextSiblingElement("Value")->GetText());
-                            }
-                        }
-                    }
-
-                    str = str->NextSiblingElement("String");
-                }
-                while(str != 0);
-
-                // need to keep track of the previous and next nodes (they should also be pointers)
-                node.passwordEntry(entry);
-                names.push_back(node);
-            }
-        }        
+       node = node->NextSiblingElement();
+       if(node != 0) {
+           TreeNode* tn = ReadNode(node, parent);
+           if(tn != 0) {
+                current.push_back(tn);
+           }
+       }
     }
-    while(next != 0);
+    while(node != 0);    
+}
 
-    return names;
+TreeNode* ReadXmlFile::ReadNode(XMLElement* elem, TreeNode *parent)
+{
+    TreeNode* node = 0;
+    if(strcmp(elem->Name(), "Group") == 0) {
+        node = new TreeNode();
+        PasswordEntry entry;
+        entry.entryType(Group);
+        entry.title(elem->FirstChildElement("Name")->GetText());
+        entry.entryType(Group);
+        node->passwordEntry(entry);
+        vector<TreeNode*> b;
+        ReadBranch(elem->FirstChildElement(), b, node);
+        node->next(b);
+    }
+    else if(strcmp(elem->Name(), "Entry") == 0) {
+       node = new TreeNode();
+
+       PasswordEntry entry;
+       entry.entryType(Entry);
+       XMLElement* str = elem->FirstChildElement("String");
+       do {
+           if(str != 0) {
+               XMLElement* key = str->FirstChildElement("Key");
+               if(key != 0) {
+                   if(strcmp(key->GetText(), "Title") == 0) {
+                       entry.title(key->NextSiblingElement("Value")->GetText());
+                   }
+
+                   if(strcmp(key->GetText(), "Password") == 0) {
+                       entry.password(key->NextSiblingElement("Value")->GetText());
+                   }
+               }
+           }
+
+           str = str->NextSiblingElement("String");
+       }
+       while(str != 0);
+
+       node->passwordEntry(entry);
+    }
+
+    if(node != 0 && parent != 0) {
+        node->parent(parent);
+    }
+
+    return node;
 }

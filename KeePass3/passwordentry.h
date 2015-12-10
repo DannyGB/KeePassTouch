@@ -35,7 +35,7 @@ enum PasswordEntryType : int
 {
     NotSet,
     Group,
-    Password
+    Entry
 };
 
 class PasswordEntry
@@ -58,6 +58,10 @@ public:
     }
 
     PasswordEntryType entryType();
+
+    void entryType(PasswordEntryType type) {
+        m_entryType = type;
+    }
 
 private:
     QString m_title;
