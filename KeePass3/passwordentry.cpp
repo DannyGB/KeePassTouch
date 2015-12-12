@@ -19,6 +19,11 @@ QString PasswordEntry::password() const
     return m_password;
 }
 
+bool PasswordEntry::passwordProtected() const
+{
+    return m_passwordProtected;
+}
+
 PasswordEntryType PasswordEntry::entryType() const
 {
     return m_entryType;
@@ -66,6 +71,8 @@ QVariant PasswordEntryModel::data(const QModelIndex & index, int role) const {
         return passwordEntry.uuid();
     else if(role == UsernameRole)
         return passwordEntry.username();
+    else if(role == PasswordProtectedRole)
+        return passwordEntry.passwordProtected();
     return QVariant();
 }
 
@@ -76,6 +83,7 @@ QHash<int, QByteArray> PasswordEntryModel::roleNames() const {
     roles[EntryTypeRole] = "entryType";
     roles[UuidRole] = "uuid";
     roles[UsernameRole] = "username";
+    roles[PasswordProtectedRole] = "passwordProtected";
     return roles;
 }
 

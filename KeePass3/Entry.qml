@@ -57,14 +57,25 @@ Page {
                 readOnly: true
             }
 
+            Switch {
+                id: passwordProtected
+                checked: filesystem.selectedEntry.passwordProtected
+                visible: false
+            }
+
             Button {
                 text: "..."
                 //width: parent.width / 2
                 onClicked: {
-                    var pwrd = fileSystem.decryptPassword(password.text)
+                    var pwrd
+                    if(passwordProtected.checked) {
+                        pwrd = fileSystem.decryptPassword(password.text)
+                    } else {
+                        pwrd = password.text
+                    }
+
                     password.text = pwrd
                     password.echoMode = TextInput.Normal
-                    //PopupUtils.open(infoPopup, '', {text: i18n.tr(pwrd)});
                 }
 
             }

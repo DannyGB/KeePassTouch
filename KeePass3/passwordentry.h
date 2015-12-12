@@ -32,6 +32,12 @@ public:
         m_password = password;
     }
 
+    bool passwordProtected() const;
+    void passwordProtected(const bool passwordProtected)
+    {
+        m_passwordProtected = passwordProtected;
+    }
+
     PasswordEntryType entryType() const;
 
     void entryType(const PasswordEntryType type) {
@@ -54,6 +60,7 @@ private:
     PasswordEntryType m_entryType;
     QString m_uuid;
     QString m_username;
+    bool m_passwordProtected;
 };
 
 class PasswordEntryModel : public QAbstractListModel
@@ -63,6 +70,7 @@ public:
     enum PasswordEntryRoles {
         TitleRole = Qt::UserRole + 1,
         PasswordRole,
+        PasswordProtectedRole,
         EntryTypeRole,
         UuidRole,
         UsernameRole

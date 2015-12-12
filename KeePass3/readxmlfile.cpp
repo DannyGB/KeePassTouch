@@ -91,6 +91,7 @@ TreeNode* ReadXmlFile::ReadNode(XMLElement* elem, TreeNode *parent)
 
                    if(strcmp(key->GetText(), "Password") == 0) {
                        entry.password(key->NextSiblingElement("Value")->GetText());
+                       entry.passwordProtected(key->NextSiblingElement("Value")->Attribute("Protected"));
                    }                                     
 
                    if(strcmp(key->GetText(), "UserName") == 0) {
