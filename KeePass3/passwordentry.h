@@ -5,32 +5,6 @@
 #include <QAbstractListModel>
 #include <QStringList>
 
-/*class PasswordEntry : public QObject
-{
-    Q_OBJECT
-    Q_PROPERTY(QString title READ title WRITE setTitle NOTIFY titleChanged)
-    Q_PROPERTY(QString password READ password WRITE setPassword NOTIFY passwordChanged)
-
-public:
-
-    PasswordEntry(QObject *parent = 0);
-    PasswordEntry(const QString &title, const QString &password, QObject *parent = 0);
-
-    QString title() const;
-    void setTitle(const QString &title);
-
-    QString password() const;
-    void setPassword(const QString &password);
-
-signals:
-    void titleChanged();
-    void passwordChanged();
-
-private:
-    QString m_title;
-    QString m_password;
-};*/
-
 enum PasswordEntryType : int
 {
     NotSet,
@@ -40,6 +14,7 @@ enum PasswordEntryType : int
 
 class PasswordEntry
 {
+
 public:
     PasswordEntry();
     PasswordEntry(const QString &title, const QString &password, PasswordEntryType entryType);
@@ -57,16 +32,28 @@ public:
         m_password = password;
     }
 
-    PasswordEntryType entryType();
+    PasswordEntryType entryType() const;
 
-    void entryType(PasswordEntryType type) {
+    void entryType(const PasswordEntryType type) {
         m_entryType = type;
+    }
+
+    QString uuid() const;
+    void uuid(const QString uuid) {
+        m_uuid = uuid;
+    }
+
+    QString username() const;
+    void username(const QString username) {
+        m_username = username;
     }
 
 private:
     QString m_title;
     QString m_password;
     PasswordEntryType m_entryType;
+    QString m_uuid;
+    QString m_username;
 };
 
 class PasswordEntryModel : public QAbstractListModel
@@ -75,7 +62,10 @@ class PasswordEntryModel : public QAbstractListModel
 public:
     enum PasswordEntryRoles {
         TitleRole = Qt::UserRole + 1,
-        PasswordRole
+        PasswordRole,
+        EntryTypeRole,
+        UuidRole,
+        UsernameRole
     };
 
     PasswordEntryModel(QObject *parent = 0);
@@ -85,6 +75,8 @@ public:
     int rowCount(const QModelIndex & parent = QModelIndex()) const;
 
     QVariant data(const QModelIndex & index, int role = Qt::DisplayRole) const;
+
+    Q_INVOKABLE bool removeRows(int row, int count, const QModelIndex &parent = QModelIndex());
 
 protected:
     QHash<int, QByteArray> roleNames() const;

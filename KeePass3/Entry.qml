@@ -1,7 +1,7 @@
 import QtQuick 2.0
 import Ubuntu.Components 1.2
 import Ubuntu.Components.Popups 1.2
-//import KeePass 1.0
+import KeePass3 1.0
 
 Page {
     // Could be the name of the group
@@ -22,5 +22,63 @@ Page {
             margins: units.gu(2)
             fill: parent
         }
-    }
+
+        Flow {
+
+            anchors.fill: parent
+            spacing: 5
+
+            Label {
+             text: filesystem.selectedEntry.uuid
+             visible: false;
+            }
+
+            Label {
+             text: "Title"
+            }
+
+            TextField {
+                id: title
+                text: filesystem.selectedEntry.title
+                width: parent.width
+                readOnly: true
+            }
+
+            Label {
+             text: "Password"
+             width: parent.width
+            }
+
+            TextField {
+                id: password
+                text: filesystem.selectedEntry.password
+                //width: parent.width / 2
+                echoMode : TextInput.PasswordEchoOnEdit
+                readOnly: true
+            }
+
+            Button {
+                text: "..."
+                //width: parent.width / 2
+                onClicked: {
+                    var pwrd = fileSystem.decryptPassword(password.text)
+                    password.text = pwrd
+                    password.echoMode = TextInput.Normal
+                    //PopupUtils.open(infoPopup, '', {text: i18n.tr(pwrd)});
+                }
+
+            }
+
+            Label {
+             text: "Username"
+             width: parent.width
+            }
+
+            TextField {
+                id: userName
+                text: filesystem.selectedEntry.username
+                readOnly: true
+            }
+        }
+    }      
 }

@@ -67,6 +67,8 @@ const uint FileVersionCriticalMask = 0xFFFF0000;
 const uint FileVersion32 = 0x00030001;
 
 PasswordEntryModel* model;
+vector<TreeNode*> dataTree;
+vector<TreeNode*> current;
 
 Filesystem::Filesystem(QObject *parent) :
     QObject(parent)
@@ -76,11 +78,104 @@ Filesystem::Filesystem(QObject *parent) :
 Filesystem::~Filesystem() {
 }
 
+QString Filesystem::decryptPassword(QString encryptedPassword)
+{
+    QString password;
+
+    //TODO:Decrypt the password
+
+
+
+    password = "test";
+
+    return password;
+}
+
+QString Filesystem::reloadBranch(QString uuid, int entryType)
+{
+    QString retVal;
+    TreeNode* parent = 0;
+
+    if(entryType == Group) {
+        // find branch that holds this uuid and reload it into the model
+        if(getMyBranch(uuid, dataTree)) {
+            model->removeRows(0, model->rowCount());
+            for(int i=0;i<current.size();i++) {
+                model->addPasswordEntry(current[i]->passwordEntry());
+                if(parent == 0) parent = current[i]->parent();
+                if(parent != 0) retVal = parent->passwordEntry().uuid();
+            }
+        }
+    }
+
+    else if( entryType == Entry) {
+        // find branch that holds this uuid and reload it into the model
+        if(getMyBranch(uuid, dataTree)) {
+            model->removeRows(0, model->rowCount());
+            for(int i=0;i<current.size();i++) {
+                model->addPasswordEntry(current[i]->passwordEntry());
+                if(parent == 0) parent = current[i]->parent();
+                if(parent != 0) retVal = parent->passwordEntry().uuid();
+            }
+        }
+    }
+
+    return retVal;
+}
+
+void Filesystem::selectBranch(QString uuid)
+{
+    if(getChildBranch(uuid, dataTree)) {
+        model->removeRows(0, model->rowCount());
+        for(int i=0;i<current.size();i++) {
+            model->addPasswordEntry(current[i]->passwordEntry());
+        }
+    }
+}
+
+bool Filesystem::getChildBranch(QString uuid, vector<TreeNode*> currentBranch)
+{
+    TreeNode* node;
+    for(int i=0;i<currentBranch.size();i++) {
+        node = currentBranch[i];
+        if(node->passwordEntry().uuid() == uuid) {
+            current = node->next();
+            return true;
+        }
+
+        else if(node->next().size() > 0) {
+            if(getChildBranch(uuid, node->next())) {
+                return true;
+            }
+        }
+    }
+
+    return false;
+}
+
+bool Filesystem::getMyBranch(QString uuid, vector<TreeNode*> currentBranch)
+{
+    TreeNode* node;
+    for(int i=0;i<currentBranch.size();i++) {
+        node = currentBranch[i];
+        if(node->passwordEntry().uuid() == uuid) {
+            current = currentBranch;
+            return true;
+        }
+
+        else if(node->next().size() > 0) {
+            if(getMyBranch(uuid, node->next())) {
+                return true;
+            }
+        }
+    }
+
+    return false;
+}
+
 PasswordEntryModel* Filesystem::createModel()
 {
-    model = new PasswordEntryModel();
-    //model->addPasswordEntry(PasswordEntry("Sample", "1234"));
-    //model->addPasswordEntry(PasswordEntry("elpmaS", "4321"));
+    model = new PasswordEntryModel();    
 
     return model;
 }
@@ -92,7 +187,8 @@ void Filesystem::closeFile() {
 
     // Close the file by clearing all memory items
     // This will mean we have to push the memory items up to member variables
-
+    model->removeRows(0, model->rowCount());
+    dataTree.clear();
     m_dbState = closed;
 }
 
@@ -323,10 +419,10 @@ void Filesystem::openFile(QString url, QString password) {
     const char* xml = read.data();
     assert(read.size() > 0);
     ReadXmlFile *readXml = new ReadXmlFile(xml, read.size());
-    vector<TreeNode*> names = readXml->GetTopGroup();
+    dataTree = readXml->GetTopGroup();
 
-    for(int i=0;i<names.size();i++) {
-        model->addPasswordEntry(names[i]->passwordEntry());
+    for(int i=0;i<dataTree.size();i++) {
+        model->addPasswordEntry(dataTree[i]->passwordEntry());
     }
 
     m_dbState = open;

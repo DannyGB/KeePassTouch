@@ -8,7 +8,6 @@ import Ubuntu.Components.Popups 1.0
 
 Page {
     title: i18n.tr("KeePass")
-
     Column {
         spacing: units.gu(1)
         anchors {
@@ -35,7 +34,7 @@ Page {
         Button {
             objectName: "button"
             width: parent.width
-
+            color: UbuntuColors.orange
             text: i18n.tr("Open Database")
 
             onClicked: {

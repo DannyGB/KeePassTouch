@@ -3,10 +3,28 @@ import Ubuntu.Components 1.2
 import Ubuntu.Components.Popups 1.2
 import KeePass3 1.0
 
-Page {
+Page {    
 
-    function onSelected(index) {
-        pageStack.push(entry);
+    /**
+      * Handles the MouseArea.onClicked event of the entryDelegate
+      */
+    function onSelected(index, model) {
+        // A variable property on FileSystem (Main.qml)
+        filesystem.selectedEntry = model
+
+        // A variable property on MainView (Main.qml)
+        previousEntry = {
+            entryType : filesystem.selectedEntry.entryType,
+            UUID : filesystem.selectedEntry.uuid
+        }
+
+        // See PageStack.onDepthChanged for how the pageStack and entry model are kept in synch
+        if(filesystem.selectedEntry.entryType === 2) { // is a password entry so push password page
+            pageStack.push(entry);
+        } else if(filesystem.selectedEntry.entryType === 1) { // is a further branch push another level
+            pageStack.push(listEntryItems);
+        }
+
         listView.currentIndex = index;
     }
 
@@ -43,7 +61,7 @@ Page {
 
                     MouseArea {
                         anchors.fill: parent
-                        onClicked: onSelected(index)
+                        onClicked: onSelected(index, model)
                     }
                 }
             }
@@ -55,7 +73,7 @@ Page {
                 fill: parent
             }
             spacing: 5
-            model: passwordEntryModel
+            model: passwordEntryModel //passwordEntryModel is the initial model from the C++ side of the application (See main.cpp)
             delegate: entryDelegate
             focus: true
             }

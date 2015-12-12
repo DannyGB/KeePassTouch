@@ -19,6 +19,21 @@ QString PasswordEntry::password() const
     return m_password;
 }
 
+PasswordEntryType PasswordEntry::entryType() const
+{
+    return m_entryType;
+}
+
+QString PasswordEntry::uuid() const
+{
+    return m_uuid;
+}
+
+QString PasswordEntry::username() const
+{
+    return m_username;
+}
+
 PasswordEntryModel::PasswordEntryModel(QObject *parent)
     : QAbstractListModel(parent)
 {
@@ -45,6 +60,12 @@ QVariant PasswordEntryModel::data(const QModelIndex & index, int role) const {
         return passwordEntry.title();
     else if (role == PasswordRole)
         return passwordEntry.password();
+    else if(role == EntryTypeRole)
+        return passwordEntry.entryType();
+    else if(role == UuidRole)
+        return passwordEntry.uuid();
+    else if(role == UsernameRole)
+        return passwordEntry.username();
     return QVariant();
 }
 
@@ -52,5 +73,16 @@ QHash<int, QByteArray> PasswordEntryModel::roleNames() const {
     QHash<int, QByteArray> roles;
     roles[TitleRole] = "title";
     roles[PasswordRole] = "password";
+    roles[EntryTypeRole] = "entryType";
+    roles[UuidRole] = "uuid";
+    roles[UsernameRole] = "username";
     return roles;
 }
+
+bool PasswordEntryModel::removeRows(int row, int count, const QModelIndex &parent) {
+        Q_UNUSED(parent);
+        beginRemoveRows(QModelIndex(), row, row + count - 1);
+        while (count--) m_passwordEntries.takeAt(row);
+        endRemoveRows();
+        return true;
+    }

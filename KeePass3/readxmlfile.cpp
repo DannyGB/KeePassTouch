@@ -64,6 +64,7 @@ TreeNode* ReadXmlFile::ReadNode(XMLElement* elem, TreeNode *parent)
         entry.entryType(Group);
         entry.title(elem->FirstChildElement("Name")->GetText());
         entry.entryType(Group);
+        entry.uuid(elem->FirstChildElement("UUID")->GetText());
         node->passwordEntry(entry);
         vector<TreeNode*> b;
         ReadBranch(elem->FirstChildElement(), b, node);
@@ -74,6 +75,11 @@ TreeNode* ReadXmlFile::ReadNode(XMLElement* elem, TreeNode *parent)
 
        PasswordEntry entry;
        entry.entryType(Entry);
+       XMLElement* uuid = elem->FirstChildElement("UUID");
+       if(uuid != 0) {
+           entry.uuid(uuid->GetText());
+       }
+
        XMLElement* str = elem->FirstChildElement("String");
        do {
            if(str != 0) {
@@ -85,6 +91,10 @@ TreeNode* ReadXmlFile::ReadNode(XMLElement* elem, TreeNode *parent)
 
                    if(strcmp(key->GetText(), "Password") == 0) {
                        entry.password(key->NextSiblingElement("Value")->GetText());
+                   }                                     
+
+                   if(strcmp(key->GetText(), "UserName") == 0) {
+                       entry.username(key->NextSiblingElement("Value")->GetText());
                    }
                }
            }

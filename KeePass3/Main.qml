@@ -6,7 +6,7 @@ import KeePass3 1.0
     \brief MainView with a Label and Button elements.
 */
 
-MainView {
+MainView {    
     // objectName for functional testing purposes (autopilot-qt5)
     objectName: "mainView"
 
@@ -18,24 +18,48 @@ MainView {
      when the device is rotated. The default is false.
     */
     automaticOrientation: true
+    //backgroundColor: "#000"
+    //headerColor: "#000"
 
     width: units.gu(100)
     height: units.gu(75)
-
-   Filesystem {
+    property var previousEntry: ({})
+    property var previousDepth
+   Filesystem {        
         id: filesystem
+        property var selectedEntry
         onError: {
             PopupUtils.open(dialog, '', {text: i18n.tr(msg)});
         }
         onSuccess: {            
+            pageStack.clear();
             pageStack.push(listEntryItems);
-        }
+        }        
     }
 
     PageStack {
            id: pageStack
            Component.onCompleted: push(openDatabase)
-           onCurrentPageChanged: currentPage.forceActiveFocus()
+           onCurrentPageChanged: {
+               currentPage.forceActiveFocus()
+           }
+
+           onDepthChanged: {
+               // This logic keeps track of where we are in the tree so we can move backwards and forwards
+               // in the PageStack keeping a consistent position
+               // See also listEntryItems(.qml).onSelected to see where we set the previousEntry details
+               // whenever the user chooses an entry from the ListView
+               if(previousDepth) {
+                   if(previousDepth > depth) { // Backwards
+                        previousEntry.UUID = fileSystem.reloadBranch(previousEntry.UUID, previousEntry.entryType)
+                   }
+                   else if(previousDepth < depth) { // Forwards
+                       fileSystem.selectBranch(previousEntry.UUID);
+                   }
+               }
+
+               previousDepth = depth
+           }
 
            OpenDatabase {
                id: openDatabase
@@ -68,12 +92,11 @@ MainView {
                         filesystem.closeFile()
                         pageStack.clear()
                         pageStack.push(openDatabase)
-
                     }
                 }
 
                 Button {
-                    text: "Close"
+                    text: "Cancel"
                     onClicked: PopupUtils.close(settingsDisabledDialog)
                 }
             }
@@ -92,4 +115,16 @@ MainView {
          }
     }
 
+    Component {
+         id: infoPopup
+         Dialog {
+             id: infoPopupDialogue
+             title: "Info"
+             text: "Information: "
+             Button {
+                 text: "Ok"
+                 onClicked: PopupUtils.close(infoPopupDialogue)
+             }
+         }
+    }
 }
