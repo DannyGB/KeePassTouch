@@ -3,6 +3,7 @@
 #include <fstream>
 #include <string>
 #include <QVariant>
+#include <vector>
 
 #include "readxmlfile.h"
 #include "hashedblockstream.h"
@@ -10,6 +11,7 @@
 #include "sha256.h"
 #include "salsa20.h"
 #include "passwordentry.h"
+#include "base64.h"
 
 #include "/home/dan/KeePass3/KeePass3/cryptopp/modes.h"
 #include "/home/dan/KeePass3/KeePass3/cryptopp/aes.h"
@@ -30,6 +32,9 @@ char *m_pbEncryptionIV;//[16];
 char *m_pbProtectedStreamKey;//[32];
 char *m_pbStreamStartBytes;//[32];
 char *m_pbInnerRandomStreamID;//[4];
+
+char m_pbIVSalsa[] = { 0xE8, 0x30, 0x09, 0x4B,
+                    0x97, 0x20, 0x5D, 0x2A };
 
 char m_uuidAes[] = {
                         0x31, 0xC1, 0xF2, 0xE6, 0xBF, 0x71, 0x43, 0x50,
@@ -80,15 +85,29 @@ Filesystem::~Filesystem() {
 
 QString Filesystem::decryptPassword(QString encryptedPassword)
 {
-    QString password;
+    Base64 base64;
+    vector<char> plainEncrypted = base64.base64_decode(encryptedPassword.toStdString());
 
-    //TODO:Decrypt the password
+    SHA256 sha256;
+    vector<char> vStreamKey;
+    for(int i = 0; i<32;i++) {
+        vStreamKey.push_back(m_pbProtectedStreamKey[i]);
+    }
 
+    vector<char> vStreamKeyHash = sha256.computeHash(vStreamKey);
 
+    //m_pbInnerRandomStreamID identifies the crypto for encrypted passwords, we only support salsa20
+    Salsa20* salsa = new Salsa20(vStreamKeyHash, m_pbIVSalsa);
+    byte* bytes = salsa->decrypt(plainEncrypted);
 
-    password = "test";
+    QString str;
+    for(int i=0;i<plainEncrypted.size();i++) {
+        str[i] = bytes[i];
+    }
 
-    return password;
+    delete salsa;
+
+    return str;
 }
 
 QString Filesystem::reloadBranch(QString uuid, int entryType)
@@ -363,7 +382,7 @@ void Filesystem::openFile(QString url, QString password) {
     }
 
     // Create sha256 hash of the m_pbProtectedStreamKey
-    vector<char> vStreamKey;
+    /*vector<char> vStreamKey;
     for(int i = 0; i<32;i++) {
         vStreamKey.push_back(m_pbProtectedStreamKey[i]);
     }
@@ -377,7 +396,7 @@ void Filesystem::openFile(QString url, QString password) {
     Salsa20 *salsa20 = new Salsa20(vStreamKeyHash, vIv);
 
     // Salsa20 it, Salsa20 What?!
-
+*/
     vector<char> payload;
     uint recoveredOffset = 32;
     for(int i=recoveredOffset;i<recovered.size(); i++) {

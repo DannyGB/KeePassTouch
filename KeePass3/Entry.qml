@@ -53,7 +53,7 @@ Page {
                 id: password
                 text: filesystem.selectedEntry.password
                 //width: parent.width / 2
-                echoMode : TextInput.PasswordEchoOnEdit
+                //echoMode : TextInput.PasswordEchoOnEdit
                 readOnly: true
             }
 

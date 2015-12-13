@@ -2,13 +2,15 @@
 #define SALSA20_H
 
 #include <QObject>
+#include "/home/dan/KeePass3/KeePass3/cryptopp/modes.h"
 
 using namespace std;
 
 class Salsa20
 {
 public:
-    Salsa20(vector<char>, vector<char>);
+    Salsa20(vector<char> key, char* iv);
+    byte* decrypt(vector<char>);
 
 Q_SIGNALS:
 

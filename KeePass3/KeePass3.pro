@@ -132,7 +132,6 @@ SOURCES += main.cpp \
     cryptopp/blowfish.cpp \
     cryptopp/bfinit.cpp \
     cryptopp/basecode.cpp \
-    cryptopp/base64.cpp \
     cryptopp/base32.cpp \
     cryptopp/authenc.cpp \
     cryptopp/asn.cpp \
@@ -141,7 +140,8 @@ SOURCES += main.cpp \
     cryptopp/algebra.cpp \
     cryptopp/adler32.cpp \
     cryptopp/3way.cpp \
-    treenode.cpp
+    treenode.cpp \
+    base64.cpp
 
 RESOURCES += KeePass3.qrc
 
@@ -311,7 +311,6 @@ HEADERS += \
     cryptopp/blowfish.h \
     cryptopp/bench.h \
     cryptopp/basecode.h \
-    cryptopp/base64.h \
     cryptopp/base32.h \
     cryptopp/authenc.h \
     cryptopp/asn.h \
@@ -323,7 +322,8 @@ HEADERS += \
     cryptopp/adler32.h \
     cryptopp/adhoc.cpp.proto \
     cryptopp/3way.h \
-    treenode.h
+    treenode.h \
+    base64.h
 
 DISTFILES += \
     OpenDatabase.qml \
