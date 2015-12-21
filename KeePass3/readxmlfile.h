@@ -3,6 +3,7 @@
 
 #include "passwordentry.h"
 #include "treenode.h"
+#include "salsa20.h"
 #include "/home/dan/KeePass/libs/xml/tinyxml2.h"
 #include <string>
 #include <vector>
@@ -17,7 +18,7 @@ using namespace tinyxml2;
 class ReadXmlFile
 {
 public:
-    ReadXmlFile(const char*, size_t);
+    ReadXmlFile(const char*, size_t, Salsa20*);
     vector<TreeNode*> GetTopGroup();
 
 protected:

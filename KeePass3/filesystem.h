@@ -8,6 +8,7 @@
 
 #include "treenode.h"
 #include "passwordentry.h"
+#include "salsa20.h"
 
 using namespace std;
 
@@ -41,6 +42,7 @@ protected:
 
 private:
     QVariantList m_vl;
+    Salsa20* salsa;
 };
 
 #endif // FILESYSTEM_H

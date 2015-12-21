@@ -1,6 +1,8 @@
 #include "readxmlfile.h"
 #include "passwordentry.h"
 #include "treenode.h"
+#include "salsa20.h"
+#include "base64.h"
 
 #include <assert.h>
 #include <vector>
@@ -12,11 +14,14 @@ using namespace tinyxml2;
 const char * m_xml;
 size_t m_size;
 TreeNode *lastRead = 0;
+Salsa20 *m_salsa;
+Base64 base64;
 
-ReadXmlFile::ReadXmlFile(const char* xml, size_t size)
+ReadXmlFile::ReadXmlFile(const char* xml, size_t size, Salsa20 *salsa)
 {
     m_xml = xml;
     m_size = size;
+    m_salsa = salsa;
 }
 
 vector<TreeNode*> ReadXmlFile::GetTopGroup()
@@ -89,8 +94,18 @@ TreeNode* ReadXmlFile::ReadNode(XMLElement* elem, TreeNode *parent)
                        entry.title(key->NextSiblingElement("Value")->GetText());
                    }
 
-                   if(strcmp(key->GetText(), "Password") == 0) {
-                       entry.password(key->NextSiblingElement("Value")->GetText());
+                   if(strcmp(key->GetText(), "Password") == 0) {                       
+                       vector<char> plainEncrypted = base64.base64_decode(key->NextSiblingElement("Value")->GetText());
+                       if(plainEncrypted.size() > 0) {
+                            byte* bytes = m_salsa->decrypt(plainEncrypted);
+                            QString str;
+                            for(int i=0;i<plainEncrypted.size();i++) {
+                                str[i] = bytes[i];
+                            }
+                            entry.password(str);
+                       } else {
+                            entry.password(key->NextSiblingElement("Value")->GetText());
+                       }
                        entry.passwordProtected(key->NextSiblingElement("Value")->Attribute("Protected"));
                    }                                     
 

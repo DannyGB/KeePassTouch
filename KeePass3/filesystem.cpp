@@ -77,7 +77,7 @@ vector<TreeNode*> current;
 
 Filesystem::Filesystem(QObject *parent) :
     QObject(parent)
-{
+{    
 }
 
 Filesystem::~Filesystem() {
@@ -85,28 +85,21 @@ Filesystem::~Filesystem() {
 
 QString Filesystem::decryptPassword(QString encryptedPassword)
 {
-    Base64 base64;
+   /* Base64 base64;
     vector<char> plainEncrypted = base64.base64_decode(encryptedPassword.toStdString());
 
-    SHA256 sha256;
-    vector<char> vStreamKey;
-    for(int i = 0; i<32;i++) {
-        vStreamKey.push_back(m_pbProtectedStreamKey[i]);
-    }
-
-    vector<char> vStreamKeyHash = sha256.computeHash(vStreamKey);
-
+    //SHA256 sha256;
     //m_pbInnerRandomStreamID identifies the crypto for encrypted passwords, we only support salsa20
-    Salsa20* salsa = new Salsa20(vStreamKeyHash, m_pbIVSalsa);
+    //Salsa20* salsa = new Salsa20(vStreamKeyHash, m_pbIVSalsa);
     byte* bytes = salsa->decrypt(plainEncrypted);
-
+*/
     QString str;
-    for(int i=0;i<plainEncrypted.size();i++) {
+    /*for(int i=0;i<plainEncrypted.size();i++) {
         str[i] = bytes[i];
     }
 
-    delete salsa;
-
+    //delete salsa;
+*/
     return str;
 }
 
@@ -381,22 +374,13 @@ void Filesystem::openFile(QString url, QString password) {
         emit error("Invalid protected stream key");
     }
 
-    // Create sha256 hash of the m_pbProtectedStreamKey
-    /*vector<char> vStreamKey;
+    vector<char> vStreamKey;
     for(int i = 0; i<32;i++) {
         vStreamKey.push_back(m_pbProtectedStreamKey[i]);
     }
-
     vector<char> vStreamKeyHash = sha256.computeHash(vStreamKey);
+    salsa = new Salsa20(vStreamKeyHash, m_pbIVSalsa);
 
-    char pbIV[] = { 0xE8, 0x30, 0x09, 0x4B,
-                  0x97, 0x20, 0x5D, 0x2A }; // Unique constant
-
-    vector<char> vIv (pbIV, pbIV + sizeof pbIV / sizeof pbIV[0]);
-    Salsa20 *salsa20 = new Salsa20(vStreamKeyHash, vIv);
-
-    // Salsa20 it, Salsa20 What?!
-*/
     vector<char> payload;
     uint recoveredOffset = 32;
     for(int i=recoveredOffset;i<recovered.size(); i++) {
@@ -437,10 +421,9 @@ void Filesystem::openFile(QString url, QString password) {
     // pass them back a level at a time as requested
     const char* xml = read.data();
     assert(read.size() > 0);
-    ReadXmlFile *readXml = new ReadXmlFile(xml, read.size());
+    ReadXmlFile *readXml = new ReadXmlFile(xml, read.size(), salsa);
     dataTree = readXml->GetTopGroup();
-
-    for(int i=0;i<dataTree.size();i++) {
+    for(int i=0;i<dataTree.size();i++) {        
         model->addPasswordEntry(dataTree[i]->passwordEntry());
     }
 
