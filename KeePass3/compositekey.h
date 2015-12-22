@@ -10,7 +10,7 @@ using namespace std;
 class CompositeKey
 {
 public:
-    CompositeKey(vector<char>);
+    CompositeKey(vector<char>, vector<char>);
     vector<char> generateKey32(vector<char>, ulong);
 
 protected:

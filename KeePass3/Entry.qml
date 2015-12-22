@@ -4,14 +4,13 @@ import Ubuntu.Components.Popups 1.2
 import KeePass3 1.0
 
 Page {
-    // Could be the name of the group
-    title: i18n.tr("KeePass")
+    title: i18n.tr(filesystem.selectedEntry.title)
     head {
             actions: [
                 Action {
                     text: i18n.tr("Settings")
                     iconName: "settings"
-                    onTriggered: PopupUtils.open(settingsDisabledComponent)
+                    onTriggered: PopupUtils.open(settingsDisabledComponent)                    
                 }
             ]
     }
@@ -21,75 +20,53 @@ Page {
         anchors {
             margins: units.gu(2)
             fill: parent
-        }
-
-        Flow {
-
-            anchors.fill: parent
-            spacing: 5
+            }
 
             Label {
              text: filesystem.selectedEntry.uuid
              visible: false;
-            }
-
-            Label {
-             text: "Title"
-            }
-
-            TextField {
-                id: title
-                text: filesystem.selectedEntry.title
-                width: parent.width
-                readOnly: true
-            }
-
-            Label {
-             text: "Password"
-             width: parent.width
-            }
-
-            TextField {
-                id: password
-                text: filesystem.selectedEntry.password
-                //width: parent.width / 2
-                //echoMode : TextInput.PasswordEchoOnEdit
-                readOnly: true
-            }
-
-            Switch {
-                id: passwordProtected
-                checked: filesystem.selectedEntry.passwordProtected
-                visible: false
-            }
-
-            Button {
-                text: "..."
-                //width: parent.width / 2
-                onClicked: {
-                    var pwrd
-                    if(passwordProtected.checked) {
-                        pwrd = fileSystem.decryptPassword(password.text)
-                    } else {
-                        pwrd = password.text
-                    }
-
-                    password.text = pwrd
-                    password.echoMode = TextInput.Normal
-                }
-
-            }
+            }           
 
             Label {
              text: "Username"
              width: parent.width
+             color: UbuntuColors.darkAubergine
             }
 
             TextField {
                 id: userName
                 text: filesystem.selectedEntry.username
                 readOnly: true
+                color: UbuntuColors.darkAubergine
             }
-        }
+
+            Label {
+             text: "Password"
+             width: parent.width
+             color: UbuntuColors.darkAubergine
+            }
+
+            TextField {
+                id: password
+                text: filesystem.selectedEntry.password                
+                echoMode : TextInput.Password
+                readOnly: true
+                width: parent.width
+                color: UbuntuColors.darkAubergine
+            }
+
+            Button {
+                text: "..."
+                width: parent.width
+                font.pointSize: units.gu(2)
+                color: UbuntuColors.green
+                onClicked: {                    
+                    if(password.echoMode == TextInput.Normal) {
+                        password.echoMode = TextInput.Password;
+                    } else {
+                        password.echoMode = TextInput.Normal;
+                    }
+                }
+            }           
     }      
 }

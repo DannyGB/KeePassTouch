@@ -12,6 +12,7 @@
 #include "salsa20.h"
 #include "passwordentry.h"
 #include "base64.h"
+#include "readkeyfile.h"
 
 #include "/home/dan/KeePass3/KeePass3/cryptopp/modes.h"
 #include "/home/dan/KeePass3/KeePass3/cryptopp/aes.h"
@@ -81,26 +82,6 @@ Filesystem::Filesystem(QObject *parent) :
 }
 
 Filesystem::~Filesystem() {
-}
-
-QString Filesystem::decryptPassword(QString encryptedPassword)
-{
-   /* Base64 base64;
-    vector<char> plainEncrypted = base64.base64_decode(encryptedPassword.toStdString());
-
-    //SHA256 sha256;
-    //m_pbInnerRandomStreamID identifies the crypto for encrypted passwords, we only support salsa20
-    //Salsa20* salsa = new Salsa20(vStreamKeyHash, m_pbIVSalsa);
-    byte* bytes = salsa->decrypt(plainEncrypted);
-*/
-    QString str;
-    /*for(int i=0;i<plainEncrypted.size();i++) {
-        str[i] = bytes[i];
-    }
-
-    //delete salsa;
-*/
-    return str;
 }
 
 QString Filesystem::reloadBranch(QString uuid, int entryType)
@@ -204,20 +185,17 @@ void Filesystem::closeFile() {
     m_dbState = closed;
 }
 
-void Filesystem::openFile(QString url, QString password) {
-
-    if(m_dbState == open) {
-        closeFile();
-    }
+char* Filesystem::readFile(QString url, std::streampos &size) {
 
     std::ifstream file;
-    std::streampos size;
-    char * memblock;        
-    const char * c = url.toStdString().c_str();
+    //std::streampos size;
+    char * memblock;
+    string s1 = url.toStdString();
+    const char * c = s1.c_str();
 
     if(!fileExists(c)) {
-        emit error("File does not exist");
-        return;
+        //emit error("File does not exist");
+        return 0;
     }
 
     file.open(c, std::ios::in | std::ios::binary| std::ios::ate);
@@ -226,6 +204,34 @@ void Filesystem::openFile(QString url, QString password) {
     file.seekg(0, std::ios::beg);
     file.read(memblock, size);
     file.close();
+
+    return memblock;
+}
+
+void Filesystem::openFile(QString url, QString password, QString passKey) {
+
+    if(m_dbState == open) {
+        closeFile();
+    }
+
+    std::streampos size, passKeySize;
+    char* memblock = readFile(url, size);
+    if(memblock == 0) {
+        emit error("Database does not exist");
+        return;
+    }
+
+    char* passKeyMemblock;
+    bool hasKeyFile = false;
+    if(strcmp(passKey.toStdString().c_str(), "") != 0) {
+        passKeyMemblock = readFile(passKey, passKeySize);
+        if(passKeyMemblock == 0) {
+            emit error("Key file does not exist");
+            return;
+        }
+
+        hasKeyFile = true;
+    }
 
     uint uSig1 = 0, uSig2 = 0, uVersion = 0;  
     uSig1 = loadByte(memblock, 0);
@@ -291,7 +297,14 @@ void Filesystem::openFile(QString url, QString password) {
     }
 
     // Generate master key
-    std::string stringKey = password.toStdString();
+    // Read keyfile if necessary
+    ReadKeyFile readKeyFile;
+    vector<char> vKeyFileData;
+    if(hasKeyFile) {
+        vKeyFileData = readKeyFile.read(passKeyMemblock, (int)passKeySize);
+    }
+
+    string stringKey = password.toStdString();
     const byte * key = reinterpret_cast<const byte*>(stringKey.c_str());
 
     vector<char> vKey;
@@ -305,7 +318,7 @@ void Filesystem::openFile(QString url, QString password) {
     }
 
     uint uNumRounds = readBytes(m_pwDatabaseKeyEncryptionRounds, 0, 8);
-    CompositeKey* cmpKey = new CompositeKey(vKey);
+    CompositeKey* cmpKey = new CompositeKey(vKey, vKeyFileData);
     vector<char> pKey32 = cmpKey->generateKey32(vKeySeed, uNumRounds);    
     delete cmpKey;
     cmpKey = 0;

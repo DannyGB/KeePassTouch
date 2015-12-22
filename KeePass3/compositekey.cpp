@@ -32,10 +32,17 @@ struct String {
 };
 
 vector<char> m_pbKey;
+vector<char> m_pbKeyFile;
+bool hasKeyFile = false;
 
-CompositeKey::CompositeKey(vector<char> pbKey)
+CompositeKey::CompositeKey(vector<char> pbKey, vector<char> pbKeyFile)
 {
     m_pbKey = pbKey;
+
+    if(pbKeyFile.size() > 0) {
+        m_pbKeyFile = pbKeyFile;
+        hasKeyFile = true;
+    }
 }
 
 vector<char> CompositeKey::generateKey32(vector<char> pbKeySeed32, ulong uNumRounds) {
@@ -47,6 +54,14 @@ vector<char> CompositeKey::generateKey32(vector<char> pbKeySeed32, ulong uNumRou
     vector<char> pbRaw32 = createRawCompositeKey(m_pbKey);
     if(pbRaw32.size() != MASTER_KEY_SIZE) {
         throw std::exception();
+    }
+
+    vector<char> pbKeyFileRaw32;
+    if(hasKeyFile) {
+         pbKeyFileRaw32 = createRawCompositeKey(m_pbKeyFile);
+         for(int i =0;i<pbKeyFileRaw32.size();i++) {
+             pbRaw32.push_back(pbKeyFileRaw32[i]);
+         }
     }
 
     // Hash the hash, this is due to the fact that KeePass hashes each part of the comp key then

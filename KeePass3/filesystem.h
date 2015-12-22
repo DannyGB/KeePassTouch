@@ -19,16 +19,15 @@ class Filesystem : public QObject
 public:
     explicit Filesystem(QObject *parent = 0);
     ~Filesystem();
-    Q_INVOKABLE void openFile(QString, QString);
-    Q_INVOKABLE void closeFile();
-    Q_INVOKABLE QString decryptPassword(QString);
+    Q_INVOKABLE void openFile(QString, QString, QString);
+    Q_INVOKABLE void closeFile();    
     Q_INVOKABLE void selectBranch(QString);
     Q_INVOKABLE QString reloadBranch(QString, int);
     PasswordEntryModel* createModel();
 
 Q_SIGNALS:
     void error(QString msg);
-    void success(QVariantList vl);    
+    void success(QVariantList vl);
 
 protected:
     bool equal(char*, char*, uint);
@@ -39,6 +38,7 @@ protected:
     std::string generateSHA256Hash(char*, uint);
     bool getChildBranch(QString, vector<TreeNode*>);
     bool getMyBranch(QString, vector<TreeNode*>);
+    char* readFile(QString, std::streampos&);
 
 private:
     QVariantList m_vl;

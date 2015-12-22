@@ -7,7 +7,7 @@
 #include <assert.h>
 #include <vector>
 
-#include "/home/dan/KeePass/libs/xml/tinyxml2.h"
+#include "/home/dan/KeePass3/KeePass3/tinyxml2.h"
 
 using namespace tinyxml2;
 
@@ -41,7 +41,7 @@ vector<TreeNode*> ReadXmlFile::GetTopGroup()
     XMLElement* group = root->FirstChildElement("Group");
     XMLElement* next = group->FirstChildElement("Name");
 
-    topLevel.push_back(new TreeNode(PasswordEntry(next->GetText(), "", Group)));
+    //topLevel.push_back(new TreeNode(PasswordEntry(next->GetText(), "", Group)));
     ReadBranch(next, topLevel, parent);
     return topLevel;
 }

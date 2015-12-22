@@ -21,6 +21,7 @@ MainView {
     //backgroundColor: "#000"
     //headerColor: "#000"
 
+    property string appTitle: 'KeePassUbu'
     width: units.gu(100)
     height: units.gu(75)
     property var previousEntry: ({})
@@ -85,7 +86,7 @@ MainView {
                 title: i18n.tr("Settings")
 
                 Button {
-                    color: 'orange'
+                    color: UbuntuColors.orange
                     text: i18n.tr("Sign out")
                     onClicked: {
                         PopupUtils.close(settingsDisabledDialog)

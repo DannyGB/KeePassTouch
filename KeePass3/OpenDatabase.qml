@@ -7,7 +7,7 @@ import Ubuntu.Components.Popups 1.0
 //import KeePass 1.0
 
 Page {
-    title: i18n.tr("KeePass")
+    title: i18n.tr(appTitle)
     Column {
         spacing: units.gu(1)
         anchors {
@@ -19,8 +19,8 @@ Page {
             id: dbText
             placeholderText: "type database url here"
             width: parent.width
-            text: "/home/phablet/Documents/test.kdbx"
-            //text: "../../test.kdbx"
+            //text: "/home/phablet/Documents/testwithkeyfile.kdbx"
+            text: "../../testwithkeyfile.kdbx"
         }
 
         TextField {
@@ -31,14 +31,22 @@ Page {
             text: "1234"
         }
 
+        TextField {
+            id: key
+            placeholderText: "type key url here"
+            width: parent.width
+            //text: "/home/phablet/Documents/testwithkeyfile.key"
+            text: "../../testwithkeyfile.key"
+        }
+
         Button {
             objectName: "button"
             width: parent.width
-            color: UbuntuColors.orange
+            color: UbuntuColors.green
             text: i18n.tr("Open Database")
 
             onClicked: {
-                filesystem.openFile(i18n.tr(dbText.text), i18n.tr(password.text));
+                filesystem.openFile(i18n.tr(dbText.text), i18n.tr(password.text), i18n.tr(key.text));
             }
         }
     }
