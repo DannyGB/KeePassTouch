@@ -24,6 +24,7 @@ public:
 protected:
     void ReadBranch(XMLElement*, vector<TreeNode*>&, TreeNode*);
     TreeNode* ReadNode(XMLElement* elem, TreeNode* parent);
+    TreeNode* ExtractEntryNode(XMLElement*);
 };
 
 #endif // READXMLFILE_H

@@ -76,55 +76,78 @@ TreeNode* ReadXmlFile::ReadNode(XMLElement* elem, TreeNode *parent)
         node->next(b);
     }
     else if(strcmp(elem->Name(), "Entry") == 0) {
-       node = new TreeNode();
-
-       PasswordEntry entry;
-       entry.entryType(Entry);
-       XMLElement* uuid = elem->FirstChildElement("UUID");
-       if(uuid != 0) {
-           entry.uuid(uuid->GetText());
-       }
-
-       XMLElement* str = elem->FirstChildElement("String");
-       do {
-           if(str != 0) {
-               XMLElement* key = str->FirstChildElement("Key");
-               if(key != 0) {
-                   if(strcmp(key->GetText(), "Title") == 0) {
-                       entry.title(key->NextSiblingElement("Value")->GetText());
-                   }
-
-                   if(strcmp(key->GetText(), "Password") == 0) {                       
-                       vector<char> plainEncrypted = base64.base64_decode(key->NextSiblingElement("Value")->GetText());
-                       if(plainEncrypted.size() > 0) {
-                            byte* bytes = m_salsa->decrypt(plainEncrypted);
-                            QString str;
-                            for(int i=0;i<plainEncrypted.size();i++) {
-                                str[i] = bytes[i];
-                            }
-                            entry.password(str);
-                       } else {
-                            entry.password(key->NextSiblingElement("Value")->GetText());
-                       }
-                       entry.passwordProtected(key->NextSiblingElement("Value")->Attribute("Protected"));
-                   }                                     
-
-                   if(strcmp(key->GetText(), "UserName") == 0) {
-                       entry.username(key->NextSiblingElement("Value")->GetText());
-                   }
-               }
-           }
-
-           str = str->NextSiblingElement("String");
-       }
-       while(str != 0);
-
-       node->passwordEntry(entry);
+        node = new TreeNode();
+        node = ExtractEntryNode(elem);
     }
 
     if(node != 0 && parent != 0) {
         node->parent(parent);
     }
+
+    return node;
+}
+
+TreeNode* ReadXmlFile::ExtractEntryNode(XMLElement* elem)
+{
+    TreeNode* node = new TreeNode();
+
+    PasswordEntry entry;
+    entry.entryType(Entry);
+    XMLElement* uuid = elem->FirstChildElement("UUID");
+    if(uuid != 0) {
+        entry.uuid(uuid->GetText());
+    }
+
+    XMLElement* str = elem->FirstChildElement("String");
+    do {
+        if(str != 0) {
+            XMLElement* key = str->FirstChildElement("Key");
+            if(key != 0) {
+                if(strcmp(key->GetText(), "Title") == 0) {
+                    const char* t = key->NextSiblingElement("Value")->GetText();
+                    if(t != 0) {
+                     entry.title(t);
+                    }
+                }
+
+                if(strcmp(key->GetText(), "Password") == 0) {
+                    const char* p = key->NextSiblingElement("Value")->GetText();
+                    if(p != 0){
+                        std::string strt(p);
+                         vector<char> plainEncrypted = base64.base64_decode(strt);
+                         byte* bytes = m_salsa->decrypt(plainEncrypted);
+                         QString str;
+                         for(int i=0;i<plainEncrypted.size();i++) {
+                             str[i] = bytes[i];
+                         }
+                         entry.password(str);
+                    } else {
+                         entry.password(key->NextSiblingElement("Value")->GetText());
+                    }
+                    entry.passwordProtected(key->NextSiblingElement("Value")->Attribute("Protected"));
+                }
+
+                if(strcmp(key->GetText(), "UserName") == 0) {
+                    entry.username(key->NextSiblingElement("Value")->GetText());
+                }
+            }
+
+            assert(str != 0);
+            str = str->NextSiblingElement("String");
+        }
+    }
+    while(str != 0);
+
+    XMLElement* hist = elem->FirstChildElement("History");
+    if(hist != 0 && !hist->NoChildren()) {
+        XMLElement* histEnt = hist->FirstChildElement("Entry");
+        do {
+            ExtractEntryNode(histEnt); // Discard History items for now we only need to decrypt them in order
+            histEnt = histEnt->NextSiblingElement("Entry");
+        } while(histEnt != 0);
+    }
+
+    node->passwordEntry(entry);
 
     return node;
 }

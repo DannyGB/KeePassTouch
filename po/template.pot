@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-22 20:31+0000\n"
+"POT-Creation-Date: 2015-12-23 21:02+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,23 +19,22 @@ msgstr ""
 
 #: /home/dan/KeePass3/KeePass3/Entry.qml:11
 #: /home/dan/KeePass3/KeePass3/ListEntryItems.qml:49
-#: /home/dan/KeePass3/KeePass3/Main.qml:85
+#: /home/dan/KeePass3/KeePass3/Main.qml:87
 msgid "Settings"
-msgstr ""
-
-#: /home/dan/KeePass3/KeePass3/ListEntryItems.qml:41
-#: /home/dan/KeePass3/KeePass3/OpenDatabase.qml:10
-msgid "KeePass"
 msgstr ""
 
 #: /home/dan/KeePass3/KeePass3/ListEntryItems.qml:46
 msgid "Search"
 msgstr ""
 
-#: /home/dan/KeePass3/KeePass3/Main.qml:89
+#: /home/dan/KeePass3/KeePass3/Main.qml:91
 msgid "Sign out"
 msgstr ""
 
-#: /home/dan/KeePass3/KeePass3/OpenDatabase.qml:38
+#: /home/dan/KeePass3/KeePass3/OpenDatabase.qml:16
+msgid "About"
+msgstr ""
+
+#: /home/dan/KeePass3/KeePass3/OpenDatabase.qml:56
 msgid "Open Database"
 msgstr ""

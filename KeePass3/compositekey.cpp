@@ -58,9 +58,9 @@ vector<char> CompositeKey::generateKey32(vector<char> pbKeySeed32, ulong uNumRou
 
     vector<char> pbKeyFileRaw32;
     if(hasKeyFile) {
-         pbKeyFileRaw32 = createRawCompositeKey(m_pbKeyFile);
-         for(int i =0;i<pbKeyFileRaw32.size();i++) {
-             pbRaw32.push_back(pbKeyFileRaw32[i]);
+         //pbKeyFileRaw32 = createRawCompositeKey(m_pbKeyFile);
+         for(int i =0;i<m_pbKeyFile.size();i++) {
+             pbRaw32.push_back(m_pbKeyFile[i]);
          }
     }
 

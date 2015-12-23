@@ -7,7 +7,17 @@ import Ubuntu.Components.Popups 1.0
 //import KeePass 1.0
 
 Page {
+    property alias pass: password
     title: i18n.tr(appTitle)
+    head {
+        actions: [
+            Action {
+              iconName: "help"
+              text: i18n.tr("About")
+              onTriggered: PopupUtils.open(about)
+            }]
+    }
+
     Column {
         spacing: units.gu(1)
         anchors {
@@ -19,8 +29,8 @@ Page {
             id: dbText
             placeholderText: "type database url here"
             width: parent.width
-            //text: "/home/phablet/Documents/testwithkeyfile.kdbx"
-            text: "../../testwithkeyfile.kdbx"
+            text: "/home/phablet/Documents/Pass.kdbx"
+            //text: "../../Pass.kdbx"
         }
 
         TextField {
@@ -28,15 +38,15 @@ Page {
             placeholderText: "enter your password"
             width: parent.width
             echoMode : TextInput.PasswordEchoOnEdit
-            text: "1234"
+            //text: "1234"
         }
 
         TextField {
             id: key
             placeholderText: "type key url here"
             width: parent.width
-            //text: "/home/phablet/Documents/testwithkeyfile.key"
-            text: "../../testwithkeyfile.key"
+            text: "/home/phablet/Documents/Pass.key"
+            //text: "../../Pass.key"
         }
 
         Button {

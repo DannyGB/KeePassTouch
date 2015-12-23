@@ -43,6 +43,7 @@ MainView {
            Component.onCompleted: push(openDatabase)
            onCurrentPageChanged: {
                currentPage.forceActiveFocus()
+               openDatabase.pass.text = '';
            }
 
            onDepthChanged: {
@@ -117,6 +118,20 @@ MainView {
     }
 
     Component {
+        id: about
+         Dialog {
+             id: aboutDialog
+             title: "About"
+             text: "Copyright &copy; 2015 Dan Beavon<br/>This software is distributed under the terms of the GNU General Public License v2 or Later"
+             Button {
+                 text: "Ok"
+                 onClicked: PopupUtils.close(aboutDialog)
+                 color: UbuntuColors.green
+             }
+         }
+    }
+
+    Component {
          id: infoPopup
          Dialog {
              id: infoPopupDialogue
@@ -125,6 +140,7 @@ MainView {
              Button {
                  text: "Ok"
                  onClicked: PopupUtils.close(infoPopupDialogue)
+                 color: UbuntuColors.green
              }
          }
     }
