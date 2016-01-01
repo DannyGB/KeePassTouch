@@ -1,5 +1,5 @@
-#ifndef FILESYSTEM_H
-#define FILESYSTEM_H
+#ifndef DATABASE_H
+#define DATABASE_H
 
 #include <QObject>
 #include <QVariant>
@@ -12,13 +12,13 @@
 
 using namespace std;
 
-class Filesystem : public QObject
+class Database : public QObject
 {
     Q_OBJECT    
 
 public:
-    explicit Filesystem(QObject *parent = 0);
-    ~Filesystem();
+    explicit Database(QObject *parent = 0);
+    ~Database();
     Q_INVOKABLE void openFile(QString, QString, QString);
     Q_INVOKABLE void closeFile();    
     Q_INVOKABLE void selectBranch(QString);
@@ -27,7 +27,7 @@ public:
 
 Q_SIGNALS:
     void error(QString msg);
-    void success(QVariantList vl);
+    void success();
 
 protected:
     bool equal(char*, char*, uint);
@@ -39,11 +39,11 @@ protected:
     bool getChildBranch(QString, vector<TreeNode*>);
     bool getMyBranch(QString, vector<TreeNode*>);
     char* readFile(QString, std::streampos&);
+    void readPayload(vector<char>*, vector<char>);
 
 private:
-    QVariantList m_vl;
     Salsa20* salsa;
 };
 
-#endif // FILESYSTEM_H
+#endif // DATABASE_H
 

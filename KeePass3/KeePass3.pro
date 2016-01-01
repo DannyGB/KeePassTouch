@@ -8,7 +8,6 @@ QT += qml quick
 SOURCES += main.cpp \    
     backend.cpp \
     compositekey.cpp \
-    filesystem.cpp \
     hashedblockstream.cpp \
     passwordentry.cpp \
     readxmlfile.cpp \
@@ -142,7 +141,10 @@ SOURCES += main.cpp \
     cryptopp/3way.cpp \
     treenode.cpp \
     base64.cpp \
-    readkeyfile.cpp
+    readkeyfile.cpp \
+    database.cpp \
+    arrayextensions.cpp \
+    aes.cpp
 
 RESOURCES += KeePass3.qrc
 
@@ -180,7 +182,6 @@ INSTALLS+=target
 HEADERS += \
     backend.h \
     compositekey.h \
-    filesystem.h \
     hashedblockstream.h \
     passwordentry.h \
     readxmlfile.h \
@@ -325,7 +326,10 @@ HEADERS += \
     cryptopp/3way.h \
     treenode.h \
     base64.h \
-    readkeyfile.h
+    readkeyfile.h \
+    database.h \
+    arrayextensions.h \
+    aes.h
 
 DISTFILES += \
     OpenDatabase.qml \

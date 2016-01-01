@@ -4,7 +4,8 @@ import Ubuntu.Components.Popups 1.2
 import KeePass3 1.0
 
 Page {
-    title: i18n.tr(filesystem.selectedEntry.title)
+    property alias pass: password
+    title: i18n.tr(database.selectedEntry.title)
     head {
             actions: [
                 Action {
@@ -23,7 +24,7 @@ Page {
             }
 
             Label {
-             text: filesystem.selectedEntry.uuid
+             text: database.selectedEntry.uuid
              visible: false;
             }           
 
@@ -35,7 +36,7 @@ Page {
 
             TextField {
                 id: userName
-                text: filesystem.selectedEntry.username
+                text: database.selectedEntry.username
                 readOnly: true
                 color: UbuntuColors.darkAubergine
             }
@@ -48,7 +49,7 @@ Page {
 
             TextField {
                 id: password
-                text: filesystem.selectedEntry.password                
+                text: database.selectedEntry.password
                 echoMode : TextInput.Password
                 readOnly: true
                 width: parent.width

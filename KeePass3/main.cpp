@@ -3,24 +3,24 @@
 #include <QQuickView>
 #include <qqmlcontext.h>
 
-#include "filesystem.h"
+#include "database.h"
 #include "passwordentry.h"
 
 int main(int argc, char *argv[])
 {
     QGuiApplication app(argc, argv);
 
-    Filesystem fs;
+    Database fs;
     PasswordEntryModel* model = fs.createModel();
 
-    qmlRegisterType<Filesystem>("KeePass3", 1, 0, "Filesystem");
+    qmlRegisterType<Database>("KeePass3", 1, 0, "Database");
 
     QQuickView view;
     view.setSource(QUrl(QStringLiteral("qrc:///Main.qml")));
     view.setResizeMode(QQuickView::SizeRootObjectToView);
 
     QQmlContext *ctxt = view.rootContext();
-    ctxt->setContextProperty("fileSystem", &fs);
+    ctxt->setContextProperty("database", &fs);
     ctxt->setContextProperty("passwordEntryModel", model);
     view.show();
     return app.exec();

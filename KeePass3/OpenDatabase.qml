@@ -56,7 +56,7 @@ Page {
             text: i18n.tr("Open Database")
 
             onClicked: {
-                filesystem.openFile(i18n.tr(dbText.text), i18n.tr(password.text), i18n.tr(key.text));
+                database.openFile(i18n.tr(dbText.text), i18n.tr(password.text), i18n.tr(key.text));
             }
         }
     }

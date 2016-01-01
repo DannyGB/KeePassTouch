@@ -1,10 +1,12 @@
-#include "filesystem.h"
+#include "database.h"
 #include <iostream>
 #include <fstream>
 #include <string>
 #include <QVariant>
 #include <vector>
 
+#include "aes.h"
+#include "arrayextensions.h"
 #include "readxmlfile.h"
 #include "hashedblockstream.h"
 #include "compositekey.h"
@@ -23,6 +25,15 @@
 using namespace std;
 
 #define DEBUG true
+#define FINALKEYSIZE 32
+#define MASTERSEEDSIZE 32
+#define CYPHERUUIDSIZE 16
+#define TRANSFORMSEEDSIZE 32
+#define ENCRYPTIONROUNDSSIZE 8
+#define ENCRYPTIONIVSIZE 16
+#define PROTECTEDSTREAMKEYSIZE 32
+#define STREAMSTARTBYTESSIZE 32
+#define INNERRANDOMSEEDSIZE 4
 
 char *m_pbMasterSeed; //[32];
 char *m_pbCompression;
@@ -56,7 +67,7 @@ enum KdbxHeaderFieldID : byte
     InnerRandomStreamID = 10
 };
 
-enum DbState : byte {
+enum DbState {
     closed = 0,
     open = 1
 };
@@ -76,15 +87,15 @@ PasswordEntryModel* model;
 vector<TreeNode*> dataTree;
 vector<TreeNode*> current;
 
-Filesystem::Filesystem(QObject *parent) :
+Database::Database(QObject *parent) :
     QObject(parent)
 {    
 }
 
-Filesystem::~Filesystem() {
+Database::~Database() {
 }
 
-QString Filesystem::reloadBranch(QString uuid, int entryType)
+QString Database::reloadBranch(QString uuid, int entryType)
 {
     QString retVal;
     TreeNode* parent = 0;
@@ -93,7 +104,7 @@ QString Filesystem::reloadBranch(QString uuid, int entryType)
         // find branch that holds this uuid and reload it into the model
         if(getMyBranch(uuid, dataTree)) {
             model->removeRows(0, model->rowCount());
-            for(int i=0;i<current.size();i++) {
+            for(uint i=0;i<current.size();i++) {
                 model->addPasswordEntry(current[i]->passwordEntry());
                 if(parent == 0) parent = current[i]->parent();
                 if(parent != 0) retVal = parent->passwordEntry().uuid();
@@ -105,7 +116,7 @@ QString Filesystem::reloadBranch(QString uuid, int entryType)
         // find branch that holds this uuid and reload it into the model
         if(getMyBranch(uuid, dataTree)) {
             model->removeRows(0, model->rowCount());
-            for(int i=0;i<current.size();i++) {
+            for(uint i=0;i<current.size();i++) {
                 model->addPasswordEntry(current[i]->passwordEntry());
                 if(parent == 0) parent = current[i]->parent();
                 if(parent != 0) retVal = parent->passwordEntry().uuid();
@@ -116,20 +127,20 @@ QString Filesystem::reloadBranch(QString uuid, int entryType)
     return retVal;
 }
 
-void Filesystem::selectBranch(QString uuid)
+void Database::selectBranch(QString uuid)
 {
     if(getChildBranch(uuid, dataTree)) {
         model->removeRows(0, model->rowCount());
-        for(int i=0;i<current.size();i++) {
+        for(uint i=0;i<current.size();i++) {
             model->addPasswordEntry(current[i]->passwordEntry());
         }
     }
 }
 
-bool Filesystem::getChildBranch(QString uuid, vector<TreeNode*> currentBranch)
+bool Database::getChildBranch(QString uuid, vector<TreeNode*> currentBranch)
 {
     TreeNode* node;
-    for(int i=0;i<currentBranch.size();i++) {
+    for(uint i=0;i<currentBranch.size();i++) {
         node = currentBranch[i];
         if(node->passwordEntry().uuid() == uuid) {
             current = node->next();
@@ -146,10 +157,10 @@ bool Filesystem::getChildBranch(QString uuid, vector<TreeNode*> currentBranch)
     return false;
 }
 
-bool Filesystem::getMyBranch(QString uuid, vector<TreeNode*> currentBranch)
+bool Database::getMyBranch(QString uuid, vector<TreeNode*> currentBranch)
 {
     TreeNode* node;
-    for(int i=0;i<currentBranch.size();i++) {
+    for(uint i=0;i<currentBranch.size();i++) {
         node = currentBranch[i];
         if(node->passwordEntry().uuid() == uuid) {
             current = currentBranch;
@@ -166,14 +177,14 @@ bool Filesystem::getMyBranch(QString uuid, vector<TreeNode*> currentBranch)
     return false;
 }
 
-PasswordEntryModel* Filesystem::createModel()
+PasswordEntryModel* Database::createModel()
 {
     model = new PasswordEntryModel();    
 
     return model;
 }
 
-void Filesystem::closeFile() {
+void Database::closeFile() {
     if(m_dbState != open) {
         return;
     }
@@ -185,10 +196,9 @@ void Filesystem::closeFile() {
     m_dbState = closed;
 }
 
-char* Filesystem::readFile(QString url, std::streampos &size) {
+char* Database::readFile(QString url, std::streampos &size) {
 
     std::ifstream file;
-    //std::streampos size;
     char * memblock;
     string s1 = url.toStdString();
     const char * c = s1.c_str();
@@ -208,12 +218,14 @@ char* Filesystem::readFile(QString url, std::streampos &size) {
     return memblock;
 }
 
-void Filesystem::openFile(QString url, QString password, QString passKey) {
+void Database::openFile(QString url, QString password, QString passKey) {
 
     if(m_dbState == open) {
         closeFile();
     }
 
+    Aes aes;
+    ArrayExtensions ae;
     std::streampos size, passKeySize;
     char* memblock = readFile(url, size);
     if(memblock == 0) {
@@ -294,6 +306,7 @@ void Filesystem::openFile(QString url, QString password, QString passKey) {
     assert(m_pbMasterSeed != NULL);
     if(m_pbMasterSeed == NULL) {
         emit error("Invalid master seed length");
+        return;
     }
 
     // Generate master key
@@ -306,40 +319,29 @@ void Filesystem::openFile(QString url, QString password, QString passKey) {
 
     string stringKey = password.toStdString();
     const byte * key = reinterpret_cast<const byte*>(stringKey.c_str());
-
-    vector<char> vKey;
-    for(int i = 0; i<password.size();i++) {
-        vKey.push_back(key[i]);
-    }
-
-    vector<char> vKeySeed;
-    for(int i = 0; i<32;i++) { //TODO: Capture the size of the seed from the header don't assume 32        
-        vKeySeed.push_back(m_pbTransformSeed[i]);
-    }
-
+    vector<char> vKey = ae.toVector((char*)key, (uint)password.size());
+    vector<char> vKeySeed = ae.toVector(m_pbTransformSeed, TRANSFORMSEEDSIZE);
     uint uNumRounds = readBytes(m_pwDatabaseKeyEncryptionRounds, 0, 8);
+
     CompositeKey* cmpKey = new CompositeKey(vKey, vKeyFileData);
     vector<char> pKey32 = cmpKey->generateKey32(vKeySeed, uNumRounds);    
     delete cmpKey;
     cmpKey = 0;
-    vector<char> masterSeed;
-    for(int i=0; i<32;i++) {
-        masterSeed.push_back(m_pbMasterSeed[i]);
-    }
 
+    vector<char> masterSeed = ae.toVector(m_pbMasterSeed, MASTERSEEDSIZE);
     vector<char> ms;
     ms.reserve( vKeySeed.size() + pKey32.size() ); // preallocate memory
     ms.insert( ms.end(), masterSeed.begin(), masterSeed.end() );
     ms.insert( ms.end(), pKey32.begin(), pKey32.end() );
-
     vector<char> aesKey = sha256.computeHash(ms);
 
-    if(aesKey.size() != 32) {
+    if(aesKey.size() != FINALKEYSIZE) {
         emit error("FinalKey creation failed");
+        return;
     }
 
-    byte pbAesKey[32];
-    for(uint i=0;i<32;i++){
+    byte pbAesKey[FINALKEYSIZE];
+    for(uint i=0;i<FINALKEYSIZE;i++){
         pbAesKey[i] = aesKey[i];
     }
 
@@ -350,85 +352,60 @@ void Filesystem::openFile(QString url, QString password, QString passKey) {
     }
 
     string recovered;
-    try
-    {        
-        CryptoPP::CBC_Mode< CryptoPP::AES >::Decryption d;
-        d.SetKeyWithIV( pbAesKey, 32, (byte*)m_pbEncryptionIV );
-
-        // The StreamTransformationFilter removes
-        //  padding as required.
-        CryptoPP::ArraySource ss( pbFileContent, contentSize, true,
-            new CryptoPP::StreamTransformationFilter( d,
-                new CryptoPP::StringSink( recovered )
-            ) // StreamTransformationFilter
-        ); // StringSource
-    }
-    catch (CryptoPP::InvalidCiphertext &ex)
-    {
-        emit error("Could not decryt the file");
+    try {
+         recovered = aes.decrypt(pbAesKey, FINALKEYSIZE, (byte*)m_pbEncryptionIV, (byte*)pbFileContent, contentSize);
+    } catch (CryptoPP::InvalidCiphertext &ex) {
+        emit error("Invalid composite key");
+        return;
     }
 
-    vector<char> startBytes;
-    for(int i=0;i<32;i++) {
-        startBytes.push_back(recovered[i]);
-    }
-
+    vector<char> startBytes = ae.toVector((char*)recovered.c_str(), STREAMSTARTBYTESSIZE);
     if(m_pbStreamStartBytes == NULL) {
         emit error("Invalid data read");
+        return;
     }
 
-    for(int iStart = 0; iStart<32;iStart++) {
+    for(int iStart = 0; iStart<STREAMSTARTBYTESSIZE;iStart++) {
         if(startBytes[iStart] != m_pbStreamStartBytes[iStart]) {
             emit error("Invalid composite key");
+            return;
         }
     }
 
     if(m_pbProtectedStreamKey == NULL) {
         emit error("Invalid protected stream key");
+        return;
     }
 
-    vector<char> vStreamKey;
-    for(int i = 0; i<32;i++) {
-        vStreamKey.push_back(m_pbProtectedStreamKey[i]);
-    }
+    vector<char> vStreamKey = ae.toVector(m_pbProtectedStreamKey, PROTECTEDSTREAMKEYSIZE);
     vector<char> vStreamKeyHash = sha256.computeHash(vStreamKey);
     salsa = new Salsa20(vStreamKeyHash, m_pbIVSalsa);
 
     vector<char> payload;
     uint recoveredOffset = 32;
-    for(int i=recoveredOffset;i<recovered.size(); i++) {
+    for(uint i=recoveredOffset;i<recovered.size(); i++) {
         payload.push_back(recovered[i]);
     }
 
     assert(recovered.size() > 0);
     vector<char> read;
     assert(read.size() == 0);
-    HashedBlockStream *hashedStream = new HashedBlockStream(payload, false, 0, true);
 
-    // Read the payload in blocks of 512 bytes (this could be anything but it
-    // gives us a chance to give user feedback)
-    int readBytes = 0;
-    int i=0;
-    do
-     {
-        readBytes = hashedStream->Read(&read, (i*4096), 4096);
-        i++;
-        // Update the GUI with some feedback
-    } while(readBytes > 0);
-
-    delete hashedStream;
-    hashedStream = 0;
-    assert (hashedStream == 0);
-    assert(read.size() > 0);
+    try {
+        readPayload(&read, payload);
+    } catch(exception &ex) {
+        emit error("Could not read payload (incorrect composite key?)");
+        return;
+    }
 
     // If we got here we will have the full xml file in read.
     // Only do this if we're debugging
-    if(DEBUG) {
+    /*if(DEBUG) {
        ofstream f("debug.txt");
        for(vector<char>::const_iterator i = read.begin(); i != read.end(); ++i) {
             f << *i;
        }
-    }
+    }*/
 
     // We have Xml so we need to parse it. My idea is to convert the entire Xml file into c++ objects and then
     // pass them back a level at a time as requested
@@ -436,18 +413,36 @@ void Filesystem::openFile(QString url, QString password, QString passKey) {
     assert(read.size() > 0);
     ReadXmlFile *readXml = new ReadXmlFile(xml, read.size(), salsa);
     dataTree = readXml->GetTopGroup();
-    for(int i=0;i<dataTree.size();i++) {        
+    for(uint i=0;i<dataTree.size();i++) {
         model->addPasswordEntry(dataTree[i]->passwordEntry());
     }
 
     m_dbState = open;
 
-    emit success(m_vl);
+    emit success();
 
+    return;
+}
+
+void Database::readPayload(vector<char>* read, vector<char> payload) {
+
+    HashedBlockStream *hashedStream = new HashedBlockStream(payload, false, 0, true);
+
+    int readBytes = 0;
+    int i=0;
+    do
+     {
+        readBytes = hashedStream->Read(read, (i*4096), 4096);
+        i++;
+    } while(readBytes > 0);
+
+    delete hashedStream;
+    hashedStream = 0;
+    assert (hashedStream == 0);
 }
 
 // Returns true if the file exists else false
-bool Filesystem::fileExists(const char *fileName)
+bool Database::fileExists(const char *fileName)
 {
     std::ifstream infile(fileName);
     return infile.good();
@@ -455,7 +450,7 @@ bool Filesystem::fileExists(const char *fileName)
 
 // Returns the number of bytes read so that we can keep track of our offset.
 // If -1 returned then we are finished
-uint Filesystem::readHeaderField(char* memblock, int offset, bool* endOfHeaderReached)
+uint Database::readHeaderField(char* memblock, int offset, bool* endOfHeaderReached)
 {    
     if(memblock == NULL)
     {
@@ -552,7 +547,7 @@ uint Filesystem::readHeaderField(char* memblock, int offset, bool* endOfHeaderRe
     return (uSize + 3);
 }
 
-uint Filesystem::readBytes(char* memblock, int offset, uint size)
+uint Database::readBytes(char* memblock, int offset, uint size)
 {
     uint result = 0;
     byte tmp[size];
@@ -568,12 +563,12 @@ uint Filesystem::readBytes(char* memblock, int offset, uint size)
     return result;
 }
 
-uint Filesystem::loadByte(char* memblock, int offset)
+uint Database::loadByte(char* memblock, int offset)
 {
     return readBytes(memblock, offset, 4);
 }
 
-bool Filesystem::equal(char* type1, char* type2, uint size) {
+bool Database::equal(char* type1, char* type2, uint size) {
     for(uint i = 0; i<size;i++) {
         if(type1[i] != type2[i]) {
             return false;

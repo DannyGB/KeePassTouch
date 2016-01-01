@@ -5,7 +5,7 @@
 #include <QAbstractListModel>
 #include <QStringList>
 
-enum PasswordEntryType : int
+enum PasswordEntryType
 {
     NotSet,
     Group,

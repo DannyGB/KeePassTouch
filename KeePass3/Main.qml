@@ -21,13 +21,13 @@ MainView {
     //backgroundColor: "#000"
     //headerColor: "#000"
 
-    property string appTitle: 'KeePassUbu'
+    property string appTitle: 'KeePT'
     width: units.gu(100)
     height: units.gu(75)
     property var previousEntry: ({})
     property var previousDepth
-   Filesystem {        
-        id: filesystem
+   Database {
+        id: database
         property var selectedEntry
         onError: {
             PopupUtils.open(dialog, '', {text: i18n.tr(msg)});
@@ -43,7 +43,8 @@ MainView {
            Component.onCompleted: push(openDatabase)
            onCurrentPageChanged: {
                currentPage.forceActiveFocus()
-               openDatabase.pass.text = '';
+               openDatabase.pass.text = ''
+               entry.pass.echoMode = TextInput.Password
            }
 
            onDepthChanged: {
@@ -53,10 +54,10 @@ MainView {
                // whenever the user chooses an entry from the ListView
                if(previousDepth) {
                    if(previousDepth > depth) { // Backwards
-                        previousEntry.UUID = fileSystem.reloadBranch(previousEntry.UUID, previousEntry.entryType)
+                        previousEntry.UUID = database.reloadBranch(previousEntry.UUID, previousEntry.entryType)
                    }
                    else if(previousDepth < depth) { // Forwards
-                       fileSystem.selectBranch(previousEntry.UUID);
+                       database.selectBranch(previousEntry.UUID);
                    }
                }
 

@@ -10,19 +10,19 @@ Page {
       * Handles the MouseArea.onClicked event of the entryDelegate
       */
     function onSelected(index, model) {
-        // A variable property on FileSystem (Main.qml)
-        filesystem.selectedEntry = model
+        // A variable property on Database (Main.qml)
+        database.selectedEntry = model
 
         // A variable property on MainView (Main.qml)
         previousEntry = {
-            entryType : filesystem.selectedEntry.entryType,
-            UUID : filesystem.selectedEntry.uuid
+            entryType : database.selectedEntry.entryType,
+            UUID : database.selectedEntry.uuid
         }
 
         // See PageStack.onDepthChanged for how the pageStack and entry model are kept in synch
-        if(filesystem.selectedEntry.entryType === 2) { // is a password entry so push password page
+        if(database.selectedEntry.entryType === 2) { // is a password entry so push password page
             pageStack.push(entry);
-        } else if(filesystem.selectedEntry.entryType === 1) { // is a further branch push another level
+        } else if(database.selectedEntry.entryType === 1) { // is a further branch push another level
             pageStack.push(listEntryItems);
         }
 

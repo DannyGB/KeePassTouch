@@ -117,7 +117,7 @@ TreeNode* ReadXmlFile::ExtractEntryNode(XMLElement* elem)
                          vector<char> plainEncrypted = base64.base64_decode(strt);
                          byte* bytes = m_salsa->decrypt(plainEncrypted);
                          QString str;
-                         for(int i=0;i<plainEncrypted.size();i++) {
+                         for(uint i=0;i<plainEncrypted.size();i++) {
                              str[i] = bytes[i];
                          }
                          entry.password(str);
