@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-23 21:02+0000\n"
+"POT-Creation-Date: 2016-01-01 20:07+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,22 +17,66 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: /home/dan/KeePass3/KeePass3/Entry.qml:11
-#: /home/dan/KeePass3/KeePass3/ListEntryItems.qml:49
-#: /home/dan/KeePass3/KeePass3/Main.qml:87
+#: /home/dan/KeePass3/KeePass3/Entry.qml:12
+#: /home/dan/KeePass3/KeePass3/ListEntryItems.qml:60
+#: /home/dan/KeePass3/KeePass3/Main.qml:88
 msgid "Settings"
 msgstr ""
 
 #: /home/dan/KeePass3/KeePass3/ListEntryItems.qml:46
+msgid "Home"
+msgstr ""
+
+#: /home/dan/KeePass3/KeePass3/ListEntryItems.qml:56
+#: /home/dan/KeePass3/KeePass3/Main.qml:153
+#: /home/dan/KeePass3/KeePass3/Main.qml:161
 msgid "Search"
 msgstr ""
 
-#: /home/dan/KeePass3/KeePass3/Main.qml:91
+#: /home/dan/KeePass3/KeePass3/Main.qml:92
 msgid "Sign out"
 msgstr ""
 
+#: /home/dan/KeePass3/KeePass3/Main.qml:102
+#: /home/dan/KeePass3/KeePass3/Main.qml:171
+msgid "Cancel"
+msgstr ""
+
+#: /home/dan/KeePass3/KeePass3/Main.qml:112
+msgid "Error"
+msgstr ""
+
+#: /home/dan/KeePass3/KeePass3/Main.qml:113
+msgid "An error has occurred"
+msgstr ""
+
+#: /home/dan/KeePass3/KeePass3/Main.qml:115
+#: /home/dan/KeePass3/KeePass3/Main.qml:128
+#: /home/dan/KeePass3/KeePass3/Main.qml:142
+msgid "Ok"
+msgstr ""
+
+#: /home/dan/KeePass3/KeePass3/Main.qml:125
 #: /home/dan/KeePass3/KeePass3/OpenDatabase.qml:16
 msgid "About"
+msgstr ""
+
+#: /home/dan/KeePass3/KeePass3/Main.qml:126
+msgid ""
+"Copyright &copy; 2015 Dan Beavon<br/>This software is distributed under the "
+"terms of the GNU General Public License v2 or Later"
+msgstr ""
+
+#: /home/dan/KeePass3/KeePass3/Main.qml:139
+msgid "Info"
+msgstr ""
+
+#: /home/dan/KeePass3/KeePass3/Main.qml:140
+msgid "Information: "
+msgstr ""
+
+#: /home/dan/KeePass3/KeePass3/Main.qml:156
+msgid "search term"
 msgstr ""
 
 #: /home/dan/KeePass3/KeePass3/OpenDatabase.qml:56

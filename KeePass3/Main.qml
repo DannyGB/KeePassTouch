@@ -92,14 +92,14 @@ MainView {
                     text: i18n.tr("Sign out")
                     onClicked: {
                         PopupUtils.close(settingsDisabledDialog)
-                        filesystem.closeFile()
+                        database.closeFile()
                         pageStack.clear()
                         pageStack.push(openDatabase)
                     }
                 }
 
                 Button {
-                    text: "Cancel"
+                    text: i18n.tr("Cancel")
                     onClicked: PopupUtils.close(settingsDisabledDialog)
                 }
             }
@@ -109,10 +109,10 @@ MainView {
          id: dialog
          Dialog {
              id: dialogue
-             title: "Error"
-             text: "An error has occurred"
+             title: i18n.tr("Error")
+             text: i18n.tr("An error has occurred")
              Button {
-                 text: "Ok"
+                 text: i18n.tr("Ok")
                  onClicked: PopupUtils.close(dialogue)
              }
          }
@@ -122,10 +122,10 @@ MainView {
         id: about
          Dialog {
              id: aboutDialog
-             title: "About"
-             text: "Copyright &copy; 2015 Dan Beavon<br/>This software is distributed under the terms of the GNU General Public License v2 or Later"
+             title: i18n.tr("About")
+             text: i18n.tr("Copyright &copy; 2015 Dan Beavon<br/>This software is distributed under the terms of the GNU General Public License v2 or Later")
              Button {
-                 text: "Ok"
+                 text: i18n.tr("Ok")
                  onClicked: PopupUtils.close(aboutDialog)
                  color: UbuntuColors.green
              }
@@ -136,12 +136,41 @@ MainView {
          id: infoPopup
          Dialog {
              id: infoPopupDialogue
-             title: "Info"
-             text: "Information: "
+             title: i18n.tr("Info")
+             text: i18n.tr("Information: ")
              Button {
-                 text: "Ok"
+                 text: i18n.tr("Ok")
                  onClicked: PopupUtils.close(infoPopupDialogue)
                  color: UbuntuColors.green
+             }
+         }
+    }
+
+    Component {
+         id: searchPopup
+         Dialog {
+             id: searchPopupDialogue
+             title: i18n.tr("Search")
+             TextField {
+                 id: searchTerm
+                 placeholderText: i18n.tr("search term")
+                 width: parent.width
+                 color: UbuntuColors.darkAubergine
+             }
+             Button {
+                 text: i18n.tr("Search")
+                 onClicked: {
+                     if(searchTerm.text !== '') {
+                        PopupUtils.close(searchPopupDialogue)
+                        database.search(searchTerm.text)
+                     }
+                 }
+                 color: UbuntuColors.green
+             }
+             Button {
+                 text: i18n.tr("Cancel")
+                 onClicked: PopupUtils.close(searchPopupDialogue)
+                 color: UbuntuColors.lightGrey
              }
          }
     }

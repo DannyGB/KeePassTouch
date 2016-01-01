@@ -30,7 +30,7 @@ Page {
             placeholderText: "type database url here"
             width: parent.width
             text: "/home/phablet/Documents/Pass.kdbx"
-            //text: "../../Pass.kdbx"
+            //text: "/home/dan/Dropbox/Home/KeePass/Pass.kdbx"
         }
 
         TextField {
@@ -46,7 +46,7 @@ Page {
             placeholderText: "type key url here"
             width: parent.width
             text: "/home/phablet/Documents/Pass.key"
-            //text: "../../Pass.key"
+            //text: "/run/user/1000/gvfs/smb-share:server=linky,share=files/dan/files/Keepass/Pass.key"
         }
 
         Button {

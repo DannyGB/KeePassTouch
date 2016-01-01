@@ -86,6 +86,7 @@ const uint FileVersion32 = 0x00030001;
 PasswordEntryModel* model;
 vector<TreeNode*> dataTree;
 vector<TreeNode*> current;
+bool foundAny = false;
 
 Database::Database(QObject *parent) :
     QObject(parent)
@@ -93,6 +94,35 @@ Database::Database(QObject *parent) :
 }
 
 Database::~Database() {
+}
+
+void Database::loadHome() {
+    model->removeRows(0, model->rowCount());
+    for(uint i=0;i<dataTree.size();i++) {
+        model->addPasswordEntry(dataTree[i]->passwordEntry());
+    }
+}
+
+void Database::search(QString name) {
+    foundAny = false;
+    searchInternal(name, dataTree);
+}
+
+void Database::searchInternal(QString name, vector<TreeNode*> node) {
+    for(uint i=0;i<node.size();i++) {
+        QString strTitle = node[i]->passwordEntry().title();
+        if(strTitle.indexOf(name) >= 0) {
+            if(!foundAny) {
+                model->removeRows(0, model->rowCount());
+            }
+            model->addPasswordEntry(node[i]->passwordEntry());
+            foundAny = true;
+        }
+
+        if(node[i]->next().size() > 0 ) {
+            searchInternal(name, node[i]->next());
+        }
+    }
 }
 
 QString Database::reloadBranch(QString uuid, int entryType)
@@ -413,9 +443,10 @@ void Database::openFile(QString url, QString password, QString passKey) {
     assert(read.size() > 0);
     ReadXmlFile *readXml = new ReadXmlFile(xml, read.size(), salsa);
     dataTree = readXml->GetTopGroup();
-    for(uint i=0;i<dataTree.size();i++) {
+    loadHome();
+    /*for(uint i=0;i<dataTree.size();i++) {
         model->addPasswordEntry(dataTree[i]->passwordEntry());
-    }
+    }*/
 
     m_dbState = open;
 
@@ -525,7 +556,7 @@ uint Database::readHeaderField(char* memblock, int offset, bool* endOfHeaderReac
             // Not sure what this is doing so, move on and come back
            m_pbProtectedStreamKey = new char[uSize];
            copy(pbData, pbData + uSize, m_pbProtectedStreamKey);
-           // CryptoRandom.Instance.AddEntropy(pbData);
+           // CryloadHome()ptoRandom.Instance.AddEntropy(pbData);
             break;
 
         case StreamStartBytes:

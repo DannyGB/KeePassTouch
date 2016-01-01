@@ -23,7 +23,9 @@ public:
     Q_INVOKABLE void closeFile();    
     Q_INVOKABLE void selectBranch(QString);
     Q_INVOKABLE QString reloadBranch(QString, int);
-    PasswordEntryModel* createModel();
+    Q_INVOKABLE void search(QString);
+    PasswordEntryModel* createModel();    
+    Q_INVOKABLE void loadHome();
 
 Q_SIGNALS:
     void error(QString msg);
@@ -40,6 +42,7 @@ protected:
     bool getMyBranch(QString, vector<TreeNode*>);
     char* readFile(QString, std::streampos&);
     void readPayload(vector<char>*, vector<char>);
+    void searchInternal(QString, vector<TreeNode*>);
 
 private:
     Salsa20* salsa;

@@ -42,8 +42,19 @@ Page {
     head {
             actions: [
                 Action {
+                  iconName: "home"
+                  text: i18n.tr("Home")
+                  onTriggered: {
+                      database.loadHome()
+                      previousDepth = null
+                      pageStack.clear()
+                      pageStack.push(listEntryItems);
+                  }
+                },
+                Action {
                   iconName: "search"
                   text: i18n.tr("Search")
+                  onTriggered: PopupUtils.open(searchPopup)
                 },
                 Action {
                     text: i18n.tr("Settings")
