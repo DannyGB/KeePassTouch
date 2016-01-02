@@ -191,6 +191,7 @@ MainView {
         pageStack.clear()
         pageStack.push(openDatabase)
         resetTimer.stop()
+        Clipboard.clear()
     }
 
     function resetLogoutTimer() {
