@@ -28,6 +28,8 @@ MainView {
     height: units.gu(75)
     property var previousEntry: ({})
     property var previousDepth
+    property string databaseFilePath
+    property string keyFilePath
    Database {
         id: database
         property var selectedEntry
@@ -43,7 +45,7 @@ MainView {
 
     PageStack {
            id: pageStack
-           Component.onCompleted: push(openDatabase)
+           Component.onCompleted: push(databaseListView) //push(openDatabase)
            onCurrentPageChanged: {
                currentPage.forceActiveFocus()
                openDatabase.pass.text = ''
@@ -82,6 +84,15 @@ MainView {
            Entry {
                id: entry
                visible: false
+           }
+
+           Selector {
+               id: databaseListView
+               visible: false
+           }
+
+           Importer {
+               id: importer
            }
     }
 
@@ -189,14 +200,13 @@ MainView {
     function reset() {
         database.closeFile()
         pageStack.clear()
-        pageStack.push(openDatabase)
+        databaseListView.setDatabaseMode()
+        pageStack.push(databaseListView)
         resetTimer.stop()
         Clipboard.clear()
     }
 
     function resetLogoutTimer() {
-        // Reset the logout timer
         resetTimer.restart()
-        //console.info('reset')
     }
 }

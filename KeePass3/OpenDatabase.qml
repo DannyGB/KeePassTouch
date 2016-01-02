@@ -29,8 +29,8 @@ Page {
             id: dbText
             placeholderText: "type database url here"
             width: parent.width
-            //text: "/home/phablet/Documents/Pass.kdbx"
-            text: "/home/dan/Dropbox/Home/KeePass/Pass.kdbx"
+            text: databaseFilePath
+            readOnly: true
         }
 
         TextField {
@@ -38,21 +38,32 @@ Page {
             placeholderText: "enter your password"
             width: parent.width
             echoMode : TextInput.PasswordEchoOnEdit
-            //text: "1234"
         }
 
         TextField {
             id: key
             placeholderText: "type key url here"
-            width: parent.width
-            //text: "/home/phablet/Documents/Pass.key"
-            text: "/run/user/1000/gvfs/smb-share:server=linky,share=files/dan/files/Keepass/Pass.key"
+            width: parent.width            
+            text: keyFilePath
+            readOnly: true
         }
 
         Button {
             objectName: "button"
             width: parent.width
             color: UbuntuColors.green
+            text: i18n.tr("Select Key")
+
+            onClicked: {
+                databaseListView.setKeyMode();
+                pageStack.push(databaseListView)
+            }
+        }
+
+        Button {
+            objectName: "button"
+            width: parent.width
+            color: UbuntuColors.orange
             text: i18n.tr("Open Database")
 
             onClicked: {

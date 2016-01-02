@@ -6,7 +6,8 @@
     "hooks": {
         "KeePass3": {
             "apparmor": "KeePass3/KeePass3.apparmor",
-            "desktop": "KeePass3/KeePass3.desktop"
+            "desktop": "KeePass3/KeePass3.desktop",
+            "content-hub": "KeePass3/KeePass3.contenthub"
         }
     },
     "version": "0.1",

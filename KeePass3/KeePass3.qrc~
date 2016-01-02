@@ -11,4 +11,10 @@
     <qresource prefix="/">
         <file>EntryModel.qml</file>
     </qresource>
+    <qresource prefix="/">
+        <file>ListEntryItems.qml</file>
+    </qresource>
+    <qresource prefix="/">
+        <file>Selector.qml</file>
+    </qresource>
 </RCC>

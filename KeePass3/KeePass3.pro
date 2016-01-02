@@ -152,7 +152,8 @@ QML_FILES += $$files(*.qml,true) \
              $$files(*.js,true)
 
 CONF_FILES +=  KeePass3.apparmor \
-               KeePass3.png
+               KeePass3.png \
+               KeePass3.contenthub
 
 AP_TEST_FILES += tests/autopilot/run \
                  $$files(tests/*.py,true)
@@ -336,6 +337,8 @@ DISTFILES += \
     Entry.qml \
     EntryModel.qml \
     ListEntryItems.qml \
+    Selector.qml \
+    Importer.qml \
     cryptopp/cryptest.exe \
     cryptopp/strciphr.o \
     cryptopp/polynomi.o \

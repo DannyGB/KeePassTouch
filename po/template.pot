@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-01-01 20:07+0000\n"
+"POT-Creation-Date: 2016-01-02 22:05+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,8 +19,39 @@ msgstr ""
 
 #: /home/dan/KeePass3/KeePass3/Entry.qml:12
 #: /home/dan/KeePass3/KeePass3/ListEntryItems.qml:60
-#: /home/dan/KeePass3/KeePass3/Main.qml:88
+#: /home/dan/KeePass3/KeePass3/Main.qml:104
 msgid "Settings"
+msgstr ""
+
+#: /home/dan/KeePass3/KeePass3/Importer.qml:93
+msgid "Importing database..."
+msgstr ""
+
+#: /home/dan/KeePass3/KeePass3/Importer.qml:114
+msgid "Waiting"
+msgstr ""
+
+#: /home/dan/KeePass3/KeePass3/Importer.qml:116
+msgid "Processing"
+msgstr ""
+
+#: /home/dan/KeePass3/KeePass3/Importer.qml:118
+#, qt-format
+msgid "Imported to %1"
+msgstr ""
+
+#: /home/dan/KeePass3/KeePass3/Importer.qml:120
+#, qt-format
+msgid "Already in library: %1"
+msgstr ""
+
+#: /home/dan/KeePass3/KeePass3/Importer.qml:122
+#, qt-format
+msgid "Error: %1"
+msgstr ""
+
+#: /home/dan/KeePass3/KeePass3/Importer.qml:143
+msgid "Import books from"
 msgstr ""
 
 #: /home/dan/KeePass3/KeePass3/ListEntryItems.qml:46
@@ -28,57 +59,65 @@ msgid "Home"
 msgstr ""
 
 #: /home/dan/KeePass3/KeePass3/ListEntryItems.qml:56
-#: /home/dan/KeePass3/KeePass3/Main.qml:153
-#: /home/dan/KeePass3/KeePass3/Main.qml:161
+#: /home/dan/KeePass3/KeePass3/Main.qml:167
+#: /home/dan/KeePass3/KeePass3/Main.qml:175
 msgid "Search"
 msgstr ""
 
-#: /home/dan/KeePass3/KeePass3/Main.qml:92
+#: /home/dan/KeePass3/KeePass3/Main.qml:108
 msgid "Sign out"
 msgstr ""
 
-#: /home/dan/KeePass3/KeePass3/Main.qml:102
-#: /home/dan/KeePass3/KeePass3/Main.qml:171
+#: /home/dan/KeePass3/KeePass3/Main.qml:116
+#: /home/dan/KeePass3/KeePass3/Main.qml:185
 msgid "Cancel"
 msgstr ""
 
-#: /home/dan/KeePass3/KeePass3/Main.qml:112
+#: /home/dan/KeePass3/KeePass3/Main.qml:126
 msgid "Error"
 msgstr ""
 
-#: /home/dan/KeePass3/KeePass3/Main.qml:113
+#: /home/dan/KeePass3/KeePass3/Main.qml:127
 msgid "An error has occurred"
 msgstr ""
 
-#: /home/dan/KeePass3/KeePass3/Main.qml:115
-#: /home/dan/KeePass3/KeePass3/Main.qml:128
+#: /home/dan/KeePass3/KeePass3/Main.qml:129
 #: /home/dan/KeePass3/KeePass3/Main.qml:142
+#: /home/dan/KeePass3/KeePass3/Main.qml:156
 msgid "Ok"
 msgstr ""
 
-#: /home/dan/KeePass3/KeePass3/Main.qml:125
+#: /home/dan/KeePass3/KeePass3/Main.qml:139
 #: /home/dan/KeePass3/KeePass3/OpenDatabase.qml:16
 msgid "About"
 msgstr ""
 
-#: /home/dan/KeePass3/KeePass3/Main.qml:126
+#: /home/dan/KeePass3/KeePass3/Main.qml:140
 msgid ""
 "Copyright &copy; 2015 Dan Beavon<br/>This software is distributed under the "
 "terms of the GNU General Public License v2 or Later"
 msgstr ""
 
-#: /home/dan/KeePass3/KeePass3/Main.qml:139
+#: /home/dan/KeePass3/KeePass3/Main.qml:153
 msgid "Info"
 msgstr ""
 
-#: /home/dan/KeePass3/KeePass3/Main.qml:140
+#: /home/dan/KeePass3/KeePass3/Main.qml:154
 msgid "Information: "
 msgstr ""
 
-#: /home/dan/KeePass3/KeePass3/Main.qml:156
+#: /home/dan/KeePass3/KeePass3/Main.qml:170
 msgid "search term"
 msgstr ""
 
-#: /home/dan/KeePass3/KeePass3/OpenDatabase.qml:56
+#: /home/dan/KeePass3/KeePass3/OpenDatabase.qml:55
+msgid "Select Key"
+msgstr ""
+
+#: /home/dan/KeePass3/KeePass3/OpenDatabase.qml:67
 msgid "Open Database"
+msgstr ""
+
+#: /home/dan/KeePass3/KeePass3/Selector.qml:41
+msgid "Import"
 msgstr ""
