@@ -29,8 +29,8 @@ Page {
             id: dbText
             placeholderText: "type database url here"
             width: parent.width
-            text: "/home/phablet/Documents/Pass.kdbx"
-            //text: "/home/dan/Dropbox/Home/KeePass/Pass.kdbx"
+            //text: "/home/phablet/Documents/Pass.kdbx"
+            text: "/home/dan/Dropbox/Home/KeePass/Pass.kdbx"
         }
 
         TextField {
@@ -45,8 +45,8 @@ Page {
             id: key
             placeholderText: "type key url here"
             width: parent.width
-            text: "/home/phablet/Documents/Pass.key"
-            //text: "/run/user/1000/gvfs/smb-share:server=linky,share=files/dan/files/Keepass/Pass.key"
+            //text: "/home/phablet/Documents/Pass.key"
+            text: "/run/user/1000/gvfs/smb-share:server=linky,share=files/dan/files/Keepass/Pass.key"
         }
 
         Button {
@@ -56,7 +56,7 @@ Page {
             text: i18n.tr("Open Database")
 
             onClicked: {
-                database.openFile(i18n.tr(dbText.text), i18n.tr(password.text), i18n.tr(key.text));
+                database.openFile(i18n.tr(dbText.text), i18n.tr(password.text), i18n.tr(key.text));                
             }
         }
     }

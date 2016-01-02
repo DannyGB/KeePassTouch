@@ -2,6 +2,8 @@ import QtQuick 2.0
 import Ubuntu.Components 1.2
 import Ubuntu.Components.Popups 1.2
 import KeePass3 1.0
+import QtQml 2.2
+
 /*!
     \brief MainView with a Label and Button elements.
 */
@@ -35,6 +37,7 @@ MainView {
         onSuccess: {            
             pageStack.clear();
             pageStack.push(listEntryItems);
+            resetTimer.start()
         }        
     }
 
@@ -44,10 +47,10 @@ MainView {
            onCurrentPageChanged: {
                currentPage.forceActiveFocus()
                openDatabase.pass.text = ''
-               entry.pass.echoMode = TextInput.Password
+               entry.pass.echoMode = TextInput.Password               
            }
 
-           onDepthChanged: {
+           onDepthChanged: {               
                // This logic keeps track of where we are in the tree so we can move backwards and forwards
                // in the PageStack keeping a consistent position
                // See also listEntryItems(.qml).onSelected to see where we set the previousEntry details
@@ -59,6 +62,8 @@ MainView {
                    else if(previousDepth < depth) { // Forwards
                        database.selectBranch(previousEntry.UUID);
                    }
+
+                   resetLogoutTimer()
                }
 
                previousDepth = depth
@@ -92,9 +97,7 @@ MainView {
                     text: i18n.tr("Sign out")
                     onClicked: {
                         PopupUtils.close(settingsDisabledDialog)
-                        database.closeFile()
-                        pageStack.clear()
-                        pageStack.push(openDatabase)
+                        reset()
                     }
                 }
 
@@ -173,5 +176,26 @@ MainView {
                  color: UbuntuColors.lightGrey
              }
          }
+    }
+
+    Timer {
+        id: resetTimer
+        interval: 60000
+        running: false
+        repeat: false
+        onTriggered: reset()
+    }
+
+    function reset() {
+        database.closeFile()
+        pageStack.clear()
+        pageStack.push(openDatabase)
+        resetTimer.stop()
+    }
+
+    function resetLogoutTimer() {
+        // Reset the logout timer
+        resetTimer.restart()
+        //console.info('reset')
     }
 }
