@@ -70,5 +70,33 @@ Page {
                     }
                 }
             }           
+
+            Label {
+             text: "Url"
+             width: parent.width
+             color: UbuntuColors.darkAubergine
+            }
+
+            TextField {
+                id: url
+                text: database.selectedEntry.url
+                readOnly: true
+                width: parent.width
+                color: UbuntuColors.darkAubergine
+            }
+
+            Label {
+             text: "Notes"
+             width: parent.width
+             color: UbuntuColors.darkAubergine
+            }
+
+            TextArea {
+                id: notes
+                text: database.selectedEntry.notes
+                readOnly: true
+                width: parent.width
+                color: UbuntuColors.darkAubergine
+            }
     }      
 }

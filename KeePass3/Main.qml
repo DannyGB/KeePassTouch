@@ -48,7 +48,7 @@ MainView {
 
     PageStack {
            id: pageStack
-           Component.onCompleted: push(databaseListView) //push(openDatabase)
+           Component.onCompleted: push(databaseListView)
            onCurrentPageChanged: {
                if(currentPage != null) {
                 currentPage.forceActiveFocus()
@@ -68,10 +68,10 @@ MainView {
                        else if(previousDepth < depth) { // Forwards
                            database.selectBranch(previousEntry.UUID);
                        }
-                   }
-                   resetLogoutTimer()
+                   }                   
                }
 
+               resetLogoutTimer()
                previousDepth = depth
            }
 

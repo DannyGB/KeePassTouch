@@ -130,6 +130,14 @@ TreeNode* ReadXmlFile::ExtractEntryNode(XMLElement* elem)
                 if(strcmp(key->GetText(), "UserName") == 0) {
                     entry.username(key->NextSiblingElement("Value")->GetText());
                 }
+
+                if(strcmp(key->GetText(), "URL") == 0) {
+                    entry.url(key->NextSiblingElement("Value")->GetText());
+                }
+
+                if(strcmp(key->GetText(), "Notes") == 0) {
+                    entry.notes(key->NextSiblingElement("Value")->GetText());
+                }
             }
 
             assert(str != 0);

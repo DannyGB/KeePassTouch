@@ -140,7 +140,7 @@ Item {
         ContentPeerPicker {
             handler: ContentHandler.Source
             contentType: ContentType.Documents
-            headerText: i18n.tr("Import books from")
+            headerText: i18n.tr("Import database from")
 
             onPeerSelected: {
                 peer.selectionType = ContentTransfer.Multiple

@@ -39,6 +39,16 @@ QString PasswordEntry::username() const
     return m_username;
 }
 
+QString PasswordEntry::url() const
+{
+    return m_url;
+}
+
+QString PasswordEntry::notes() const
+{
+    return m_notes;
+}
+
 PasswordEntryModel::PasswordEntryModel(QObject *parent)
     : QAbstractListModel(parent)
 {
@@ -73,6 +83,10 @@ QVariant PasswordEntryModel::data(const QModelIndex & index, int role) const {
         return passwordEntry.username();
     else if(role == PasswordProtectedRole)
         return passwordEntry.passwordProtected();
+    else if(role == NotesRoles)
+        return passwordEntry.notes();
+    else if(role == UrlRole)
+        return passwordEntry.url();
     return QVariant();
 }
 
@@ -84,6 +98,8 @@ QHash<int, QByteArray> PasswordEntryModel::roleNames() const {
     roles[UuidRole] = "uuid";
     roles[UsernameRole] = "username";
     roles[PasswordProtectedRole] = "passwordProtected";
+    roles[UrlRole] = "url";
+    roles[NotesRoles] = "notes";
     return roles;
 }
 

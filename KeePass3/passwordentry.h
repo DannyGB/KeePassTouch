@@ -54,12 +54,28 @@ public:
         m_username = username;
     }
 
+    QString url() const;
+
+    void url(const QString url)
+    {
+        m_url = url;
+    }
+
+    QString notes() const;
+
+    void notes(const QString notes)
+    {
+        m_notes = notes;
+    }
+
 private:
     QString m_title;
     QString m_password;
     PasswordEntryType m_entryType;
     QString m_uuid;
     QString m_username;
+    QString m_notes;
+    QString m_url;
     bool m_passwordProtected;
 };
 
@@ -73,7 +89,9 @@ public:
         PasswordProtectedRole,
         EntryTypeRole,
         UuidRole,
-        UsernameRole
+        UsernameRole,
+        UrlRole,
+        NotesRoles
     };
 
     PasswordEntryModel(QObject *parent = 0);
