@@ -4,7 +4,8 @@ import Ubuntu.Components.Popups 1.2
 import KeePass3 1.0
 
 Page {
-    property alias pass: password
+
+    property alias txtEntityPass: password
     title: i18n.tr(database.selectedEntry.title)
     head {
             actions: [
@@ -24,7 +25,7 @@ Page {
             }
 
             Label {
-             text: database.selectedEntry.uuid
+             text:  database.selectedEntry.uuid
              visible: false;
             }           
 

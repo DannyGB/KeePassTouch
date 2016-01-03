@@ -30,6 +30,9 @@ MainView {
     property var previousDepth
     property string databaseFilePath
     property string keyFilePath
+    property string databaseFileName
+    property string keyFileName
+
    Database {
         id: database
         property var selectedEntry
@@ -47,9 +50,9 @@ MainView {
            id: pageStack
            Component.onCompleted: push(databaseListView) //push(openDatabase)
            onCurrentPageChanged: {
-               currentPage.forceActiveFocus()
-               openDatabase.pass.text = ''
-               entry.pass.echoMode = TextInput.Password               
+               if(currentPage != null) {
+                currentPage.forceActiveFocus()
+               }
            }
 
            onDepthChanged: {               
@@ -58,13 +61,14 @@ MainView {
                // See also listEntryItems(.qml).onSelected to see where we set the previousEntry details
                // whenever the user chooses an entry from the ListView
                if(previousDepth) {
-                   if(previousDepth > depth) { // Backwards
-                        previousEntry.UUID = database.reloadBranch(previousEntry.UUID, previousEntry.entryType)
+                   if(previousEntry.UUID !== undefined) {
+                       if(previousDepth > depth) { // Backwards
+                            previousEntry.UUID = database.reloadBranch(previousEntry.UUID, previousEntry.entryType)
+                       }
+                       else if(previousDepth < depth) { // Forwards
+                           database.selectBranch(previousEntry.UUID);
+                       }
                    }
-                   else if(previousDepth < depth) { // Forwards
-                       database.selectBranch(previousEntry.UUID);
-                   }
-
                    resetLogoutTimer()
                }
 
@@ -202,8 +206,9 @@ MainView {
         pageStack.clear()
         databaseListView.setDatabaseMode()
         pageStack.push(databaseListView)
+        openDatabase.pass.text = ''
         resetTimer.stop()
-        Clipboard.clear()
+        //Clipboard.clear() // Consistently crashes the app on phone (not desktop though) see bug: https://bugs.launchpad.net/ubuntu/+source/ubuntu-ui-toolkit/+bug/1457361
     }
 
     function resetLogoutTimer() {

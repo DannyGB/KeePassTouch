@@ -25,10 +25,12 @@ Page {
     function onDatabaseSelected(index, model) {
         if(keyMode) {
             keyFilePath = model.filePath
+            keyFileName = model.fileName
             pageStack.pop()
         } else {
             pageStack.push(openDatabase)
             databaseFilePath = model.filePath
+            databaseFileName = model.fileName
         }
 
         sourcesView.currentIndex = index;
@@ -79,13 +81,12 @@ Page {
             id: folderModel
             nameFilters: ["*.kdbx"]
             showDirs: false
-            // I don't know yet how to make this get the correct folder for my app
+            // I don't know yet how to make this get the correct folder for my app!
             folder: 'file:/home/phablet/.local/share/keepass3.dannygb'
         }
 
         UbuntuListView {
             id: sourcesView
-            //anchors.fill: parent
             focus: true
             height: parent.height
             width: parent.width

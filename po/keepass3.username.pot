@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-01-02 22:03+0000\n"
+"POT-Creation-Date: 2016-01-03 14:45+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,72 +17,72 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: /home/dan/KeePass3/KeePass3/Entry.qml:12
-#: /home/dan/KeePass3/KeePass3/ListEntryItems.qml:60
-#: /home/dan/KeePass3/KeePass3/Main.qml:104
+#: /home/dan/KeePass3/KeePass3/Entry.qml:13
+#: /home/dan/KeePass3/KeePass3/ListEntryItems.qml:61
+#: /home/dan/KeePass3/KeePass3/Main.qml:108
 msgid "Settings"
 msgstr ""
 
-#: /home/dan/KeePass3/KeePass3/ListEntryItems.qml:46
+#: /home/dan/KeePass3/KeePass3/ListEntryItems.qml:47
 msgid "Home"
 msgstr ""
 
-#: /home/dan/KeePass3/KeePass3/ListEntryItems.qml:56
-#: /home/dan/KeePass3/KeePass3/Main.qml:167
-#: /home/dan/KeePass3/KeePass3/Main.qml:175
+#: /home/dan/KeePass3/KeePass3/ListEntryItems.qml:57
+#: /home/dan/KeePass3/KeePass3/Main.qml:171
+#: /home/dan/KeePass3/KeePass3/Main.qml:179
 msgid "Search"
 msgstr ""
 
-#: /home/dan/KeePass3/KeePass3/Main.qml:108
+#: /home/dan/KeePass3/KeePass3/Main.qml:112
 msgid "Sign out"
 msgstr ""
 
-#: /home/dan/KeePass3/KeePass3/Main.qml:116
-#: /home/dan/KeePass3/KeePass3/Main.qml:185
+#: /home/dan/KeePass3/KeePass3/Main.qml:120
+#: /home/dan/KeePass3/KeePass3/Main.qml:189
 msgid "Cancel"
 msgstr ""
 
-#: /home/dan/KeePass3/KeePass3/Main.qml:126
+#: /home/dan/KeePass3/KeePass3/Main.qml:130
 msgid "Error"
 msgstr ""
 
-#: /home/dan/KeePass3/KeePass3/Main.qml:127
+#: /home/dan/KeePass3/KeePass3/Main.qml:131
 msgid "An error has occurred"
 msgstr ""
 
-#: /home/dan/KeePass3/KeePass3/Main.qml:129
-#: /home/dan/KeePass3/KeePass3/Main.qml:142
-#: /home/dan/KeePass3/KeePass3/Main.qml:156
+#: /home/dan/KeePass3/KeePass3/Main.qml:133
+#: /home/dan/KeePass3/KeePass3/Main.qml:146
+#: /home/dan/KeePass3/KeePass3/Main.qml:160
 msgid "Ok"
 msgstr ""
 
-#: /home/dan/KeePass3/KeePass3/Main.qml:139
+#: /home/dan/KeePass3/KeePass3/Main.qml:143
 #: /home/dan/KeePass3/KeePass3/OpenDatabase.qml:16
 msgid "About"
 msgstr ""
 
-#: /home/dan/KeePass3/KeePass3/Main.qml:140
+#: /home/dan/KeePass3/KeePass3/Main.qml:144
 msgid ""
 "Copyright &copy; 2015 Dan Beavon<br/>This software is distributed under the "
 "terms of the GNU General Public License v2 or Later"
 msgstr ""
 
-#: /home/dan/KeePass3/KeePass3/Main.qml:153
+#: /home/dan/KeePass3/KeePass3/Main.qml:157
 msgid "Info"
 msgstr ""
 
-#: /home/dan/KeePass3/KeePass3/Main.qml:154
+#: /home/dan/KeePass3/KeePass3/Main.qml:158
 msgid "Information: "
 msgstr ""
 
-#: /home/dan/KeePass3/KeePass3/Main.qml:170
+#: /home/dan/KeePass3/KeePass3/Main.qml:174
 msgid "search term"
 msgstr ""
 
-#: /home/dan/KeePass3/KeePass3/OpenDatabase.qml:55
+#: /home/dan/KeePass3/KeePass3/OpenDatabase.qml:53
 msgid "Select Key"
 msgstr ""
 
-#: /home/dan/KeePass3/KeePass3/OpenDatabase.qml:67
+#: /home/dan/KeePass3/KeePass3/OpenDatabase.qml:65
 msgid "Open Database"
 msgstr ""

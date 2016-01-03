@@ -21,6 +21,7 @@ Page {
 
         // See PageStack.onDepthChanged for how the pageStack and entry model are kept in synch
         if(database.selectedEntry.entryType === 2) { // is a password entry so push password page
+            entry.txtEntityPass.echoMode = TextInput.Password
             pageStack.push(entry);
         } else if(database.selectedEntry.entryType === 1) { // is a further branch push another level
             pageStack.push(listEntryItems);

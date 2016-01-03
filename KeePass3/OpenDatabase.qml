@@ -27,9 +27,8 @@ Page {
 
         TextField {
             id: dbText
-            placeholderText: "type database url here"
             width: parent.width
-            text: databaseFilePath
+            text: databaseFileName
             readOnly: true
         }
 
@@ -42,9 +41,8 @@ Page {
 
         TextField {
             id: key
-            placeholderText: "type key url here"
             width: parent.width            
-            text: keyFilePath
+            text: keyFileName
             readOnly: true
         }
 
@@ -67,7 +65,7 @@ Page {
             text: i18n.tr("Open Database")
 
             onClicked: {
-                database.openFile(i18n.tr(dbText.text), i18n.tr(password.text), i18n.tr(key.text));                
+                database.openFile(databaseFilePath, password.text, keyFilePath);
             }
         }
     }
