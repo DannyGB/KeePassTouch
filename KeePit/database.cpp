@@ -18,7 +18,6 @@
 
 using namespace std;
 
-#define DEBUG true
 #define FINALKEYSIZE 32
 #define MASTERSEEDSIZE 32
 #define CYPHERUUIDSIZE 16
@@ -105,7 +104,7 @@ void Database::search(QString name) {
 void Database::searchInternal(QString name, vector<TreeNode*> node) {
     for(uint i=0;i<node.size();i++) {
         QString strTitle = node[i]->passwordEntry().title();
-        if(strTitle.indexOf(name) >= 0) {
+        if(strTitle.indexOf(name, 0, Qt::CaseInsensitive) >= 0) {
             if(!foundAny) {
                 model->removeRows(0, model->rowCount());
             }
@@ -420,16 +419,7 @@ void Database::openFile(QString url, QString password, QString passKey) {
     } catch(exception &ex) {
         emit error("Could not read payload (incorrect composite key?)");
         return;
-    }
-
-    // If we got here we will have the full xml file in read.
-    // Only do this if we're debugging
-    /*if(DEBUG) {
-       ofstream f("debug.txt");
-       for(vector<char>::const_iterator i = read.begin(); i != read.end(); ++i) {
-            f << *i;
-       }
-    }*/
+    }    
 
     // We have Xml so we need to parse it. My idea is to convert the entire Xml file into c++ objects and then
     // pass them back a level at a time as requested
@@ -437,11 +427,7 @@ void Database::openFile(QString url, QString password, QString passKey) {
     assert(read.size() > 0);
     ReadXmlFile *readXml = new ReadXmlFile(xml, read.size(), salsa);
     dataTree = readXml->GetTopGroup();
-    loadHome();
-    /*for(uint i=0;i<dataTree.size();i++) {
-        model->addPasswordEntry(dataTree[i]->passwordEntry());
-    }*/
-
+    loadHome();    
     m_dbState = open;
 
     emit success();

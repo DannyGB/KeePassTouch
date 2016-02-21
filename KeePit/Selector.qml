@@ -7,18 +7,18 @@ import Qt.labs.folderlistmodel 2.1
 
 Page {
 
-    property string pageTitle : "Available Databases"
+    property string pageTitle : i18n.tr("Available Databases")
     property bool keyMode: false
 
     function setKeyMode() {
         keyMode = true
-        pageTitle = "Available Keys"
+        pageTitle = i18n.tr("Available Keys")
         folderModel.nameFilters = ["*.key"]
     }
 
     function setDatabaseMode() {
         keyMode = false
-        pageTitle = "Available Databases"
+        pageTitle = i18n.tr("Available Databases")
         folderModel.nameFilters = ["*.kdbx"]
     }
 
