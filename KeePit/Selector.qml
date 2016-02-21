@@ -30,6 +30,7 @@ Page {
         } else {
             pageStack.push(openDatabase)
             databaseFilePath = model.filePath
+            console.log(model.filePath)
             databaseFileName = model.fileName
         }
 
@@ -64,7 +65,7 @@ Page {
                 height: units.gu(5)
                 Text {
                     text: fileName
-                    font.pointSize: units.gu(2)
+                    font.pointSize: 12
                     color: UbuntuColors.darkAubergine
                 }
 
@@ -82,7 +83,7 @@ Page {
             nameFilters: ["*.kdbx"]
             showDirs: false
             // I don't know yet how to make this get the correct folder for my app!
-            folder: 'file:/home/phablet/.local/share/keepass3.dannygb'
+            folder: 'file:'+ appLocation
         }
 
         UbuntuListView {

@@ -1,11 +1,11 @@
 #include "aes.h"
 #include <string>
 
-#include "/home/dan/KeePass3/KeePass3/cryptopp/modes.h"
-#include "/home/dan/KeePass3/KeePass3/cryptopp/aes.h"
-#include "/home/dan/KeePass3/KeePass3/cryptopp/filters.h"
-#include "/home/dan/KeePass3/KeePass3/cryptopp/sha.h"
-#include "/home/dan/KeePass3/KeePass3/cryptopp/osrng.h"
+#include "./cryptopp/modes.h"
+#include "./cryptopp/aes.h"
+#include "./cryptopp/filters.h"
+#include "./cryptopp/sha.h"
+#include "./cryptopp/osrng.h"
 
 using namespace std;
 

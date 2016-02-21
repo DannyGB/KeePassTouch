@@ -1,16 +1,16 @@
 {
-    "name": "keepass3.dannygb",
-    "description": "KeePass3 an Ubuntu Touch implementation of KeepPass2",
+    "name": "keepit.dannygb",
+    "description": "KeePit an Ubuntu Touch implementation of KeepPass2",
     "architecture": "@CLICK_ARCH@",
-    "title": "KeePass3",
+    "title": "KeePit",
     "hooks": {
-        "KeePass3": {
-            "apparmor": "KeePass3/KeePass3.apparmor",
-            "desktop": "KeePass3/KeePass3.desktop",
-            "content-hub": "KeePass3/KeePass3.contenthub"
+        "KeePit": {
+            "apparmor": "KeePit/KeePit.apparmor",
+            "desktop": "KeePit/KeePit.desktop",
+            "content-hub": "KeePit/KeePit.contenthub"
         }
     },
-    "version": "0.1",
+    "version": "1.0",
     "maintainer": "Dan Beavon <dan.beavon@gmail.com>",
     "framework": "ubuntu-sdk-15.04"
 }

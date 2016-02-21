@@ -7,7 +7,7 @@
 #include <assert.h>
 #include <vector>
 
-#include "/home/dan/KeePass3/KeePass3/tinyxml2.h"
+#include "./tinyxml2.h"
 
 using namespace tinyxml2;
 

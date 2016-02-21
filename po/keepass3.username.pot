@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-01-03 15:14+0000\n"
+"POT-Creation-Date: 2016-02-09 19:59+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,6 +21,37 @@ msgstr ""
 #: /home/dan/KeePass3/KeePass3/ListEntryItems.qml:61
 #: /home/dan/KeePass3/KeePass3/Main.qml:108
 msgid "Settings"
+msgstr ""
+
+#: /home/dan/KeePass3/KeePass3/Importer.qml:93
+msgid "Importing database..."
+msgstr ""
+
+#: /home/dan/KeePass3/KeePass3/Importer.qml:114
+msgid "Waiting"
+msgstr ""
+
+#: /home/dan/KeePass3/KeePass3/Importer.qml:116
+msgid "Processing"
+msgstr ""
+
+#: /home/dan/KeePass3/KeePass3/Importer.qml:118
+#, qt-format
+msgid "Imported to %1"
+msgstr ""
+
+#: /home/dan/KeePass3/KeePass3/Importer.qml:120
+#, qt-format
+msgid "Already in library: %1"
+msgstr ""
+
+#: /home/dan/KeePass3/KeePass3/Importer.qml:122
+#, qt-format
+msgid "Error: %1"
+msgstr ""
+
+#: /home/dan/KeePass3/KeePass3/Importer.qml:143
+msgid "Import database from"
 msgstr ""
 
 #: /home/dan/KeePass3/KeePass3/ListEntryItems.qml:47
@@ -63,7 +94,7 @@ msgstr ""
 
 #: /home/dan/KeePass3/KeePass3/Main.qml:144
 msgid ""
-"Copyright &copy; 2015 Dan Beavon<br/>This software is distributed under the "
+"Copyright &copy; 2016 Dan Beavon<br/>This software is distributed under the "
 "terms of the GNU General Public License v2 or Later"
 msgstr ""
 
@@ -85,4 +116,8 @@ msgstr ""
 
 #: /home/dan/KeePass3/KeePass3/OpenDatabase.qml:65
 msgid "Open Database"
+msgstr ""
+
+#: /home/dan/KeePass3/KeePass3/Selector.qml:43
+msgid "Import"
 msgstr ""

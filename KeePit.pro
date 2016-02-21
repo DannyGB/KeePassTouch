@@ -6,7 +6,7 @@ TEMPLATE = subdirs
 #load Ubuntu specific features
 load(ubuntu-click)
 
-SUBDIRS += KeePass3
+SUBDIRS += KeePit
 
 # specify the manifest file, this file is required for click
 # packaging and for the IDE to create runconfigurations
@@ -14,7 +14,7 @@ UBUNTU_MANIFEST_FILE=manifest.json.in
 
 # specify translation domain, this must be equal with the
 # app name in the manifest file
-UBUNTU_TRANSLATION_DOMAIN="keepass3.username"
+UBUNTU_TRANSLATION_DOMAIN="KeePit.dannygb"
 
 # specify the source files that should be included into
 # the translation file, from those files a translation
@@ -30,11 +30,11 @@ UBUNTU_TRANSLATION_SOURCES+= \
 UBUNTU_PO_FILES+=$$files(po/*.po)
 
 aptest.target   = autopilot
-aptest.commands = bash $$PWD/KeePass3/tests/autopilot/run
-aptest.depends  = sub-KeePass3
+aptest.commands = bash $$PWD/KeePit/tests/autopilot/run
+aptest.depends  = sub-KeePit
 
 unittest.target   = check
-unittest.commands = /usr/bin/qmltestrunner -input $$PWD/KeePass3/tests/unit
-unittest.depends  = sub-KeePass3
+unittest.commands = /usr/bin/qmltestrunner -input $$PWD/KeePit/tests/unit
+unittest.depends  = sub-KeePit
 
 QMAKE_EXTRA_TARGETS += aptest unittest

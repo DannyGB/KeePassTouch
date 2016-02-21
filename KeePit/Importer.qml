@@ -6,6 +6,7 @@ import Ubuntu.Content 1.1
 
 Item {
     id: importer
+    property var contentStore: null
     property var activeTransfer: null
     property var pickerPage: picker
     property var importState: { "new": 1, "processing": 2, "imported": 3, "exists": 4, "error": 5 }
@@ -14,7 +15,7 @@ Item {
     Connections {
         target: ContentHub
         onImportRequested: {
-            activeTransfer = transfer
+            activeTransfer = transfer            
             if (activeTransfer.state === ContentTransfer.Charged)
                 importItems(activeTransfer.items)
         }
@@ -34,12 +35,12 @@ Item {
             console.info(components)
             var ext = components.pop()
             console.info(ext)
-            var dir = '/home/phablet/.local/share/keepass3.dannygb'
+            var dir = appLocation
             var basename =components.join(".")
             console.info(basename)
             var newfilename = basename + "." + ext
             console.info(newfilename)
-            item.item.move(dir, newfilename)
+            //item.item.move(dir, newfilename)
             item.state = importState.imported
         }
     }
@@ -144,7 +145,7 @@ Item {
 
             onPeerSelected: {
                 peer.selectionType = ContentTransfer.Multiple
-                activeTransfer = peer.request()
+                activeTransfer = peer.request(appStore)
                 pageStack.pop()
             }
 
@@ -154,5 +155,10 @@ Item {
 
     ContentTransferHint {
         activeTransfer: importer.activeTransfer
+    }
+
+    ContentStore {
+        id: appStore
+        scope: ContentScope.App
     }
 }

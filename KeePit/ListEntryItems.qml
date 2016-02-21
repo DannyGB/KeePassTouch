@@ -87,7 +87,7 @@ Page {
                         }
                         Text {
                             text: title
-                            font.pointSize: units.gu(2)
+                            font.pointSize: 12
                             color: UbuntuColors.darkAubergine
                         }
                     }

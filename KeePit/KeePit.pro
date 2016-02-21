@@ -1,5 +1,5 @@
 TEMPLATE = app
-TARGET = KeePass3
+TARGET = KeePit
 
 load(ubuntu-click)
 
@@ -146,14 +146,14 @@ SOURCES += main.cpp \
     arrayextensions.cpp \
     aes.cpp
 
-RESOURCES += KeePass3.qrc
+RESOURCES += KeePit.qrc
 
 QML_FILES += $$files(*.qml,true) \
              $$files(*.js,true)
 
-CONF_FILES +=  KeePass3.apparmor \
-               KeePass3.png \
-               KeePass3.contenthub
+CONF_FILES +=  KeePit.apparmor \
+               KeePit.png \
+               KeePit.contenthub
 
 AP_TEST_FILES += tests/autopilot/run \
                  $$files(tests/*.py,true)
@@ -161,18 +161,17 @@ AP_TEST_FILES += tests/autopilot/run \
 #show all the files in QtCreator
 OTHER_FILES += $${CONF_FILES} \
                $${QML_FILES} \
-               $${AP_TEST_FILES} \
-               KeePass3.desktop
+               $${AP_TEST_FILES}
 
 #specify where the config files are installed to
-config_files.path = /KeePass3
+config_files.path = /KeePit
 config_files.files += $${CONF_FILES}
 INSTALLS+=config_files
 
 #install the desktop file, a translated version is 
 #automatically created in the build directory
-desktop_file.path = /KeePass3
-desktop_file.files = $$OUT_PWD/KeePass3.desktop
+desktop_file.path = /KeePit
+desktop_file.files = $$OUT_PWD/KeePit.desktop
 desktop_file.CONFIG += no_check_exist
 INSTALLS+=desktop_file
 
@@ -366,4 +365,8 @@ DISTFILES += \
     cryptopp/x64masm.asm \
     cryptopp/x64dll.asm \
     cryptopp/Makefile \
-    cryptopp/GNUmakefile
+    cryptopp/GNUmakefile \
+    KeePit.desktop \
+    KeePit.png \
+    KeePit.contenthub \
+    KeePit.apparmor

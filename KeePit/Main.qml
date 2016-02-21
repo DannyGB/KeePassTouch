@@ -13,7 +13,7 @@ MainView {
     objectName: "mainView"
 
     // Note! applicationName needs to match the "name" field of the click manifest
-    applicationName: "keepass3.dannygb"
+    applicationName: "keepit.dannygb"
 
     /*
      This property enables the application to change orientation
@@ -23,7 +23,8 @@ MainView {
     //backgroundColor: "#000"
     //headerColor: "#000"
 
-    property string appTitle: 'KeePT'
+    property string appLocation: '/home/phablet/.local/share/keepit.dannygb/Documents'
+    property string appTitle: 'KeePiT'
     width: units.gu(100)
     height: units.gu(75)
     property var previousEntry: ({})
@@ -141,7 +142,7 @@ MainView {
          Dialog {
              id: aboutDialog
              title: i18n.tr("About")
-             text: i18n.tr("Copyright &copy; 2015 Dan Beavon<br/>This software is distributed under the terms of the GNU General Public License v2 or Later")
+             text: i18n.tr("Copyright &copy; 2016 Dan Beavon<br/>This software is distributed under the terms of the GNU General Public License v2 or Later")
              Button {
                  text: i18n.tr("Ok")
                  onClicked: PopupUtils.close(aboutDialog)

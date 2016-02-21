@@ -16,12 +16,6 @@
 #include "base64.h"
 #include "readkeyfile.h"
 
-#include "/home/dan/KeePass3/KeePass3/cryptopp/modes.h"
-#include "/home/dan/KeePass3/KeePass3/cryptopp/aes.h"
-#include "/home/dan/KeePass3/KeePass3/cryptopp/filters.h"
-#include "/home/dan/KeePass3/KeePass3/cryptopp/sha.h"
-#include "/home/dan/KeePass3/KeePass3/cryptopp/osrng.h"
-
 using namespace std;
 
 #define DEBUG true

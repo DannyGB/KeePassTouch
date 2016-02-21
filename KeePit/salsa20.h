@@ -2,7 +2,7 @@
 #define SALSA20_H
 
 #include <QObject>
-#include "/home/dan/KeePass3/KeePass3/cryptopp/modes.h"
+#include "./cryptopp/modes.h"
 
 using namespace std;
 

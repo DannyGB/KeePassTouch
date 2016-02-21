@@ -2,7 +2,7 @@
 #define AES_H
 
 #include <string>
-#include "/home/dan/KeePass3/KeePass3/cryptopp/modes.h"
+#include "./cryptopp/modes.h"
 
 class Aes
 {

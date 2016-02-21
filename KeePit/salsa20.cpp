@@ -1,8 +1,8 @@
 #include "salsa20.h"
 
-#include "/home/dan/KeePass3/KeePass3/cryptopp/modes.h"
-#include "/home/dan/KeePass3/KeePass3/cryptopp/salsa.h"
-#include "/home/dan/KeePass3/KeePass3/cryptopp/osrng.h"
+#include "./cryptopp/modes.h"
+#include "./cryptopp/salsa.h"
+#include "./cryptopp/osrng.h"
 
 using namespace std;
 

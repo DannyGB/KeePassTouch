@@ -1,7 +1,7 @@
 #include "sha256.h"
 
-#include "/home/dan/KeePass3/KeePass3/cryptopp/modes.h"
-#include "/home/dan/KeePass3/KeePass3/cryptopp/sha.h"
+#include "./cryptopp/modes.h"
+#include "./cryptopp/sha.h"
 
 using namespace std;
 
