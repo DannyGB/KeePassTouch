@@ -34,7 +34,7 @@ Q_SIGNALS:
 protected:
     bool equal(char*, char*, uint);
     uint loadByte(char*, int);
-    uint readHeaderField(char*, int, bool*);
+    uint readHeaderField(char*, int, bool*, bool*);
     uint readBytes(char*, int, uint);    
     bool fileExists(const char *);
     std::string generateSHA256Hash(char*, uint);

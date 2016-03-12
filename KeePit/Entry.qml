@@ -60,7 +60,7 @@ Page {
             Button {
                 text: "..."
                 width: parent.width
-                font.pointSize: units.gu(2)
+                font.pointSize: 12
                 color: UbuntuColors.green
                 onClicked: {                    
                     if(password.echoMode == TextInput.Normal) {

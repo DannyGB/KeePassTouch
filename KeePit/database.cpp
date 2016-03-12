@@ -295,19 +295,25 @@ void Database::openFile(QString url, QString password, QString passKey) {
 
     uint offset = 12;
     bool endOfHeaderReached = false;
+    bool readError = false;
+   // QString errorMessage;
     while(true)
     {
         // Add try catch to here
         try {
-        uint bytesRead = readHeaderField(memblock, offset, &endOfHeaderReached);
+            uint bytesRead = readHeaderField(memblock, offset, &endOfHeaderReached, &readError);
 
-        offset += bytesRead;
+            if(readError) {
+                return;
+            }
 
-        if(endOfHeaderReached) {
-            break;
-        }       
+            offset += bytesRead;
+
+            if(endOfHeaderReached) {
+                break;
+            }
         }
-        catch(std::exception &e) {
+        catch(const std::exception &e) {
             emit error("Error parsing database");
             return;
         }
@@ -461,7 +467,7 @@ bool Database::fileExists(const char *fileName)
 
 // Returns the number of bytes read so that we can keep track of our offset.
 // If -1 returned then we are finished
-uint Database::readHeaderField(char* memblock, int offset, bool* endOfHeaderReached)
+uint Database::readHeaderField(char* memblock, int offset, bool* endOfHeaderReached, bool *readError)
 {    
     if(memblock == NULL)
     {
@@ -504,7 +510,9 @@ uint Database::readHeaderField(char* memblock, int offset, bool* endOfHeaderReac
             copy(pbData, pbData + uSize, m_pbCompression);
             uCompression = loadByte(m_pbCompression, 0);
             if(uCompression != 0) {
-                throw new std::exception();
+                *readError = true;
+                emit error("Compressed Databases are not currently supported");
+                return 0;
             }
             break;
 
