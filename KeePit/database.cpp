@@ -89,6 +89,10 @@ Database::Database(QObject *parent) :
 Database::~Database() {
 }
 
+void Database::deleteFile(QString filePath) {
+    std::remove(filePath.toStdString().c_str());
+}
+
 void Database::loadHome() {
     model->removeRows(0, model->rowCount());
     for(uint i=0;i<dataTree.size();i++) {

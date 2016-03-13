@@ -56,11 +56,24 @@ Page {
         anchors {
             margins: units.gu(2)
             fill: parent
+        }        
+
+        FolderListModel {
+            id: folderModel
+            nameFilters: ["*.kdbx"]
+            showDirs: false
+            // I don't know yet how to make this get the correct folder for my app!
+            folder: 'file:'+ appLocation            
         }
 
-        Component {
-            id: fileDelegate
-            Item {
+        UbuntuListView {
+            id: sourcesView
+            focus: true
+            height: parent.height
+            width: parent.width
+            spacing: 5
+            model: folderModel            
+            delegate: ListItem {
                 width: sourcesView.width
                 height: units.gu(5)
                 Text {
@@ -75,25 +88,20 @@ Page {
                         onDatabaseSelected(index, model)
                     }
                 }
+                leadingActions: ListItemActions {
+                    actions: [
+                        Action {
+                            iconName: "delete"
+                            onTriggered: {
+                                //folderModel.remove(index)
+                                selectedDatabaseToDelete.path = folderModel.get(index, "filePath")
+                                selectedDatabaseToDelete.name = folderModel.get(index, "fileName")
+                                PopupUtils.open(deletePopup)
+                            }
+                        }
+                    ]
+                }
             }
-        }
-
-        FolderListModel {
-            id: folderModel
-            nameFilters: ["*.kdbx"]
-            showDirs: false
-            // I don't know yet how to make this get the correct folder for my app!
-            folder: 'file:'+ appLocation
-        }
-
-        UbuntuListView {
-            id: sourcesView
-            focus: true
-            height: parent.height
-            width: parent.width
-            spacing: 5
-            model: folderModel
-            delegate: fileDelegate
         }
     }
 }

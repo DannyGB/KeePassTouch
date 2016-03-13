@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-12 10:32+0000\n"
+"POT-Creation-Date: 2016-03-13 13:57+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,8 +18,12 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #: /home/dan/KeePit/KeePit/Entry.qml:13
+msgid "Copy"
+msgstr ""
+
+#: /home/dan/KeePit/KeePit/Entry.qml:19
 #: /home/dan/KeePit/KeePit/ListEntryItems.qml:61
-#: /home/dan/KeePit/KeePit/Main.qml:109
+#: /home/dan/KeePit/KeePit/Main.qml:111
 msgid "Settings"
 msgstr ""
 
@@ -59,52 +63,57 @@ msgid "Home"
 msgstr ""
 
 #: /home/dan/KeePit/KeePit/ListEntryItems.qml:57
-#: /home/dan/KeePit/KeePit/Main.qml:172 /home/dan/KeePit/KeePit/Main.qml:180
+#: /home/dan/KeePit/KeePit/Main.qml:174 /home/dan/KeePit/KeePit/Main.qml:182
 msgid "Search"
 msgstr ""
 
-#: /home/dan/KeePit/KeePit/Main.qml:113
+#: /home/dan/KeePit/KeePit/Main.qml:115
 msgid "Sign out"
 msgstr ""
 
-#: /home/dan/KeePit/KeePit/Main.qml:121 /home/dan/KeePit/KeePit/Main.qml:190
+#: /home/dan/KeePit/KeePit/Main.qml:123 /home/dan/KeePit/KeePit/Main.qml:192
+#: /home/dan/KeePit/KeePit/Main.qml:218
 msgid "Cancel"
 msgstr ""
 
-#: /home/dan/KeePit/KeePit/Main.qml:131
+#: /home/dan/KeePit/KeePit/Main.qml:133
 msgid "Error"
 msgstr ""
 
-#: /home/dan/KeePit/KeePit/Main.qml:132
+#: /home/dan/KeePit/KeePit/Main.qml:134
 msgid "An error has occurred"
 msgstr ""
 
-#: /home/dan/KeePit/KeePit/Main.qml:134 /home/dan/KeePit/KeePit/Main.qml:147
-#: /home/dan/KeePit/KeePit/Main.qml:161
+#: /home/dan/KeePit/KeePit/Main.qml:136 /home/dan/KeePit/KeePit/Main.qml:149
+#: /home/dan/KeePit/KeePit/Main.qml:163
 msgid "Ok"
 msgstr ""
 
-#: /home/dan/KeePit/KeePit/Main.qml:144
+#: /home/dan/KeePit/KeePit/Main.qml:146
 #: /home/dan/KeePit/KeePit/OpenDatabase.qml:16
 msgid "About"
 msgstr ""
 
-#: /home/dan/KeePit/KeePit/Main.qml:145
+#: /home/dan/KeePit/KeePit/Main.qml:147
 msgid ""
 "Copyright &copy; 2016 Dan Beavon<br/>This software is distributed under the "
 "terms of the GNU General Public License v2 or Later"
 msgstr ""
 
-#: /home/dan/KeePit/KeePit/Main.qml:158
+#: /home/dan/KeePit/KeePit/Main.qml:160
 msgid "Info"
 msgstr ""
 
-#: /home/dan/KeePit/KeePit/Main.qml:159
+#: /home/dan/KeePit/KeePit/Main.qml:161
 msgid "Information: "
 msgstr ""
 
-#: /home/dan/KeePit/KeePit/Main.qml:175
+#: /home/dan/KeePit/KeePit/Main.qml:177
 msgid "search term"
+msgstr ""
+
+#: /home/dan/KeePit/KeePit/Main.qml:203 /home/dan/KeePit/KeePit/Main.qml:210
+msgid "Delete"
 msgstr ""
 
 #: /home/dan/KeePit/KeePit/OpenDatabase.qml:53
