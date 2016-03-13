@@ -26,6 +26,7 @@ public:
     Q_INVOKABLE void search(QString);
     PasswordEntryModel* createModel();    
     Q_INVOKABLE void loadHome();
+    Q_INVOKABLE void deleteFile(QString);
 
 Q_SIGNALS:
     void error(QString msg);
