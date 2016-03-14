@@ -12,9 +12,8 @@ const int m_nDefaultBufferSize = 1024 * 1024; // 1 MB
 vector<char> m_sBaseStream;
 bool m_bWriting;
 bool m_bVerify;
-bool m_bEos = false;
 
-vector<char> m_pbBuffer;
+
 int m_nBufferPos = 0;
 uint m_uBufferIndex = 0;
 int blockBufferPos = 0;
@@ -131,6 +130,7 @@ bool HashedBlockStream::ReadHashedBlock()
 
     // Read the block data
     int i=0;
+    m_pbBuffer.clear();
     while(i<(nBufferSize)) {
         m_pbBuffer.push_back(m_sBaseStream[(i+blockBufferPos)]);
         i++;
