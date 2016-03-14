@@ -89,6 +89,10 @@ Database::Database(QObject *parent) :
 Database::~Database() {
 }
 
+void Database::deleteFile(QString filePath) {
+    std::remove(filePath.toStdString().c_str());
+}
+
 void Database::loadHome() {
     model->removeRows(0, model->rowCount());
     for(uint i=0;i<dataTree.size();i++) {
@@ -216,6 +220,7 @@ void Database::closeFile() {
     // This will mean we have to push the memory items up to member variables
     model->removeRows(0, model->rowCount());
     dataTree.clear();
+    current.clear();
     m_dbState = closed;
 }
 
@@ -425,7 +430,7 @@ void Database::openFile(QString url, QString password, QString passKey) {
     } catch(exception &ex) {
         emit error("Could not read payload (incorrect composite key?)");
         return;
-    }    
+    }         
 
     // We have Xml so we need to parse it. My idea is to convert the entire Xml file into c++ objects and then
     // pass them back a level at a time as requested
@@ -447,9 +452,10 @@ void Database::readPayload(vector<char>* read, vector<char> payload) {
 
     int readBytes = 0;
     int i=0;
+    int sz = 1024;
     do
      {
-        readBytes = hashedStream->Read(read, (i*4096), 4096);
+        readBytes = hashedStream->Read(read, (i*sz), sz);
         i++;
     } while(readBytes > 0);
 

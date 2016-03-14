@@ -34,6 +34,8 @@ MainView {
     property string databaseFileName
     property string keyFileName
 
+    property var selectedDatabaseToDelete: ({});
+
    Database {
         id: database
         property var selectedEntry
@@ -190,6 +192,31 @@ MainView {
                  text: i18n.tr("Cancel")
                  onClicked: PopupUtils.close(searchPopupDialogue)
                  color: UbuntuColors.lightGrey
+             }
+         }
+    }
+
+    Component {
+         id: deletePopup
+         Dialog {
+             id: deletePopupDialogue
+             title: i18n.tr("Delete")
+
+             Label {
+                 text: selectedDatabaseToDelete.name
+             }
+
+             Button {
+                 text: i18n.tr("Delete")
+                 onClicked: {
+                     database.deleteFile(selectedDatabaseToDelete.path)
+                     PopupUtils.close(deletePopupDialogue)
+                 }
+                 color: UbuntuColors.red
+             }
+             Button {
+                 text: i18n.tr("Cancel")
+                 onClicked: PopupUtils.close(deletePopupDialogue)
              }
          }
     }

@@ -10,6 +10,12 @@ Page {
     head {
             actions: [
                 Action {
+                    text: i18n.tr("Copy")
+                    iconName: "edit-copy"
+                    onTriggered: Clipboard.push(password.text);
+                },
+
+                Action {
                     text: i18n.tr("Settings")
                     iconName: "settings"
                     onTriggered: PopupUtils.open(settingsDisabledComponent)                    
@@ -17,7 +23,7 @@ Page {
             ]
     }
 
-    Column {
+    Flow {
         spacing: units.gu(1)
         anchors {
             margins: units.gu(2)
@@ -98,5 +104,5 @@ Page {
                 width: parent.width
                 color: UbuntuColors.darkAubergine
             }
-    }      
+    }
 }
