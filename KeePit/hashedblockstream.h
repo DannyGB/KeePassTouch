@@ -19,6 +19,10 @@ protected:
     bool ReadHashedBlock();
     int readBytes(vector<char>, int, uint);
 
+private:
+    vector<char> m_pbBuffer;
+    bool m_bEos = false;
+
 //public slots:
 };
 
