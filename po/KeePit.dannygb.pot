@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-13 13:57+0000\n"
+"POT-Creation-Date: 2016-03-15 21:40+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -68,7 +68,7 @@ msgid "Search"
 msgstr ""
 
 #: /home/dan/KeePit/KeePit/Main.qml:115
-msgid "Sign out"
+msgid "Close Database"
 msgstr ""
 
 #: /home/dan/KeePit/KeePit/Main.qml:123 /home/dan/KeePit/KeePit/Main.qml:192
@@ -90,8 +90,7 @@ msgid "Ok"
 msgstr ""
 
 #: /home/dan/KeePit/KeePit/Main.qml:146
-#: /home/dan/KeePit/KeePit/OpenDatabase.qml:16
-msgid "About"
+msgid "About (KeePit v2)"
 msgstr ""
 
 #: /home/dan/KeePit/KeePit/Main.qml:147
@@ -116,11 +115,19 @@ msgstr ""
 msgid "Delete"
 msgstr ""
 
-#: /home/dan/KeePit/KeePit/OpenDatabase.qml:53
-msgid "Select Key"
+#: /home/dan/KeePit/KeePit/OpenDatabase.qml:17
+msgid "Close"
+msgstr ""
+
+#: /home/dan/KeePit/KeePit/OpenDatabase.qml:28
+msgid "About"
 msgstr ""
 
 #: /home/dan/KeePit/KeePit/OpenDatabase.qml:65
+msgid "Select Key"
+msgstr ""
+
+#: /home/dan/KeePit/KeePit/OpenDatabase.qml:77
 msgid "Open Database"
 msgstr ""
 
@@ -133,6 +140,6 @@ msgstr ""
 msgid "Available Keys"
 msgstr ""
 
-#: /home/dan/KeePit/KeePit/Selector.qml:44
+#: /home/dan/KeePit/KeePit/Selector.qml:47
 msgid "Import"
 msgstr ""

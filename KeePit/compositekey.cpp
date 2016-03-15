@@ -21,10 +21,6 @@ struct String {
     size_t length;
 };
 
-vector<char> m_pbKey;
-vector<char> m_pbKeyFile;
-bool hasKeyFile = false;
-
 CompositeKey::CompositeKey(vector<char> pbKey, vector<char> pbKeyFile)
 {
     m_pbKey = pbKey;

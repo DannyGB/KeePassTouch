@@ -25,13 +25,16 @@ Page {
     function onDatabaseSelected(index, model) {
         if(keyMode) {
             keyFilePath = model.filePath
-            keyFileName = model.fileName
-            pageStack.pop()
-        } else {
+            keyFileName = model.fileName            
+            pageStack.clear()
             pageStack.push(openDatabase)
-            databaseFilePath = model.filePath
-            console.log(model.filePath)
+        } else {
+            databaseFilePath = model.filePath            
             databaseFileName = model.fileName
+            keyFilePath = ''
+            keyFileName = ''
+            pageStack.clear()
+            pageStack.push(openDatabase)
         }
 
         sourcesView.currentIndex = index;
@@ -92,8 +95,7 @@ Page {
                     actions: [
                         Action {
                             iconName: "delete"
-                            onTriggered: {
-                                //folderModel.remove(index)
+                            onTriggered: {                                
                                 selectedDatabaseToDelete.path = folderModel.get(index, "filePath")
                                 selectedDatabaseToDelete.name = folderModel.get(index, "fileName")
                                 PopupUtils.open(deletePopup)
