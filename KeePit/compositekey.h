@@ -16,6 +16,11 @@ protected:
     vector<char> createRawCompositeKey(vector<char>);
     vector<char> transformKey(vector<char>, vector<char>, ulong);
 
+private:
+    vector<char> m_pbKey;
+    vector<char> m_pbKeyFile;
+    bool hasKeyFile = false;
+
 Q_SIGNALS:
 
 public slots:

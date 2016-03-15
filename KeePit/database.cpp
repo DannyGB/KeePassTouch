@@ -28,16 +28,6 @@ using namespace std;
 #define STREAMSTARTBYTESSIZE 32
 #define INNERRANDOMSEEDSIZE 4
 
-char *m_pbMasterSeed; //[32];
-char *m_pbCompression;
-char *m_cypherUuid; //[16];
-char *m_pbTransformSeed;//[32];
-char *m_pwDatabaseKeyEncryptionRounds;//[8];
-char *m_pbEncryptionIV;//[16];
-char *m_pbProtectedStreamKey;//[32];
-char *m_pbStreamStartBytes;//[32];
-char *m_pbInnerRandomStreamID;//[4];
-
 char m_pbIVSalsa[] = { 0xE8, 0x30, 0x09, 0x4B,
                     0x97, 0x20, 0x5D, 0x2A };
 

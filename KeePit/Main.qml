@@ -112,7 +112,7 @@ MainView {
 
                 Button {
                     color: UbuntuColors.orange
-                    text: i18n.tr("Sign out")
+                    text: i18n.tr("Close Database")
                     onClicked: {
                         PopupUtils.close(settingsDisabledDialog)
                         reset()
@@ -143,7 +143,7 @@ MainView {
         id: about
          Dialog {
              id: aboutDialog
-             title: i18n.tr("About")
+             title: i18n.tr("About (KeePit v2)")
              text: i18n.tr("Copyright &copy; 2016 Dan Beavon<br/>This software is distributed under the terms of the GNU General Public License v2 or Later")
              Button {
                  text: i18n.tr("Ok")

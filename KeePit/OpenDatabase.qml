@@ -11,6 +11,18 @@ Page {
     title: i18n.tr(appTitle)
     head {
         actions: [
+
+            Action {
+                iconName: "edit-undo"
+                text: i18n.tr("Close")
+                onTriggered: {
+                    pageStack.clear()
+                    databaseListView.setDatabaseMode()
+                    password.text = ''
+                    keyFileName = ''
+                    pageStack.push(databaseListView)
+                }
+              },
             Action {
               iconName: "help"
               text: i18n.tr("About")

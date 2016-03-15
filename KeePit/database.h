@@ -47,6 +47,15 @@ protected:
 
 private:
     Salsa20* salsa;
+    char *m_pbMasterSeed; //[32];
+    char *m_pbCompression;
+    char *m_cypherUuid; //[16];
+    char *m_pbTransformSeed;//[32];
+    char *m_pwDatabaseKeyEncryptionRounds;//[8];
+    char *m_pbEncryptionIV;//[16];
+    char *m_pbProtectedStreamKey;//[32];
+    char *m_pbStreamStartBytes;//[32];
+    char *m_pbInnerRandomStreamID;//[4];
 };
 
 #endif // DATABASE_H
