@@ -21,6 +21,7 @@ Page {
         keyMode = false
         pageTitle = i18n.tr("Available Databases")
         folderModel.nameFilters = ["*.kdbx"]
+        importer.headerText = 'Import database from'
     }
 
     function onDatabaseSelected(index, model) {
