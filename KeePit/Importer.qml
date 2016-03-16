@@ -6,6 +6,7 @@ import Ubuntu.Content 1.1
 
 Item {
     id: importer
+    property string headerText: 'Import database from'
     property var contentStore: null
     property var activeTransfer: null
     property var pickerPage: picker
@@ -141,7 +142,7 @@ Item {
         ContentPeerPicker {
             handler: ContentHandler.Source
             contentType: ContentType.Documents
-            headerText: i18n.tr("Import database from")
+            headerText: i18n.tr(importer.headerText)
 
             onPeerSelected: {
                 peer.selectionType = ContentTransfer.Multiple

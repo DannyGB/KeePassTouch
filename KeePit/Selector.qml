@@ -14,6 +14,7 @@ Page {
         keyMode = true
         pageTitle = i18n.tr("Available Keys")
         folderModel.nameFilters = ["*.key"]
+        importer.headerText = 'Import key from'
     }
 
     function setDatabaseMode() {
