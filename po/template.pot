@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-15 21:36+0000\n"
+"POT-Creation-Date: 2016-03-16 19:03+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -27,35 +27,31 @@ msgstr ""
 msgid "Settings"
 msgstr ""
 
-#: /home/dan/KeePit/KeePit/Importer.qml:94
+#: /home/dan/KeePit/KeePit/Importer.qml:95
 msgid "Importing database..."
 msgstr ""
 
-#: /home/dan/KeePit/KeePit/Importer.qml:115
+#: /home/dan/KeePit/KeePit/Importer.qml:116
 msgid "Waiting"
 msgstr ""
 
-#: /home/dan/KeePit/KeePit/Importer.qml:117
+#: /home/dan/KeePit/KeePit/Importer.qml:118
 msgid "Processing"
 msgstr ""
 
-#: /home/dan/KeePit/KeePit/Importer.qml:119
+#: /home/dan/KeePit/KeePit/Importer.qml:120
 #, qt-format
 msgid "Imported to %1"
 msgstr ""
 
-#: /home/dan/KeePit/KeePit/Importer.qml:121
+#: /home/dan/KeePit/KeePit/Importer.qml:122
 #, qt-format
 msgid "Already in library: %1"
 msgstr ""
 
-#: /home/dan/KeePit/KeePit/Importer.qml:123
+#: /home/dan/KeePit/KeePit/Importer.qml:124
 #, qt-format
 msgid "Error: %1"
-msgstr ""
-
-#: /home/dan/KeePit/KeePit/Importer.qml:144
-msgid "Import database from"
 msgstr ""
 
 #: /home/dan/KeePit/KeePit/ListEntryItems.qml:47
@@ -90,8 +86,7 @@ msgid "Ok"
 msgstr ""
 
 #: /home/dan/KeePit/KeePit/Main.qml:146
-#: /home/dan/KeePit/KeePit/OpenDatabase.qml:28
-msgid "About"
+msgid "About (KeePit v2)"
 msgstr ""
 
 #: /home/dan/KeePit/KeePit/Main.qml:147
@@ -120,6 +115,10 @@ msgstr ""
 msgid "Close"
 msgstr ""
 
+#: /home/dan/KeePit/KeePit/OpenDatabase.qml:28
+msgid "About"
+msgstr ""
+
 #: /home/dan/KeePit/KeePit/OpenDatabase.qml:65
 msgid "Select Key"
 msgstr ""
@@ -129,7 +128,7 @@ msgid "Open Database"
 msgstr ""
 
 #: /home/dan/KeePit/KeePit/Selector.qml:10
-#: /home/dan/KeePit/KeePit/Selector.qml:21
+#: /home/dan/KeePit/KeePit/Selector.qml:22
 msgid "Available Databases"
 msgstr ""
 
@@ -137,6 +136,6 @@ msgstr ""
 msgid "Available Keys"
 msgstr ""
 
-#: /home/dan/KeePit/KeePit/Selector.qml:47
+#: /home/dan/KeePit/KeePit/Selector.qml:49
 msgid "Import"
 msgstr ""

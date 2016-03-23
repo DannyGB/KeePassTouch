@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-16 19:00+0000\n"
+"POT-Creation-Date: 2016-03-23 19:28+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,125 +17,125 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: /home/dan/KeePit/KeePit/Entry.qml:13
+#: /home/dan/KeePit/KeePit/Entry.qml:33
 msgid "Copy"
 msgstr ""
 
-#: /home/dan/KeePit/KeePit/Entry.qml:19
-#: /home/dan/KeePit/KeePit/ListEntryItems.qml:61
-#: /home/dan/KeePit/KeePit/Main.qml:111
+#: /home/dan/KeePit/KeePit/Entry.qml:39
+#: /home/dan/KeePit/KeePit/ListEntryItems.qml:81
+#: /home/dan/KeePit/KeePit/Main.qml:131
 msgid "Settings"
 msgstr ""
 
-#: /home/dan/KeePit/KeePit/Importer.qml:95
+#: /home/dan/KeePit/KeePit/Importer.qml:115
 msgid "Importing database..."
 msgstr ""
 
-#: /home/dan/KeePit/KeePit/Importer.qml:116
+#: /home/dan/KeePit/KeePit/Importer.qml:136
 msgid "Waiting"
 msgstr ""
 
-#: /home/dan/KeePit/KeePit/Importer.qml:118
+#: /home/dan/KeePit/KeePit/Importer.qml:138
 msgid "Processing"
 msgstr ""
 
-#: /home/dan/KeePit/KeePit/Importer.qml:120
+#: /home/dan/KeePit/KeePit/Importer.qml:140
 #, qt-format
 msgid "Imported to %1"
 msgstr ""
 
-#: /home/dan/KeePit/KeePit/Importer.qml:122
+#: /home/dan/KeePit/KeePit/Importer.qml:142
 #, qt-format
 msgid "Already in library: %1"
 msgstr ""
 
-#: /home/dan/KeePit/KeePit/Importer.qml:124
+#: /home/dan/KeePit/KeePit/Importer.qml:144
 #, qt-format
 msgid "Error: %1"
 msgstr ""
 
-#: /home/dan/KeePit/KeePit/ListEntryItems.qml:47
+#: /home/dan/KeePit/KeePit/ListEntryItems.qml:67
 msgid "Home"
 msgstr ""
 
-#: /home/dan/KeePit/KeePit/ListEntryItems.qml:57
-#: /home/dan/KeePit/KeePit/Main.qml:174 /home/dan/KeePit/KeePit/Main.qml:182
+#: /home/dan/KeePit/KeePit/ListEntryItems.qml:77
+#: /home/dan/KeePit/KeePit/Main.qml:194 /home/dan/KeePit/KeePit/Main.qml:202
 msgid "Search"
 msgstr ""
 
-#: /home/dan/KeePit/KeePit/Main.qml:115
+#: /home/dan/KeePit/KeePit/Main.qml:135
 msgid "Close Database"
 msgstr ""
 
-#: /home/dan/KeePit/KeePit/Main.qml:123 /home/dan/KeePit/KeePit/Main.qml:192
-#: /home/dan/KeePit/KeePit/Main.qml:218
+#: /home/dan/KeePit/KeePit/Main.qml:143 /home/dan/KeePit/KeePit/Main.qml:212
+#: /home/dan/KeePit/KeePit/Main.qml:238
 msgid "Cancel"
 msgstr ""
 
-#: /home/dan/KeePit/KeePit/Main.qml:133
+#: /home/dan/KeePit/KeePit/Main.qml:153
 msgid "Error"
 msgstr ""
 
-#: /home/dan/KeePit/KeePit/Main.qml:134
+#: /home/dan/KeePit/KeePit/Main.qml:154
 msgid "An error has occurred"
 msgstr ""
 
-#: /home/dan/KeePit/KeePit/Main.qml:136 /home/dan/KeePit/KeePit/Main.qml:149
-#: /home/dan/KeePit/KeePit/Main.qml:163
+#: /home/dan/KeePit/KeePit/Main.qml:156 /home/dan/KeePit/KeePit/Main.qml:169
+#: /home/dan/KeePit/KeePit/Main.qml:183
 msgid "Ok"
 msgstr ""
 
-#: /home/dan/KeePit/KeePit/Main.qml:146
+#: /home/dan/KeePit/KeePit/Main.qml:166
 msgid "About (KeePit v2)"
 msgstr ""
 
-#: /home/dan/KeePit/KeePit/Main.qml:147
+#: /home/dan/KeePit/KeePit/Main.qml:167
 msgid ""
 "Copyright &copy; 2016 Dan Beavon<br/>This software is distributed under the "
 "terms of the GNU General Public License v2 or Later"
 msgstr ""
 
-#: /home/dan/KeePit/KeePit/Main.qml:160
+#: /home/dan/KeePit/KeePit/Main.qml:180
 msgid "Info"
 msgstr ""
 
-#: /home/dan/KeePit/KeePit/Main.qml:161
+#: /home/dan/KeePit/KeePit/Main.qml:181
 msgid "Information: "
 msgstr ""
 
-#: /home/dan/KeePit/KeePit/Main.qml:177
+#: /home/dan/KeePit/KeePit/Main.qml:197
 msgid "search term"
 msgstr ""
 
-#: /home/dan/KeePit/KeePit/Main.qml:203 /home/dan/KeePit/KeePit/Main.qml:210
+#: /home/dan/KeePit/KeePit/Main.qml:223 /home/dan/KeePit/KeePit/Main.qml:230
 msgid "Delete"
 msgstr ""
 
-#: /home/dan/KeePit/KeePit/OpenDatabase.qml:17
+#: /home/dan/KeePit/KeePit/OpenDatabase.qml:37
 msgid "Close"
 msgstr ""
 
-#: /home/dan/KeePit/KeePit/OpenDatabase.qml:28
+#: /home/dan/KeePit/KeePit/OpenDatabase.qml:48
 msgid "About"
 msgstr ""
 
-#: /home/dan/KeePit/KeePit/OpenDatabase.qml:65
+#: /home/dan/KeePit/KeePit/OpenDatabase.qml:85
 msgid "Select Key"
 msgstr ""
 
-#: /home/dan/KeePit/KeePit/OpenDatabase.qml:77
+#: /home/dan/KeePit/KeePit/OpenDatabase.qml:97
 msgid "Open Database"
 msgstr ""
 
-#: /home/dan/KeePit/KeePit/Selector.qml:10
-#: /home/dan/KeePit/KeePit/Selector.qml:22
+#: /home/dan/KeePit/KeePit/Selector.qml:30
+#: /home/dan/KeePit/KeePit/Selector.qml:42
 msgid "Available Databases"
 msgstr ""
 
-#: /home/dan/KeePit/KeePit/Selector.qml:15
+#: /home/dan/KeePit/KeePit/Selector.qml:35
 msgid "Available Keys"
 msgstr ""
 
-#: /home/dan/KeePit/KeePit/Selector.qml:49
+#: /home/dan/KeePit/KeePit/Selector.qml:69
 msgid "Import"
 msgstr ""

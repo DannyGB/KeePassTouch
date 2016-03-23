@@ -345,27 +345,7 @@ DISTFILES += \
     cryptopp/eccrypto.o \
     cryptopp/algebra.o \
     cryptopp/adhoc.o \
-    cryptopp/dlltest.vcproj \
-    cryptopp/cryptlib.vcproj \
-    cryptopp/cryptest.vcproj \
-    cryptopp/cryptdll.vcproj \
-    cryptopp/Readme.txt \
-    cryptopp/License.txt \
-    cryptopp/Doxyfile \
-    cryptopp/dlltest.dsp \
-    cryptopp/cryptlib.dsp \
-    cryptopp/cryptlib_bds.bdsproj \
-    cryptopp/cryptest.sln \
-    cryptopp/cryptest.dsw \
-    cryptopp/cryptest.dsp \
-    cryptopp/cryptest_bds.bpf \
-    cryptopp/cryptest_bds.bdsproj \
-    cryptopp/cryptest_bds.bdsgroup \
-    cryptopp/cryptdll.dsp \
-    cryptopp/x64masm.asm \
-    cryptopp/x64dll.asm \
     cryptopp/Makefile \
-    cryptopp/GNUmakefile \
     KeePit.desktop \
     KeePit.png \
     KeePit.contenthub \
