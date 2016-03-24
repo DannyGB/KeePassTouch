@@ -144,7 +144,9 @@ SOURCES += main.cpp \
     readkeyfile.cpp \
     database.cpp \
     arrayextensions.cpp \
-    aes.cpp
+    aes.cpp \
+    filehandler.cpp \
+    bytestream.cpp
 
 RESOURCES += KeePit.qrc
 
@@ -329,7 +331,9 @@ HEADERS += \
     readkeyfile.h \
     database.h \
     arrayextensions.h \
-    aes.h
+    aes.h \
+    filehandler.h \
+    bytestream.h
 
 DISTFILES += \
     OpenDatabase.qml \

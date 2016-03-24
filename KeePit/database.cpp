@@ -35,6 +35,8 @@
 #include "passwordentry.h"
 #include "base64.h"
 #include "readkeyfile.h"
+#include "filehandler.h"
+#include "bytestream.h"
 
 using namespace std;
 
@@ -85,11 +87,7 @@ const uint FileSignaturePreRelease1 = 0x9AA2D903;
 const uint FileSignaturePreRelease2 = 0xB54BFB66;
 const uint FileVersionCriticalMask = 0xFFFF0000;
 const uint FileVersion32 = 0x00030001;
-
 PasswordEntryModel* model;
-vector<TreeNode*> dataTree;
-vector<TreeNode*> current;
-bool foundAny = false;
 
 Database::Database(QObject *parent) :
     QObject(parent)
@@ -100,7 +98,8 @@ Database::~Database() {
 }
 
 void Database::deleteFile(QString filePath) {
-    std::remove(filePath.toStdString().c_str());
+    FileHandler fileHandler;
+    fileHandler.deleteFile(filePath);
 }
 
 void Database::loadHome() {
@@ -234,47 +233,29 @@ void Database::closeFile() {
     m_dbState = closed;
 }
 
-char* Database::readFile(QString url, std::streampos &size) {
-
-    std::ifstream file;
-    char * memblock;
-    string s1 = url.toStdString();
-    const char * c = s1.c_str();
-
-    if(!fileExists(c)) {
-        //emit error("File does not exist");
-        return 0;
-    }
-
-    file.open(c, std::ios::in | std::ios::binary| std::ios::ate);
-    size = file.tellg();
-    memblock = new char[size];
-    file.seekg(0, std::ios::beg);
-    file.read(memblock, size);
-    file.close();
-
-    return memblock;
-}
-
 void Database::openFile(QString url, QString password, QString passKey) {
 
     if(m_dbState == open) {
         closeFile();
     }
 
+    FileHandler fileHandler;
     Aes aes;
     ArrayExtensions ae;
     std::streampos size, passKeySize;
-    char* memblock = readFile(url, size);
+
+    char* memblock = fileHandler.readFile(url, size);
     if(memblock == 0) {
         emit error("Database does not exist");
         return;
     }
 
+    ByteStream *byteStream = new ByteStream(memblock);
+
     char* passKeyMemblock;
     bool hasKeyFile = false;
     if(strcmp(passKey.toStdString().c_str(), "") != 0) {
-        passKeyMemblock = readFile(passKey, passKeySize);
+        passKeyMemblock = fileHandler.readFile(passKey, passKeySize);
         if(passKeyMemblock == 0) {
             emit error("Key file does not exist");
             return;
@@ -284,8 +265,8 @@ void Database::openFile(QString url, QString password, QString passKey) {
     }
 
     uint uSig1 = 0, uSig2 = 0, uVersion = 0;  
-    uSig1 = loadByte(memblock, 0);
-    uSig2 = loadByte(memblock, 4);
+    uSig1 = byteStream->ReadByte();
+    uSig2 = byteStream->ReadByte();
 
     assert(uSig1 != FileSignatureOld1 || uSig2 != FileSignatureOld2);
     if (uSig1 == FileSignatureOld1 && uSig2 == FileSignatureOld2) {
@@ -301,14 +282,13 @@ void Database::openFile(QString url, QString password, QString passKey) {
         return;
     }
 
-    uVersion = loadByte(memblock, 8);
+    uVersion = byteStream->ReadByte();
     if((uVersion & FileVersionCriticalMask) > (FileVersion32 & FileVersionCriticalMask))
     {
         emit error("Unsupported file version detected");
         return;
     }
 
-    uint offset = 12;
     bool endOfHeaderReached = false;
     bool readError = false;
    // QString errorMessage;
@@ -316,13 +296,11 @@ void Database::openFile(QString url, QString password, QString passKey) {
     {
         // Add try catch to here
         try {
-            uint bytesRead = readHeaderField(memblock, offset, &endOfHeaderReached, &readError);
+            readHeaderField(byteStream, &endOfHeaderReached, &readError);
 
             if(readError) {
                 return;
             }
-
-            offset += bytesRead;
 
             if(endOfHeaderReached) {
                 break;
@@ -335,17 +313,18 @@ void Database::openFile(QString url, QString password, QString passKey) {
     }
 
     // Create a SHA256 hash of the header data
-    char header[offset];
-    for(uint i = 0; i<=offset; i++) {
-        header[i] = memblock[i];
-    }
+    //char header[offset];
+    //for(uint i = 0; i<=offset; i++) {
+        //header[i] = memblock[i];
+    //    header[i] = byteStream->Read();
+    //}
 
     // Not sure yet what this is used for, store it and move on
     // In KeePass its a byte here a std::string
     //std::string hash = generateSHA256Hash(header, offset);
-    vector<char> v(header, header + sizeof header / sizeof header[0]);
+    //vector<char> v(header, header + sizeof header / sizeof header[0]);
     SHA256 sha256;
-    vector<char> hash = sha256.computeHash(v);
+    //vector<char> hash = sha256.computeHash(v);
 
     assert(m_pbMasterSeed != NULL);
     if(m_pbMasterSeed == NULL) {
@@ -365,7 +344,8 @@ void Database::openFile(QString url, QString password, QString passKey) {
     const byte * key = reinterpret_cast<const byte*>(stringKey.c_str());
     vector<char> vKey = ae.toVector((char*)key, (uint)password.size());
     vector<char> vKeySeed = ae.toVector(m_pbTransformSeed, TRANSFORMSEEDSIZE);
-    uint uNumRounds = readBytes(m_pwDatabaseKeyEncryptionRounds, 0, 8);
+
+    uint uNumRounds = ByteStream::ReadByte(m_pwDatabaseKeyEncryptionRounds);
 
     CompositeKey* cmpKey = new CompositeKey(vKey, vKeyFileData);
     vector<char> pKey32 = cmpKey->generateKey32(vKeySeed, uNumRounds);    
@@ -389,11 +369,14 @@ void Database::openFile(QString url, QString password, QString passKey) {
         pbAesKey[i] = aesKey[i];
     }
 
-    uint contentSize = size-offset;
+    uint contentSize = size-byteStream->GetPosition();
     byte pbFileContent[contentSize];
     for(uint i=0;i<contentSize;i++) {
-        pbFileContent[i] = memblock[i+offset];
+        pbFileContent[i] = byteStream->Read();
     }
+
+    delete byteStream;
+    byteStream = NULL;
 
     string recovered;
     try {
@@ -474,31 +457,17 @@ void Database::readPayload(vector<char>* read, vector<char> payload) {
     assert (hashedStream == 0);
 }
 
-// Returns true if the file exists else false
-bool Database::fileExists(const char *fileName)
-{
-    std::ifstream infile(fileName);
-    return infile.good();
-}
-
-// Returns the number of bytes read so that we can keep track of our offset.
-// If -1 returned then we are finished
-uint Database::readHeaderField(char* memblock, int offset, bool* endOfHeaderReached, bool *readError)
+// Read the header information from the stream
+void Database::readHeaderField(ByteStream* byteStream, bool* endOfHeaderReached, bool *readError)
 {    
-    if(memblock == NULL)
-    {
-        throw std::exception();
-    }
-
-    char btFieldID = memblock[offset++];
-    ushort uSize = (ushort)readBytes(memblock, offset, 2);
-    offset = offset+2;
+    char btFieldID = byteStream->Read();
+    ushort uSize = byteStream->ReadShort();
 
     char pbData[uSize];
     if(uSize > 0)
     {
         for(int i = 0; i<uSize; i++) {
-            pbData[i] = memblock[(offset+i)];
+            pbData[i] = byteStream->Read();
         }
     }
 
@@ -507,7 +476,7 @@ uint Database::readHeaderField(char* memblock, int offset, bool* endOfHeaderReac
     switch(kdbID)
     {
         case EndOfHeader:
-            *endOfHeaderReached = true; // Returning 0 indicates end of header (no bytes read). Figure out how to pass an out parameter so we can check that for an end flag
+            *endOfHeaderReached = true;
             break;
 
         case CipherID:
@@ -524,11 +493,11 @@ uint Database::readHeaderField(char* memblock, int offset, bool* endOfHeaderReac
             // Put in version 2 if version 1 ever gets off the ground
             m_pbCompression = new char[uSize];
             copy(pbData, pbData + uSize, m_pbCompression);
-            uCompression = loadByte(m_pbCompression, 0);
+            uCompression = ByteStream::ReadByte(m_pbCompression);
             if(uCompression != 0) {
                 *readError = true;
                 emit error("Compressed Databases are not currently supported");
-                return 0;
+                return;
             }
             break;
 
@@ -579,28 +548,7 @@ uint Database::readHeaderField(char* memblock, int offset, bool* endOfHeaderReac
             break;
     }
 
-    return (uSize + 3);
-}
-
-uint Database::readBytes(char* memblock, int offset, uint size)
-{
-    uint result = 0;
-    byte tmp[size];
-
-    for(uint i = 0; i<size; i++) {
-        tmp[i] = memblock[(i+offset)];
-    }
-
-    for(int i = (size - 1); i>=0; i--) {
-        result = (result << 8) + (unsigned char)tmp[i];
-    }
-
-    return result;
-}
-
-uint Database::loadByte(char* memblock, int offset)
-{
-    return readBytes(memblock, offset, 4);
+    return;
 }
 
 bool Database::equal(char* type1, char* type2, uint size) {

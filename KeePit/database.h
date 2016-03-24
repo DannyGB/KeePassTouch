@@ -29,6 +29,7 @@
 #include "treenode.h"
 #include "passwordentry.h"
 #include "salsa20.h"
+#include "bytestream.h"
 
 using namespace std;
 
@@ -55,13 +56,12 @@ Q_SIGNALS:
 protected:
     bool equal(char*, char*, uint);
     uint loadByte(char*, int);
-    uint readHeaderField(char*, int, bool*, bool*);
+    void readHeaderField(ByteStream*, bool*, bool*);
     uint readBytes(char*, int, uint);    
     bool fileExists(const char *);
     std::string generateSHA256Hash(char*, uint);
     bool getChildBranch(QString, vector<TreeNode*>);
-    bool getMyBranch(QString, vector<TreeNode*>);
-    char* readFile(QString, std::streampos&);
+    bool getMyBranch(QString, vector<TreeNode*>);    
     void readPayload(vector<char>*, vector<char>);
     void searchInternal(QString, vector<TreeNode*>);
 
@@ -76,6 +76,9 @@ private:
     char *m_pbProtectedStreamKey;//[32];
     char *m_pbStreamStartBytes;//[32];
     char *m_pbInnerRandomStreamID;//[4];
+    bool foundAny = false;
+    vector<TreeNode*> dataTree;
+    vector<TreeNode*> current;
 };
 
 #endif // DATABASE_H
