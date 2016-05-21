@@ -98,8 +98,7 @@ Database::~Database() {
 }
 
 void Database::deleteFile(QString filePath) {
-    FileHandler fileHandler;
-    fileHandler.deleteFile(filePath);
+    FileHandler::deleteFile(filePath);
 }
 
 void Database::loadHome() {
@@ -250,7 +249,7 @@ void Database::openFile(QString url, QString password, QString passKey) {
         return;
     }
 
-    ByteStream *byteStream = new ByteStream(memblock);
+    ByteStream *byteStream = new ByteStream(memblock, size);
 
     char* passKeyMemblock;
     bool hasKeyFile = false;
@@ -291,10 +290,8 @@ void Database::openFile(QString url, QString password, QString passKey) {
 
     bool endOfHeaderReached = false;
     bool readError = false;
-   // QString errorMessage;
     while(true)
     {
-        // Add try catch to here
         try {
             readHeaderField(byteStream, &endOfHeaderReached, &readError);
 
@@ -427,11 +424,19 @@ void Database::openFile(QString url, QString password, QString passKey) {
 
     // We have Xml so we need to parse it. My idea is to convert the entire Xml file into c++ objects and then
     // pass them back a level at a time as requested
-    const char* xml = read.data();
+    // At this point the entire DB is decrypted in memory (is there any way to harden this?)
+    const char* xml = read.data(); // Can I just pass the read vector to the ReadXmlFile class instead of creating another pointer here?
     assert(read.size() > 0);
     ReadXmlFile *readXml = new ReadXmlFile(xml, read.size(), salsa);
     dataTree = readXml->GetTopGroup();
     loadHome();    
+
+    ArrayExtensions::Reset(payload); // This should be reset when the HashedBlockStream is disposed (we need to be passing it by ref maybe?)
+    ArrayExtensions::Reset(read);    
+
+    delete readXml;
+    readXml = 0;
+
     m_dbState = open;
 
     emit success();
@@ -483,7 +488,7 @@ void Database::readHeaderField(ByteStream* byteStream, bool* endOfHeaderReached,
             // Only aes cipher supported, check and throw exception if not correct
             m_cypherUuid = new char[uSize];
             copy(pbData, pbData + uSize, m_cypherUuid);
-            if(!equal(m_uuidAes, m_cypherUuid, uSize)) {
+            if(!ArrayExtensions::Equal(m_uuidAes, m_cypherUuid, uSize)) {
                 throw std::exception();
             }
             break;
@@ -529,7 +534,7 @@ void Database::readHeaderField(ByteStream* byteStream, bool* endOfHeaderReached,
             // Not sure what this is doing so, move on and come back
            m_pbProtectedStreamKey = new char[uSize];
            copy(pbData, pbData + uSize, m_pbProtectedStreamKey);
-           // CryloadHome()ptoRandom.Instance.AddEntropy(pbData);
+           // CryptoRandom.Instance.AddEntropy(pbData);
             break;
 
         case StreamStartBytes:
@@ -549,14 +554,4 @@ void Database::readHeaderField(ByteStream* byteStream, bool* endOfHeaderReached,
     }
 
     return;
-}
-
-bool Database::equal(char* type1, char* type2, uint size) {
-    for(uint i = 0; i<size;i++) {
-        if(type1[i] != type2[i]) {
-            return false;
-        }
-    }
-
-    return true;
 }

@@ -26,10 +26,6 @@
 
 using namespace std;
 
-vector<char> m_xpbKey;
-char* m_IV;
-CryptoPP::Salsa20::Encryption salsa;
-
 Salsa20::Salsa20(vector<char> pbKey, char* pbIv)
 {
     m_xpbKey = pbKey;
@@ -47,19 +43,23 @@ Salsa20::Salsa20(vector<char> pbKey, char* pbIv)
     salsa.SetKeyWithIV(key, 32, iv);
 }
 
+Salsa20::~Salsa20()
+{
+}
+
 byte* Salsa20::decrypt(vector<char> cipherText)
 {
     byte* cipherTextBytes = new byte[cipherText.size()];
-    byte* plainTextBytes = new byte[cipherText.size()];
-    string retVal("");    
+    byte* plainTextBytes = new byte[cipherText.size()]; // I need a way to clear this, perhaps I should return a vector of byte rather than a pointer?
 
-    for(int i=0;i<cipherText.size();i++) {
+    for(uint i=0;i<cipherText.size();i++) {
         cipherTextBytes[i] = cipherText[i];
     }
 
     salsa.ProcessData(plainTextBytes, cipherTextBytes, cipherText.size());
 
-    //delete cipherTextBytes;
+    delete cipherTextBytes;
+    cipherTextBytes = 0;
+
     return plainTextBytes;
 }
-

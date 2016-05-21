@@ -21,6 +21,7 @@
 #ifndef ARRAYEXTENSIONS_H
 #define ARRAYEXTENSIONS_H
 
+#include <sys/types.h>
 #include <vector>
 
 using namespace std;
@@ -30,6 +31,28 @@ class ArrayExtensions
 public:
     ArrayExtensions();
     vector<char> toVector(char*, unsigned int);
+
+    bool static Equal(char* t1, char* t2, uint size)
+    {
+        for(uint i = 0; i<size;i++) {
+            if(t1[i] != t2[i]) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    void static Reset(vector<char> &v)
+    {        
+        /* Overwrite all entries with 0 then deallocate */
+        for(uint i = 0; i<v.size(); i++)
+        {
+            v[i] = 0;
+        }
+
+        vector<char>().swap(v);
+    }
 };
 
 #endif // ARRAYEXTENSIONS_H

@@ -31,17 +31,19 @@
 
 using namespace tinyxml2;
 
-const char * m_xml;
-size_t m_size;
-TreeNode *lastRead = 0;
-Salsa20 *m_salsa;
-Base64 base64;
-
 ReadXmlFile::ReadXmlFile(const char* xml, size_t size, Salsa20 *salsa)
 {
     m_xml = xml;
     m_size = size;
     m_salsa = salsa;
+}
+
+ReadXmlFile::~ReadXmlFile()
+{
+    delete m_salsa;
+    m_salsa = 0;
+    delete lastRead;
+    lastRead = 0;
 }
 
 vector<TreeNode*> ReadXmlFile::GetTopGroup()

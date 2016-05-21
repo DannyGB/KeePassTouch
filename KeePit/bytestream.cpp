@@ -1,4 +1,5 @@
 #include "bytestream.h"
+#include "arrayextensions.h"
 #include <sys/types.h>
 
 typedef unsigned char byte;
@@ -6,10 +7,21 @@ typedef unsigned char byte;
 #define BYTESIZE 4
 #define SHORTSIZE 2
 
-ByteStream::ByteStream(char* memblock)
+ByteStream::ByteStream(char* memblock, uint size)
 {
-    buffer = memblock;
+    vector<char> b(memblock, memblock + size);
+    buffer = b;
     pos = 0;
+}
+
+ByteStream::~ByteStream()
+{
+    for(uint i = 0; i<buffer.size(); i++)
+    {
+        buffer[i] = 0;
+    }
+
+    ArrayExtensions::Reset(buffer);
 }
 
 // Static method that reads only a byte from the given memblock array

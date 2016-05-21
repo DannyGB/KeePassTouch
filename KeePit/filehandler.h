@@ -27,7 +27,7 @@ class FileHandler
 {
 public:
     FileHandler();
-    void deleteFile(QString);
+    void static deleteFile(QString);
     char* readFile(QString, std::streampos&);
     //void openFile(QString, QString, QString);
 

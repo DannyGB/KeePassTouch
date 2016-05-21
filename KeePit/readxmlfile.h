@@ -24,6 +24,7 @@
 #include "passwordentry.h"
 #include "treenode.h"
 #include "salsa20.h"
+#include "base64.h"
 #include "/home/dan/KeePass/libs/xml/tinyxml2.h"
 #include <string>
 #include <vector>
@@ -39,12 +40,20 @@ class ReadXmlFile
 {
 public:
     ReadXmlFile(const char*, size_t, Salsa20*);
+    ~ReadXmlFile();
     vector<TreeNode*> GetTopGroup();
 
 protected:
     void ReadBranch(XMLElement*, vector<TreeNode*>&, TreeNode*);
     TreeNode* ReadNode(XMLElement* elem, TreeNode* parent);
     TreeNode* ExtractEntryNode(XMLElement*);
+
+private:
+    size_t m_size;
+    Base64 base64;
+    Salsa20 *m_salsa;
+    const char * m_xml;
+    TreeNode *lastRead = 0;
 };
 
 #endif // READXMLFILE_H

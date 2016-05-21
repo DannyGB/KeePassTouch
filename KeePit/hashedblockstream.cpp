@@ -19,6 +19,7 @@
 */
 
 #include "hashedblockstream.h"
+#include "arrayextensions.h"
 #include "sha256.h"
 
 #include <algorithm>
@@ -29,14 +30,11 @@
 using namespace std;
 
 const int m_nDefaultBufferSize = 1024 * 1024; // 1 MB
-vector<char> m_sBaseStream;
-bool m_bWriting;
-bool m_bVerify;
 
-
-int m_nBufferPos = 0;
-uint m_uBufferIndex = 0;
-int blockBufferPos = 0;
+HashedBlockStream::~HashedBlockStream()
+{
+    this->Reset();
+}
 
 HashedBlockStream::HashedBlockStream(vector<char> sBaseStream, bool bWriting)
 {
@@ -193,4 +191,19 @@ int HashedBlockStream::readBytes(vector<char> memblock, int offset, uint size)
     }
 
     return result;
+}
+
+void HashedBlockStream::Reset()
+{
+    for(uint i = 0; i<m_pbBuffer.size() ;i++) {
+        m_pbBuffer[i] = 0;
+    }
+
+    ArrayExtensions::Reset(m_pbBuffer);
+
+    for(uint i = 0; i<m_sBaseStream.size() ;i++) {
+        m_sBaseStream[i] = 0;
+    }
+
+    ArrayExtensions::Reset(m_sBaseStream);
 }

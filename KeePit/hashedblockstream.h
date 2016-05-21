@@ -32,7 +32,8 @@ public:
     HashedBlockStream(vector<char>, bool);
     HashedBlockStream(vector<char>, bool, int);
     HashedBlockStream(vector<char>, bool, int, bool);
-    int Read(vector<char>*, int, int);
+    ~HashedBlockStream();
+    int Read(vector<char>*, int, int);    
 
 protected:
     void Initialize(vector<char>, bool, int, bool);
@@ -42,6 +43,13 @@ protected:
 private:
     vector<char> m_pbBuffer;
     bool m_bEos = false;
+    void Reset();
+    bool m_bVerify;
+    bool m_bWriting;
+    vector<char> m_sBaseStream;
+    int m_nBufferPos;
+    uint m_uBufferIndex;
+    int blockBufferPos;
 
 //public slots:
 };

@@ -21,8 +21,10 @@
 #ifndef SALSA20_H
 #define SALSA20_H
 
+#include "salsa20.h"
 #include <QObject>
 #include "./cryptopp/modes.h"
+#include "./cryptopp/salsa.h"
 
 using namespace std;
 
@@ -30,7 +32,13 @@ class Salsa20
 {
 public:
     Salsa20(vector<char> key, char* iv);
+    ~Salsa20();
     byte* decrypt(vector<char>);
+
+private:
+    CryptoPP::Salsa20::Encryption salsa;
+    vector<char> m_xpbKey;
+    char* m_IV;
 
 Q_SIGNALS:
 
