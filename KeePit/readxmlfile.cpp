@@ -1,3 +1,23 @@
+/*
+* This file is part of KeePit
+*
+* Copyright (C) 2016 Dan Beavon
+*
+* This program is free software; you can redistribute it and/or
+* modify it under the terms of the GNU General Public License
+* as published by the Free Software Foundation; either version 2
+* of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+* GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License
+* along with this program; if not, write to the Free Software
+* Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+*/
+
 #include "readxmlfile.h"
 #include "passwordentry.h"
 #include "treenode.h"
@@ -11,12 +31,12 @@
 
 using namespace tinyxml2;
 
-const char * m_xml;
-size_t m_size;
-TreeNode *lastRead = 0;
-Salsa20 *m_salsa;
-Base64 base64;
-
+///
+/// \brief ReadXmlFile::ReadXmlFile
+/// \param xml
+/// \param size
+/// \param salsa
+///
 ReadXmlFile::ReadXmlFile(const char* xml, size_t size, Salsa20 *salsa)
 {
     m_xml = xml;
@@ -24,6 +44,21 @@ ReadXmlFile::ReadXmlFile(const char* xml, size_t size, Salsa20 *salsa)
     m_salsa = salsa;
 }
 
+///
+/// \brief ReadXmlFile::~ReadXmlFile
+///
+ReadXmlFile::~ReadXmlFile()
+{
+    delete m_salsa;
+    m_salsa = 0;
+    delete lastRead;
+    lastRead = 0;
+}
+
+///
+/// \brief ReadXmlFile::GetTopGroup
+/// \return
+///
 vector<TreeNode*> ReadXmlFile::GetTopGroup()
 {
     XMLDocument doc;
@@ -41,11 +76,16 @@ vector<TreeNode*> ReadXmlFile::GetTopGroup()
     XMLElement* group = root->FirstChildElement("Group");
     XMLElement* next = group->FirstChildElement("Name");
 
-    //topLevel.push_back(new TreeNode(PasswordEntry(next->GetText(), "", Group)));
     ReadBranch(next, topLevel, parent);
     return topLevel;
 }
 
+///
+/// \brief ReadXmlFile::ReadBranch
+/// \param node
+/// \param current
+/// \param parent
+///
 void ReadXmlFile::ReadBranch(XMLElement* node, vector<TreeNode*> &current, TreeNode *parent)
 {
     do {
@@ -60,6 +100,12 @@ void ReadXmlFile::ReadBranch(XMLElement* node, vector<TreeNode*> &current, TreeN
     while(node != 0);    
 }
 
+///
+/// \brief ReadXmlFile::ReadNode
+/// \param elem
+/// \param parent
+/// \return
+///
 TreeNode* ReadXmlFile::ReadNode(XMLElement* elem, TreeNode *parent)
 {
     TreeNode* node = 0;
@@ -87,6 +133,11 @@ TreeNode* ReadXmlFile::ReadNode(XMLElement* elem, TreeNode *parent)
     return node;
 }
 
+///
+/// \brief ReadXmlFile::ExtractEntryNode
+/// \param elem
+/// \return
+///
 TreeNode* ReadXmlFile::ExtractEntryNode(XMLElement* elem)
 {
     TreeNode* node = new TreeNode();

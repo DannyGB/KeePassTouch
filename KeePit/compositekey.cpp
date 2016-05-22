@@ -1,3 +1,23 @@
+/*
+* This file is part of KeePit
+*
+* Copyright (C) 2016 Dan Beavon
+*
+* This program is free software; you can redistribute it and/or
+* modify it under the terms of the GNU General Public License
+* as published by the Free Software Foundation; either version 2
+* of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+* GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License
+* along with this program; if not, write to the Free Software
+* Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+*/
+
 #include "compositekey.h"
 #include "sha256.h"
 
@@ -21,6 +41,11 @@ struct String {
     size_t length;
 };
 
+///
+/// \brief CompositeKey::CompositeKey
+/// \param pbKey
+/// \param pbKeyFile
+///
 CompositeKey::CompositeKey(vector<char> pbKey, vector<char> pbKeyFile)
 {
     m_pbKey = pbKey;
@@ -31,6 +56,12 @@ CompositeKey::CompositeKey(vector<char> pbKey, vector<char> pbKeyFile)
     }
 }
 
+///
+/// \brief CompositeKey::generateKey32
+/// \param pbKeySeed32
+/// \param uNumRounds
+/// \return
+///
 vector<char> CompositeKey::generateKey32(vector<char> pbKeySeed32, ulong uNumRounds) {
     assert(pbKeySeed32.size() == MASTER_KEY_SIZE);
     if(pbKeySeed32.size() != MASTER_KEY_SIZE) {
@@ -65,6 +96,11 @@ vector<char> CompositeKey::generateKey32(vector<char> pbKeySeed32, ulong uNumRou
     return pbTrf32;
 }
 
+///
+/// \brief CompositeKey::createRawCompositeKey
+/// \param key
+/// \return
+///
 vector<char> CompositeKey::createRawCompositeKey(vector<char> key) {
 
     SHA256 sha256;
@@ -73,6 +109,13 @@ vector<char> CompositeKey::createRawCompositeKey(vector<char> key) {
     return hash;
 }
 
+///
+/// \brief CompositeKey::transformKey
+/// \param pbOriginalKey32
+/// \param pbKeySeed32
+/// \param uNumRounds
+/// \return
+///
 vector<char> CompositeKey::transformKey(vector<char> pbOriginalKey32, vector<char> pbKeySeed32, ulong uNumRounds) {
     if(pbOriginalKey32.size() != MASTER_KEY_SIZE) throw new std::exception();
     assert((pbKeySeed32.size() == MASTER_KEY_SIZE));

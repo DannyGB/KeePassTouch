@@ -1,3 +1,23 @@
+/*
+* This file is part of KeePit
+*
+* Copyright (C) 2016 Dan Beavon
+*
+* This program is free software; you can redistribute it and/or
+* modify it under the terms of the GNU General Public License
+* as published by the Free Software Foundation; either version 2
+* of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+* GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License
+* along with this program; if not, write to the Free Software
+* Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+*/
+
 #include "aes.h"
 #include <string>
 
@@ -13,6 +33,14 @@ Aes::Aes()
 {
 }
 
+/// \brief Aes::decrypt
+///        Decrypts an AES byte array using CryptoPP
+/// \param pbAesKey The Aes key used to decrypt the file
+/// \param keysize The size of the key
+/// \param pbEncryptionIV The encryption IV
+/// \param pbFileContent The pointer to a byte array containing the Aes encrypted content
+/// \param contentSize The size of the content
+/// \return A string containing the decrypted file content
 string Aes::decrypt(byte * pbAesKey, uint keysize, byte* pbEncryptionIV, byte* pbFileContent, uint contentSize) {
 
     string recovered;

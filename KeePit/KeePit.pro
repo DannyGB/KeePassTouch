@@ -144,7 +144,9 @@ SOURCES += main.cpp \
     readkeyfile.cpp \
     database.cpp \
     arrayextensions.cpp \
-    aes.cpp
+    aes.cpp \
+    filehandler.cpp \
+    bytestream.cpp \   
 
 RESOURCES += KeePit.qrc
 
@@ -329,7 +331,10 @@ HEADERS += \
     readkeyfile.h \
     database.h \
     arrayextensions.h \
-    aes.h
+    aes.h \
+    filehandler.h \
+    bytestream.h \  
+    stdafx.h
 
 DISTFILES += \
     OpenDatabase.qml \
@@ -345,28 +350,15 @@ DISTFILES += \
     cryptopp/eccrypto.o \
     cryptopp/algebra.o \
     cryptopp/adhoc.o \
-    cryptopp/dlltest.vcproj \
-    cryptopp/cryptlib.vcproj \
-    cryptopp/cryptest.vcproj \
-    cryptopp/cryptdll.vcproj \
-    cryptopp/Readme.txt \
-    cryptopp/License.txt \
-    cryptopp/Doxyfile \
-    cryptopp/dlltest.dsp \
-    cryptopp/cryptlib.dsp \
-    cryptopp/cryptlib_bds.bdsproj \
-    cryptopp/cryptest.sln \
-    cryptopp/cryptest.dsw \
-    cryptopp/cryptest.dsp \
-    cryptopp/cryptest_bds.bpf \
-    cryptopp/cryptest_bds.bdsproj \
-    cryptopp/cryptest_bds.bdsgroup \
-    cryptopp/cryptdll.dsp \
-    cryptopp/x64masm.asm \
-    cryptopp/x64dll.asm \
     cryptopp/Makefile \
-    cryptopp/GNUmakefile \
     KeePit.desktop \
     KeePit.png \
     KeePit.contenthub \
     KeePit.apparmor
+
+unix:!macx: LIBS += -L$$OUT_PWD/../ziplib/ -lziplib
+
+INCLUDEPATH += $$PWD/../ziplib
+DEPENDPATH += $$PWD/../ziplib
+
+unix:!macx: PRE_TARGETDEPS += $$OUT_PWD/../ziplib/libziplib.a

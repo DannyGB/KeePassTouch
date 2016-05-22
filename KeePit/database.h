@@ -1,3 +1,23 @@
+/*
+* This file is part of KeePit
+*
+* Copyright (C) 2016 Dan Beavon
+*
+* This program is free software; you can redistribute it and/or
+* modify it under the terms of the GNU General Public License
+* as published by the Free Software Foundation; either version 2
+* of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+* GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License
+* along with this program; if not, write to the Free Software
+* Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+*/
+
 #ifndef DATABASE_H
 #define DATABASE_H
 
@@ -9,6 +29,7 @@
 #include "treenode.h"
 #include "passwordentry.h"
 #include "salsa20.h"
+#include "bytestream.h"
 
 using namespace std;
 
@@ -35,13 +56,12 @@ Q_SIGNALS:
 protected:
     bool equal(char*, char*, uint);
     uint loadByte(char*, int);
-    uint readHeaderField(char*, int, bool*, bool*);
+    void readHeaderField(ByteStream*, bool*, bool*);
     uint readBytes(char*, int, uint);    
     bool fileExists(const char *);
     std::string generateSHA256Hash(char*, uint);
     bool getChildBranch(QString, vector<TreeNode*>);
-    bool getMyBranch(QString, vector<TreeNode*>);
-    char* readFile(QString, std::streampos&);
+    bool getMyBranch(QString, vector<TreeNode*>);    
     void readPayload(vector<char>*, vector<char>);
     void searchInternal(QString, vector<TreeNode*>);
 
@@ -56,6 +76,10 @@ private:
     char *m_pbProtectedStreamKey;//[32];
     char *m_pbStreamStartBytes;//[32];
     char *m_pbInnerRandomStreamID;//[4];
+    bool foundAny = false;
+    vector<TreeNode*> dataTree;
+    vector<TreeNode*> current;
+    uint uCompression;
 };
 
 #endif // DATABASE_H

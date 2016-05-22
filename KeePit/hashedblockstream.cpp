@@ -1,4 +1,25 @@
+/*
+* This file is part of KeePit
+*
+* Copyright (C) 2016 Dan Beavon
+*
+* This program is free software; you can redistribute it and/or
+* modify it under the terms of the GNU General Public License
+* as published by the Free Software Foundation; either version 2
+* of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+* GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License
+* along with this program; if not, write to the Free Software
+* Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+*/
+
 #include "hashedblockstream.h"
+#include "arrayextensions.h"
 #include "sha256.h"
 
 #include <algorithm>
@@ -9,30 +30,55 @@
 using namespace std;
 
 const int m_nDefaultBufferSize = 1024 * 1024; // 1 MB
-vector<char> m_sBaseStream;
-bool m_bWriting;
-bool m_bVerify;
 
+///
+/// \brief HashedBlockStream::~HashedBlockStream
+///
+HashedBlockStream::~HashedBlockStream()
+{
+    this->Reset();
+}
 
-int m_nBufferPos = 0;
-uint m_uBufferIndex = 0;
-int blockBufferPos = 0;
-
+///
+/// \brief HashedBlockStream::HashedBlockStream
+/// \param sBaseStream
+/// \param bWriting
+///
 HashedBlockStream::HashedBlockStream(vector<char> sBaseStream, bool bWriting)
 {
     Initialize(sBaseStream, bWriting, 0, true);
 }
 
+///
+/// \brief HashedBlockStream::HashedBlockStream
+/// \param sBaseStream
+/// \param bWriting
+/// \param nBuffersize
+///
 HashedBlockStream::HashedBlockStream(vector<char> sBaseStream, bool bWriting, int nBuffersize)
 {
     Initialize(sBaseStream, bWriting, nBuffersize, true);
 }
 
+///
+/// \brief HashedBlockStream::HashedBlockStream
+/// \param sBaseStream
+/// \param bWriting
+/// \param nBuffersize
+/// \param bVerify
+///
 HashedBlockStream::HashedBlockStream(vector<char> sBaseStream, bool bWriting, int nBuffersize, bool bVerify)
 {
     Initialize(sBaseStream, bWriting, nBuffersize, bVerify);
 }
 
+///
+/// \brief HashedBlockStream::Initialize
+/// \param sBaseStream
+/// \param bWriting
+/// \param nBufferSize
+/// \param bVerify
+///
 void HashedBlockStream::Initialize(vector<char> sBaseStream, bool bWriting, int nBufferSize, bool bVerify) {
     //if(sBaseStream == NULL) throw exception();
     if(nBufferSize < 0) throw exception();
@@ -47,6 +93,13 @@ void HashedBlockStream::Initialize(vector<char> sBaseStream, bool bWriting, int 
     m_bVerify = bVerify;
 }
 
+///
+/// \brief HashedBlockStream::Read
+/// \param pbBuffer
+/// \param nOffset
+/// \param nCount
+/// \return
+///
 int HashedBlockStream::Read(vector<char>* pbBuffer, int nOffset, int nCount)
 {
     if(m_bWriting) throw exception();
@@ -79,6 +132,10 @@ int HashedBlockStream::Read(vector<char>* pbBuffer, int nOffset, int nCount)
     return nCount;
 }
 
+///
+/// \brief HashedBlockStream::ReadHashedBlock
+/// \return
+///
 bool HashedBlockStream::ReadHashedBlock()
 {
     if(m_bEos) return false; // End of stream reached already
@@ -159,6 +216,13 @@ bool HashedBlockStream::ReadHashedBlock()
     return true;
 }
 
+///
+/// \brief HashedBlockStream::readBytes
+/// \param memblock
+/// \param offset
+/// \param size
+/// \return
+///
 int HashedBlockStream::readBytes(vector<char> memblock, int offset, uint size)
 {
     int result = 0;
@@ -173,4 +237,22 @@ int HashedBlockStream::readBytes(vector<char> memblock, int offset, uint size)
     }
 
     return result;
+}
+
+///
+/// \brief HashedBlockStream::Reset
+///
+void HashedBlockStream::Reset()
+{
+    for(uint i = 0; i<m_pbBuffer.size() ;i++) {
+        m_pbBuffer[i] = 0;
+    }
+
+    ArrayExtensions::Reset(m_pbBuffer);
+
+    for(uint i = 0; i<m_sBaseStream.size() ;i++) {
+        m_sBaseStream[i] = 0;
+    }
+
+    ArrayExtensions::Reset(m_sBaseStream);
 }
