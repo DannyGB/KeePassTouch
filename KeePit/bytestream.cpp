@@ -7,6 +7,10 @@ typedef unsigned char byte;
 #define BYTESIZE 4
 #define SHORTSIZE 2
 
+/// \brief ByteStream::ByteStream
+///        A container for a byte array
+/// \param memblock The array to stream
+/// \param size The size of the array
 ByteStream::ByteStream(char* memblock, uint size)
 {
     vector<char> b(memblock, memblock + size);
@@ -14,6 +18,8 @@ ByteStream::ByteStream(char* memblock, uint size)
     pos = 0;
 }
 
+/// \brief ByteStream::~ByteStream
+///        ByteStream destructor
 ByteStream::~ByteStream()
 {
     for(uint i = 0; i<buffer.size(); i++)
@@ -24,7 +30,10 @@ ByteStream::~ByteStream()
     ArrayExtensions::Reset(buffer);
 }
 
-// Static method that reads only a byte from the given memblock array
+/// \brief ByteStream::ReadByte
+///        Static method that reads only a byte from the given memblock array
+/// \param memblock The char array to read from
+/// \return A uint containing the byte read
 uint ByteStream::ReadByte(char* memblock)
 {
     int tmpPos = 0;
@@ -45,7 +54,11 @@ uint ByteStream::ReadByte(char* memblock)
     return result;
 }
 
-// Reads a byte from the array given in the ctor and advances the pos
+///
+/// \brief ByteStream::ReadByte
+///        Reads a byte from the array given in the ctor and advances the pos
+/// \return
+///
 uint ByteStream::ReadByte()
 {
     uint result = 0;
@@ -64,7 +77,11 @@ uint ByteStream::ReadByte()
     return result;
 }
 
-// Reads a ushort from the array given in the ctor and advances the pos
+///
+/// \brief ByteStream::ReadShort
+///        Reads a ushort from the array given in the ctor and advances the pos
+/// \return
+///
 ushort ByteStream::ReadShort()
 {
     ushort result = 0;
@@ -83,7 +100,11 @@ ushort ByteStream::ReadShort()
     return result;
 }
 
-// Reads 1 byte at a time from the array given in the ctor
+///
+/// \brief ByteStream::Read
+///        Reads 1 byte at a time from the array given in the ctor
+/// \return
+///
 char ByteStream::Read()
 {
     char result = buffer[pos];
@@ -92,7 +113,11 @@ char ByteStream::Read()
     return result;
 }
 
-// Returns the current position in the array we have read to
+///
+/// \brief ByteStream::GetPosition
+///        Returns the current position in the array we have read to
+/// \return
+///
 int ByteStream::GetPosition()
 {
     return pos;

@@ -35,6 +35,11 @@ Base64::Base64()
 {
 }
 
+/// \brief Base64::base64_encode
+///        Base64 encodes the given pointer to the char array
+/// \param buf The buffer to encode
+/// \param bufLen The length of the buffer
+/// \return A string containing the base64 encoded content
 std::string Base64::base64_encode(char const* buf, unsigned int bufLen) {
   std::string ret;
   int i = 0;
@@ -76,6 +81,10 @@ std::string Base64::base64_encode(char const* buf, unsigned int bufLen) {
   return ret;
 }
 
+/// \brief Base64::base64_decode
+///        Decodes a base64 string
+/// \param encoded_string The encoded string
+/// \return A vector of char containing the encoded content
 std::vector<char> Base64::base64_decode(std::string const& encoded_string) {
   int in_len = encoded_string.size();
   int i = 0;

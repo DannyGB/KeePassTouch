@@ -41,6 +41,11 @@ struct String {
     size_t length;
 };
 
+///
+/// \brief CompositeKey::CompositeKey
+/// \param pbKey
+/// \param pbKeyFile
+///
 CompositeKey::CompositeKey(vector<char> pbKey, vector<char> pbKeyFile)
 {
     m_pbKey = pbKey;
@@ -51,6 +56,12 @@ CompositeKey::CompositeKey(vector<char> pbKey, vector<char> pbKeyFile)
     }
 }
 
+///
+/// \brief CompositeKey::generateKey32
+/// \param pbKeySeed32
+/// \param uNumRounds
+/// \return
+///
 vector<char> CompositeKey::generateKey32(vector<char> pbKeySeed32, ulong uNumRounds) {
     assert(pbKeySeed32.size() == MASTER_KEY_SIZE);
     if(pbKeySeed32.size() != MASTER_KEY_SIZE) {
@@ -85,6 +96,11 @@ vector<char> CompositeKey::generateKey32(vector<char> pbKeySeed32, ulong uNumRou
     return pbTrf32;
 }
 
+///
+/// \brief CompositeKey::createRawCompositeKey
+/// \param key
+/// \return
+///
 vector<char> CompositeKey::createRawCompositeKey(vector<char> key) {
 
     SHA256 sha256;
@@ -93,6 +109,13 @@ vector<char> CompositeKey::createRawCompositeKey(vector<char> key) {
     return hash;
 }
 
+///
+/// \brief CompositeKey::transformKey
+/// \param pbOriginalKey32
+/// \param pbKeySeed32
+/// \param uNumRounds
+/// \return
+///
 vector<char> CompositeKey::transformKey(vector<char> pbOriginalKey32, vector<char> pbKeySeed32, ulong uNumRounds) {
     if(pbOriginalKey32.size() != MASTER_KEY_SIZE) throw new std::exception();
     assert((pbKeySeed32.size() == MASTER_KEY_SIZE));

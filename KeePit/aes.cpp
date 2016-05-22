@@ -33,6 +33,14 @@ Aes::Aes()
 {
 }
 
+/// \brief Aes::decrypt
+///        Decrypts an AES byte array using CryptoPP
+/// \param pbAesKey The Aes key used to decrypt the file
+/// \param keysize The size of the key
+/// \param pbEncryptionIV The encryption IV
+/// \param pbFileContent The pointer to a byte array containing the Aes encrypted content
+/// \param contentSize The size of the content
+/// \return A string containing the decrypted file content
 string Aes::decrypt(byte * pbAesKey, uint keysize, byte* pbEncryptionIV, byte* pbFileContent, uint contentSize) {
 
     string recovered;

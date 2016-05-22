@@ -25,15 +25,28 @@
 
 using namespace std;
 
+///
+/// \brief FileHandler::FileHandler
+///
 FileHandler::FileHandler()
 {
 }
 
+///
+/// \brief FileHandler::deleteFile
+/// \param filePath
+///
 void FileHandler::deleteFile(QString filePath)
 {
     remove(filePath.toStdString().c_str());
 }
 
+///
+/// \brief FileHandler::readFile
+/// \param filePath
+/// \param size
+/// \return
+///
 char* FileHandler::readFile(QString filePath, std::streampos &size)
 {
     ifstream file;
@@ -61,6 +74,11 @@ char* FileHandler::readFile(QString filePath, std::streampos &size)
 
 }*/
 
+///
+/// \brief FileHandler::fileExists
+/// \param fileName
+/// \return
+///
 bool FileHandler::fileExists(const char* fileName)
 {
     ifstream infile(fileName);

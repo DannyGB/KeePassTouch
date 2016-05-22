@@ -26,6 +26,11 @@
 
 using namespace std;
 
+///
+/// \brief Salsa20::Salsa20
+/// \param pbKey
+/// \param pbIv
+///
 Salsa20::Salsa20(vector<char> pbKey, char* pbIv)
 {
     m_xpbKey = pbKey;
@@ -43,10 +48,18 @@ Salsa20::Salsa20(vector<char> pbKey, char* pbIv)
     salsa.SetKeyWithIV(key, 32, iv);
 }
 
+///
+/// \brief Salsa20::~Salsa20
+///
 Salsa20::~Salsa20()
 {
 }
 
+///
+/// \brief Salsa20::decrypt
+/// \param cipherText
+/// \return
+///
 byte* Salsa20::decrypt(vector<char> cipherText)
 {
     byte* cipherTextBytes = new byte[cipherText.size()];

@@ -89,18 +89,32 @@ const uint FileVersionCriticalMask = 0xFFFF0000;
 const uint FileVersion32 = 0x00030001;
 PasswordEntryModel* model;
 
+///
+/// \brief Database::Database
+/// \param parent
+///
 Database::Database(QObject *parent) :
     QObject(parent)
 {    
 }
 
+///
+/// \brief Database::~Database
+///
 Database::~Database() {
 }
 
+///
+/// \brief Database::deleteFile
+/// \param filePath
+///
 void Database::deleteFile(QString filePath) {
     FileHandler::deleteFile(filePath);
 }
 
+///
+/// \brief Database::loadHome
+///
 void Database::loadHome() {
     model->removeRows(0, model->rowCount());
     for(uint i=0;i<dataTree.size();i++) {
@@ -108,11 +122,20 @@ void Database::loadHome() {
     }
 }
 
+///
+/// \brief Database::search
+/// \param name
+///
 void Database::search(QString name) {
     foundAny = false;
     searchInternal(name, dataTree);
 }
 
+///
+/// \brief Database::searchInternal
+/// \param name
+/// \param node
+///
 void Database::searchInternal(QString name, vector<TreeNode*> node) {
     for(uint i=0;i<node.size();i++) {
         QString strTitle = node[i]->passwordEntry().title();
@@ -130,6 +153,12 @@ void Database::searchInternal(QString name, vector<TreeNode*> node) {
     }
 }
 
+///
+/// \brief Database::reloadBranch
+/// \param uuid
+/// \param entryType
+/// \return
+///
 QString Database::reloadBranch(QString uuid, int entryType)
 {
     QString retVal;
@@ -162,6 +191,10 @@ QString Database::reloadBranch(QString uuid, int entryType)
     return retVal;
 }
 
+///
+/// \brief Database::selectBranch
+/// \param uuid
+///
 void Database::selectBranch(QString uuid)
 {
     if(getChildBranch(uuid, dataTree)) {
@@ -172,6 +205,12 @@ void Database::selectBranch(QString uuid)
     }
 }
 
+///
+/// \brief Database::getChildBranch
+/// \param uuid
+/// \param currentBranch
+/// \return
+///
 bool Database::getChildBranch(QString uuid, vector<TreeNode*> currentBranch)
 {
     TreeNode* node;
@@ -192,6 +231,12 @@ bool Database::getChildBranch(QString uuid, vector<TreeNode*> currentBranch)
     return false;
 }
 
+///
+/// \brief Database::getMyBranch
+/// \param uuid
+/// \param currentBranch
+/// \return
+///
 bool Database::getMyBranch(QString uuid, vector<TreeNode*> currentBranch)
 {
     TreeNode* node;
@@ -212,6 +257,10 @@ bool Database::getMyBranch(QString uuid, vector<TreeNode*> currentBranch)
     return false;
 }
 
+///
+/// \brief Database::createModel
+/// \return
+///
 PasswordEntryModel* Database::createModel()
 {
     model = new PasswordEntryModel();    
@@ -219,6 +268,9 @@ PasswordEntryModel* Database::createModel()
     return model;
 }
 
+///
+/// \brief Database::closeFile
+///
 void Database::closeFile() {
     if(m_dbState != open) {
         return;
@@ -232,6 +284,12 @@ void Database::closeFile() {
     m_dbState = closed;
 }
 
+///
+/// \brief Database::openFile
+/// \param url
+/// \param password
+/// \param passKey
+///
 void Database::openFile(QString url, QString password, QString passKey) {
 
     if(m_dbState == open) {
@@ -444,6 +502,11 @@ void Database::openFile(QString url, QString password, QString passKey) {
     return;
 }
 
+///
+/// \brief Database::readPayload
+/// \param read
+/// \param payload
+///
 void Database::readPayload(vector<char>* read, vector<char> payload) {
 
     HashedBlockStream *hashedStream = new HashedBlockStream(payload, false, 0, true);
@@ -462,7 +525,13 @@ void Database::readPayload(vector<char>* read, vector<char> payload) {
     assert (hashedStream == 0);
 }
 
-// Read the header information from the stream
+///
+/// \brief Database::readHeaderField
+///        Read the header information from the stream
+/// \param byteStream
+/// \param endOfHeaderReached
+/// \param readError
+///
 void Database::readHeaderField(ByteStream* byteStream, bool* endOfHeaderReached, bool *readError)
 {    
     char btFieldID = byteStream->Read();

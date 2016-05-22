@@ -26,6 +26,12 @@
 #include "database.h"
 #include "passwordentry.h"
 
+///
+/// \brief main
+/// \param argc
+/// \param argv
+/// \return
+///
 int main(int argc, char *argv[])
 {
     QGuiApplication app(argc, argv);

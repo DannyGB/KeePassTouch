@@ -31,26 +31,54 @@ using namespace std;
 
 const int m_nDefaultBufferSize = 1024 * 1024; // 1 MB
 
+///
+/// \brief HashedBlockStream::~HashedBlockStream
+///
 HashedBlockStream::~HashedBlockStream()
 {
     this->Reset();
 }
 
+///
+/// \brief HashedBlockStream::HashedBlockStream
+/// \param sBaseStream
+/// \param bWriting
+///
 HashedBlockStream::HashedBlockStream(vector<char> sBaseStream, bool bWriting)
 {
     Initialize(sBaseStream, bWriting, 0, true);
 }
 
+///
+/// \brief HashedBlockStream::HashedBlockStream
+/// \param sBaseStream
+/// \param bWriting
+/// \param nBuffersize
+///
 HashedBlockStream::HashedBlockStream(vector<char> sBaseStream, bool bWriting, int nBuffersize)
 {
     Initialize(sBaseStream, bWriting, nBuffersize, true);
 }
 
+///
+/// \brief HashedBlockStream::HashedBlockStream
+/// \param sBaseStream
+/// \param bWriting
+/// \param nBuffersize
+/// \param bVerify
+///
 HashedBlockStream::HashedBlockStream(vector<char> sBaseStream, bool bWriting, int nBuffersize, bool bVerify)
 {
     Initialize(sBaseStream, bWriting, nBuffersize, bVerify);
 }
 
+///
+/// \brief HashedBlockStream::Initialize
+/// \param sBaseStream
+/// \param bWriting
+/// \param nBufferSize
+/// \param bVerify
+///
 void HashedBlockStream::Initialize(vector<char> sBaseStream, bool bWriting, int nBufferSize, bool bVerify) {
     //if(sBaseStream == NULL) throw exception();
     if(nBufferSize < 0) throw exception();
@@ -65,6 +93,13 @@ void HashedBlockStream::Initialize(vector<char> sBaseStream, bool bWriting, int 
     m_bVerify = bVerify;
 }
 
+///
+/// \brief HashedBlockStream::Read
+/// \param pbBuffer
+/// \param nOffset
+/// \param nCount
+/// \return
+///
 int HashedBlockStream::Read(vector<char>* pbBuffer, int nOffset, int nCount)
 {
     if(m_bWriting) throw exception();
@@ -97,6 +132,10 @@ int HashedBlockStream::Read(vector<char>* pbBuffer, int nOffset, int nCount)
     return nCount;
 }
 
+///
+/// \brief HashedBlockStream::ReadHashedBlock
+/// \return
+///
 bool HashedBlockStream::ReadHashedBlock()
 {
     if(m_bEos) return false; // End of stream reached already
@@ -177,6 +216,13 @@ bool HashedBlockStream::ReadHashedBlock()
     return true;
 }
 
+///
+/// \brief HashedBlockStream::readBytes
+/// \param memblock
+/// \param offset
+/// \param size
+/// \return
+///
 int HashedBlockStream::readBytes(vector<char> memblock, int offset, uint size)
 {
     int result = 0;
@@ -193,6 +239,9 @@ int HashedBlockStream::readBytes(vector<char> memblock, int offset, uint size)
     return result;
 }
 
+///
+/// \brief HashedBlockStream::Reset
+///
 void HashedBlockStream::Reset()
 {
     for(uint i = 0; i<m_pbBuffer.size() ;i++) {

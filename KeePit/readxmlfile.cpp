@@ -31,6 +31,12 @@
 
 using namespace tinyxml2;
 
+///
+/// \brief ReadXmlFile::ReadXmlFile
+/// \param xml
+/// \param size
+/// \param salsa
+///
 ReadXmlFile::ReadXmlFile(const char* xml, size_t size, Salsa20 *salsa)
 {
     m_xml = xml;
@@ -38,6 +44,9 @@ ReadXmlFile::ReadXmlFile(const char* xml, size_t size, Salsa20 *salsa)
     m_salsa = salsa;
 }
 
+///
+/// \brief ReadXmlFile::~ReadXmlFile
+///
 ReadXmlFile::~ReadXmlFile()
 {
     delete m_salsa;
@@ -46,6 +55,10 @@ ReadXmlFile::~ReadXmlFile()
     lastRead = 0;
 }
 
+///
+/// \brief ReadXmlFile::GetTopGroup
+/// \return
+///
 vector<TreeNode*> ReadXmlFile::GetTopGroup()
 {
     XMLDocument doc;
@@ -67,6 +80,12 @@ vector<TreeNode*> ReadXmlFile::GetTopGroup()
     return topLevel;
 }
 
+///
+/// \brief ReadXmlFile::ReadBranch
+/// \param node
+/// \param current
+/// \param parent
+///
 void ReadXmlFile::ReadBranch(XMLElement* node, vector<TreeNode*> &current, TreeNode *parent)
 {
     do {
@@ -81,6 +100,12 @@ void ReadXmlFile::ReadBranch(XMLElement* node, vector<TreeNode*> &current, TreeN
     while(node != 0);    
 }
 
+///
+/// \brief ReadXmlFile::ReadNode
+/// \param elem
+/// \param parent
+/// \return
+///
 TreeNode* ReadXmlFile::ReadNode(XMLElement* elem, TreeNode *parent)
 {
     TreeNode* node = 0;
@@ -108,6 +133,11 @@ TreeNode* ReadXmlFile::ReadNode(XMLElement* elem, TreeNode *parent)
     return node;
 }
 
+///
+/// \brief ReadXmlFile::ExtractEntryNode
+/// \param elem
+/// \return
+///
 TreeNode* ReadXmlFile::ExtractEntryNode(XMLElement* elem)
 {
     TreeNode* node = new TreeNode();

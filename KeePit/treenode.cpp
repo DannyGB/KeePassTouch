@@ -23,46 +23,84 @@
 
 using namespace std;
 
+///
+/// \brief TreeNode::TreeNode
+///
 TreeNode::TreeNode()
     : m_parent(0)
 {
 }
 
+///
+/// \brief TreeNode::TreeNode
+/// \param passwordEntry
+///
 TreeNode::TreeNode(const PasswordEntry &passwordEntry)
     : m_passwordEntry(passwordEntry), m_parent(0)
 {    
 }
 
+///
+/// \brief TreeNode::TreeNode
+/// \param passwordEntry
+/// \param parent
+///
 TreeNode::TreeNode(const PasswordEntry &passwordEntry, TreeNode *parent)
     : m_passwordEntry(passwordEntry), m_parent(parent)
 {
 }
 
+///
+/// \brief TreeNode::TreeNode
+/// \param passwordEntry
+/// \param next
+/// \param parent
+///
 TreeNode::TreeNode(const PasswordEntry &passwordEntry, const vector<TreeNode*> &next, TreeNode *parent)
     : m_passwordEntry(passwordEntry), m_next(next), m_parent(parent)
 {
 }
 
+///
+/// \brief TreeNode::passwordEntry
+/// \return
+///
 PasswordEntry TreeNode::passwordEntry() const
 {
     return m_passwordEntry;
 }
 
+///
+/// \brief TreeNode::next
+/// \return
+///
 vector<TreeNode*> TreeNode::next() const
 {
     return m_next;
 }
 
+///
+/// \brief TreeNode::parent
+/// \return
+///
 TreeNode* TreeNode::parent()
 {
     return m_parent;
 }
 
+///
+/// \brief TreeNode::isFirst
+/// \return
+///
 bool TreeNode::isFirst()
 {
     return true;
 }
 
+///
+/// \brief TreeNode::isLast
+/// \return
+///
 bool TreeNode::isLast()
 {
     return true;

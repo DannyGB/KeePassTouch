@@ -25,10 +25,18 @@
 
 using namespace std;
 
+///
+/// \brief SHA256::SHA256
+///
 SHA256::SHA256()
 {
 }
 
+///
+/// \brief SHA256::computeHash
+/// \param message
+/// \return
+///
 vector<char> SHA256::computeHash(vector<char> message) {
 
     CryptoPP::SHA256 hash;

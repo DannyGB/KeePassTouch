@@ -20,60 +20,109 @@
 
 #include "passwordentry.h"
 
+///
+/// \brief PasswordEntry::PasswordEntry
+///
 PasswordEntry::PasswordEntry()
 {
 }
 
+///
+/// \brief PasswordEntry::PasswordEntry
+/// \param title
+/// \param password
+/// \param entryType
+///
 PasswordEntry::PasswordEntry(const QString &title, const QString &password, PasswordEntryType entryType)
     : m_title(title), m_password(password), m_entryType(entryType)
 {
 }
 
+///
+/// \brief PasswordEntry::title
+/// \return
+///
 QString PasswordEntry::title() const
 {
     return m_title;
 }
 
+///
+/// \brief PasswordEntry::password
+/// \return
+///
 QString PasswordEntry::password() const
 {
     return m_password;
 }
 
+///
+/// \brief PasswordEntry::passwordProtected
+/// \return
+///
 bool PasswordEntry::passwordProtected() const
 {
     return m_passwordProtected;
 }
 
+///
+/// \brief PasswordEntry::entryType
+/// \return
+///
 PasswordEntryType PasswordEntry::entryType() const
 {
     return m_entryType;
 }
 
+///
+/// \brief PasswordEntry::uuid
+/// \return
+///
 QString PasswordEntry::uuid() const
 {
     return m_uuid;
 }
 
+///
+/// \brief PasswordEntry::username
+/// \return
+///
 QString PasswordEntry::username() const
 {
     return m_username;
 }
 
+///
+/// \brief PasswordEntry::url
+/// \return
+///
 QString PasswordEntry::url() const
 {
     return m_url;
 }
 
+///
+/// \brief PasswordEntry::notes
+/// \return
+///
 QString PasswordEntry::notes() const
 {
     return m_notes;
 }
 
+///
+/// \brief PasswordEntryModel::PasswordEntryModel
+/// \param parent
+///
 PasswordEntryModel::PasswordEntryModel(QObject *parent)
     : QAbstractListModel(parent)
 {
 }
 
+///
+/// \brief PasswordEntryModel::addPasswordEntry
+/// \param passwordEntry
+///
 void PasswordEntryModel::addPasswordEntry(const PasswordEntry &passwordEntry)
 {
     beginInsertRows(QModelIndex(), rowCount(), rowCount());
@@ -81,11 +130,22 @@ void PasswordEntryModel::addPasswordEntry(const PasswordEntry &passwordEntry)
     endInsertRows();
 }
 
+///
+/// \brief PasswordEntryModel::rowCount
+/// \param parent
+/// \return
+///
 int PasswordEntryModel::rowCount(const QModelIndex & parent) const {
     Q_UNUSED(parent);
     return m_passwordEntries.count();
 }
 
+///
+/// \brief PasswordEntryModel::data
+/// \param index
+/// \param role
+/// \return
+///
 QVariant PasswordEntryModel::data(const QModelIndex & index, int role) const {
     if (index.row() < 0 || index.row() >= m_passwordEntries.count())
         return QVariant();
@@ -110,6 +170,10 @@ QVariant PasswordEntryModel::data(const QModelIndex & index, int role) const {
     return QVariant();
 }
 
+///
+/// \brief PasswordEntryModel::roleNames
+/// \return
+///
 QHash<int, QByteArray> PasswordEntryModel::roleNames() const {
     QHash<int, QByteArray> roles;
     roles[TitleRole] = "title";
@@ -123,10 +187,17 @@ QHash<int, QByteArray> PasswordEntryModel::roleNames() const {
     return roles;
 }
 
+///
+/// \brief PasswordEntryModel::removeRows
+/// \param row
+/// \param count
+/// \param parent
+/// \return
+///
 bool PasswordEntryModel::removeRows(int row, int count, const QModelIndex &parent) {
         Q_UNUSED(parent);
         beginRemoveRows(QModelIndex(), row, row + count - 1);
         while (count--) m_passwordEntries.takeAt(row);
         endRemoveRows();
         return true;
-    }
+}

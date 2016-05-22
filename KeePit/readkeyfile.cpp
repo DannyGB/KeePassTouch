@@ -28,10 +28,19 @@
 using namespace std;
 using namespace tinyxml2;
 
+///
+/// \brief ReadKeyFile::ReadKeyFile
+///
 ReadKeyFile::ReadKeyFile()
 {
 }
 
+///
+/// \brief ReadKeyFile::read
+/// \param memblock
+/// \param size
+/// \return
+///
 vector<char> ReadKeyFile::read(char *memblock, int size) const {
 
     XMLDocument doc;

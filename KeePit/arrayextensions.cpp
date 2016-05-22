@@ -24,6 +24,11 @@ ArrayExtensions::ArrayExtensions()
 {
 }
 
+/// \brief ArrayExtensions::toVector
+///        Converts a pointer to a char array into a Vector
+/// \param source The source pointer to a char array
+/// \param size The size of the array
+/// \return A vector containing the contents of the char array
 vector<char> ArrayExtensions::toVector(char* source, unsigned int size)
 {
     vector<char> destination;
