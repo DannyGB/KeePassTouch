@@ -37,6 +37,7 @@
 #include "readkeyfile.h"
 #include "filehandler.h"
 #include "bytestream.h"
+#include "../ziplib/GZipHelper.h"
 
 using namespace std;
 
@@ -465,6 +466,7 @@ void Database::openFile(QString url, QString password, QString passKey) {
 
     vector<char> payload;
     uint recoveredOffset = 32;
+
     for(uint i=recoveredOffset;i<recovered.size(); i++) {
         payload.push_back(recovered[i]);
     }
@@ -473,8 +475,26 @@ void Database::openFile(QString url, QString password, QString passKey) {
     vector<char> read;
     assert(read.size() == 0);
 
-    try {
+    try {       
+        // Now lets read the payload
         readPayload(&read, payload);
+
+        char *inter = new char[read.size()];
+        for(uint i = 0;i<read.size();i++) {
+            inter[i] = read[i];
+        }
+
+        // Are we gzipped, if so lets unzip:
+        if(uCompression == 1) { // We are compressed
+            // payload == the compressed buffer
+            CGZIP2A a((LPGZIP)inter, read.size());
+            read.clear();
+
+            for(uint i=0;i<a.Length; i++) {
+                read.push_back(a.psz[i]); // push uncompressed data back into read vector
+            }
+        }
+
     } catch(exception &ex) {
         emit error("Could not read payload (incorrect composite key?)");
         return;
@@ -545,7 +565,6 @@ void Database::readHeaderField(ByteStream* byteStream, bool* endOfHeaderReached,
         }
     }
 
-    uint uCompression;
     KdbxHeaderFieldID kdbID = (KdbxHeaderFieldID)btFieldID;
     switch(kdbID)
     {
@@ -568,11 +587,11 @@ void Database::readHeaderField(ByteStream* byteStream, bool* endOfHeaderReached,
             m_pbCompression = new char[uSize];
             copy(pbData, pbData + uSize, m_pbCompression);
             uCompression = ByteStream::ReadByte(m_pbCompression);
-            if(uCompression != 0) {
-                *readError = true;
-                emit error("Compressed Databases are not currently supported");
-                return;
-            }
+            //if(uCompression != 0) {
+            //    *readError = true;
+            //    emit error("Compressed Databases are not currently supported");
+            //    return;
+            //}
             break;
 
         case MasterSeed:

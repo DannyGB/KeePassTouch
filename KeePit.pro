@@ -6,7 +6,8 @@ TEMPLATE = subdirs
 #load Ubuntu specific features
 load(ubuntu-click)
 
-SUBDIRS += KeePit
+SUBDIRS += KeePit \
+    ziplib
 
 # specify the manifest file, this file is required for click
 # packaging and for the IDE to create runconfigurations

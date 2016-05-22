@@ -79,6 +79,7 @@ private:
     bool foundAny = false;
     vector<TreeNode*> dataTree;
     vector<TreeNode*> current;
+    uint uCompression;
 };
 
 #endif // DATABASE_H

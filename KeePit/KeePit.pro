@@ -146,7 +146,7 @@ SOURCES += main.cpp \
     arrayextensions.cpp \
     aes.cpp \
     filehandler.cpp \
-    bytestream.cpp
+    bytestream.cpp \   
 
 RESOURCES += KeePit.qrc
 
@@ -333,7 +333,8 @@ HEADERS += \
     arrayextensions.h \
     aes.h \
     filehandler.h \
-    bytestream.h
+    bytestream.h \  
+    stdafx.h
 
 DISTFILES += \
     OpenDatabase.qml \
@@ -354,3 +355,10 @@ DISTFILES += \
     KeePit.png \
     KeePit.contenthub \
     KeePit.apparmor
+
+unix:!macx: LIBS += -L$$OUT_PWD/../ziplib/ -lziplib
+
+INCLUDEPATH += $$PWD/../ziplib
+DEPENDPATH += $$PWD/../ziplib
+
+unix:!macx: PRE_TARGETDEPS += $$OUT_PWD/../ziplib/libziplib.a
