@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
-<!-- Written by QtCreator 3.5.0, 2016-05-22T16:18:09. -->
+<!-- Written by QtCreator 3.5.0, 2016-05-22T16:40:47. -->
 <qtcreator>
  <data>
   <variable>EnvironmentId</variable>
@@ -452,11 +452,11 @@
       <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">UbuntuProjectManager.UploadStep</value>
       <valuelist type="QVariantList" key="Qt4ProjectManager.MaemoRunConfiguration.LastDeployedFiles">
        <value type="QString">/home/dan/build-KeePass3-UbuntuSDK_for_armhf_GCC_ubuntu_sdk_15_04_vivid-Release/keepass3.username_0.1_armhf.click</value>
-       <value type="QString">/home/dan/build-KeePit-UbuntuSDK_for_armhf_GCC_ubuntu_sdk_15_04_vivid-Release/keepit.dannygb_1.0_armhf.click</value>
-       <value type="QString">/home/dan/build-KeePit-UbuntuSDK_for_armhf_GCC_ubuntu_sdk_15_04_vivid-Release/keepit.dannygb_1.2_armhf.click</value>
-       <value type="QString">/home/dan/build-KeePass3-UbuntuSDK_for_armhf_GCC_ubuntu_sdk_15_04_vivid-Release/keepass3.dannygb_0.1_armhf.click</value>
-       <value type="QString">/usr/share/qtcreator/ubuntu/scripts/qtc_device_applaunch.py</value>
        <value type="QString">/home/dan/build-KeePit-UbuntuSDK_for_armhf_GCC_ubuntu_sdk_15_04_vivid-Release/keepit.dannygb_2.0_armhf.click</value>
+       <value type="QString">/home/dan/build-KeePit-UbuntuSDK_for_armhf_GCC_ubuntu_sdk_15_04_vivid-Release/keepit.dannygb_1.2_armhf.click</value>
+       <value type="QString">/usr/share/qtcreator/ubuntu/scripts/qtc_device_applaunch.py</value>
+       <value type="QString">/home/dan/build-KeePit-UbuntuSDK_for_armhf_GCC_ubuntu_sdk_15_04_vivid-Release/keepit.dannygb_1.0_armhf.click</value>
+       <value type="QString">/home/dan/build-KeePass3-UbuntuSDK_for_armhf_GCC_ubuntu_sdk_15_04_vivid-Release/keepass3.dannygb_0.1_armhf.click</value>
       </valuelist>
       <valuelist type="QVariantList" key="Qt4ProjectManager.MaemoRunConfiguration.LastDeployedHosts">
        <value type="QString">127.0.0.1</value>
@@ -484,11 +484,11 @@
       </valuelist>
       <valuelist type="QVariantList" key="Qt4ProjectManager.MaemoRunConfiguration.LastDeployedTimes">
        <value type="QDateTime">2015-12-06T19:13:53</value>
-       <value type="QDateTime">2016-02-21T16:26:47</value>
+       <value type="QDateTime">2016-05-22T15:29:17</value>
        <value type="QDateTime">2016-03-14T20:53:57</value>
+       <value type="QDateTime">2016-05-22T15:29:17</value>
+       <value type="QDateTime">2016-02-21T16:26:47</value>
        <value type="QDateTime">2016-01-31T15:24:37</value>
-       <value type="QDateTime">2016-05-22T15:29:17</value>
-       <value type="QDateTime">2016-05-22T15:29:17</value>
       </valuelist>
      </valuemap>
      <value type="int" key="ProjectExplorer.BuildStepList.StepsCount">2</value>
