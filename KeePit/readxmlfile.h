@@ -25,7 +25,7 @@
 #include "treenode.h"
 #include "salsa20.h"
 #include "base64.h"
-#include "/home/dan/KeePass/libs/xml/tinyxml2.h"
+#include "tinyxml2.h"
 #include <string>
 #include <vector>
 
