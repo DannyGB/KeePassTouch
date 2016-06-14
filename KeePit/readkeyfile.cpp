@@ -44,7 +44,22 @@ ReadKeyFile::ReadKeyFile()
 vector<char> ReadKeyFile::read(char *memblock, int size) const {
 
     XMLDocument doc;
-    doc.Parse(memblock, size);
+    XMLError error = doc.Parse(memblock, size);
+
+    if (error != XML_SUCCESS)
+    {
+        // Non-XML files should be read as binary or hex strings.
+        if (size == 32)
+        {
+            return vector<char>(memblock, memblock + size);
+        }
+        else if (size == 64)
+        {
+            return readHex(memblock, size);
+        }
+
+        throw exception();
+    }
 
     string key;
     XMLElement* data = doc.FirstChildElement("KeyFile")->FirstChildElement("Key")->FirstChildElement("Data");
@@ -59,3 +74,23 @@ vector<char> ReadKeyFile::read(char *memblock, int size) const {
 
     return retVal;
 }
+
+///
+/// \brief ReadKeyFile::readHex
+/// \param memblock
+/// \param size
+/// \return
+///
+vector<char> ReadKeyFile::readHex(char *memblock, int size) const {
+    vector<char> retVal;
+
+    for (int i = 0; i < size; i = i + 2)
+    {
+        unsigned int hex;
+        sscanf(memblock + i, "%2X", &hex);
+        retVal.push_back((char)hex);
+    }
+
+    return retVal;
+}
+
