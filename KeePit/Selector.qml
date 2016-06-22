@@ -49,15 +49,15 @@ Page {
             keyFilePath = model.filePath
             keyFileName = model.fileName            
             pageStack.clear()
-            pageStack.push(openDatabase)
         } else {
             databaseFilePath = model.filePath            
             databaseFileName = model.fileName
             keyFilePath = ''
             keyFileName = ''
             pageStack.clear()
-            pageStack.push(openDatabase)
+
         }
+        pageStack.push(openDatabase)
 
         sourcesView.currentIndex = index;
     }
