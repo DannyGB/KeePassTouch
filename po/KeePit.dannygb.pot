@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-23 19:28+0000\n"
+"POT-Creation-Date: 2016-06-22 17:58+0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,125 +17,133 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: /home/dan/KeePit/KeePit/Entry.qml:33
+#: /home/huy/workspace/KeePassTouch/KeePit/Entry.qml:33
 msgid "Copy"
 msgstr ""
 
-#: /home/dan/KeePit/KeePit/Entry.qml:39
-#: /home/dan/KeePit/KeePit/ListEntryItems.qml:81
-#: /home/dan/KeePit/KeePit/Main.qml:131
+#: /home/huy/workspace/KeePassTouch/KeePit/Entry.qml:39
+#: /home/huy/workspace/KeePassTouch/KeePit/ListEntryItems.qml:81
+#: /home/huy/workspace/KeePassTouch/KeePit/Main.qml:131
 msgid "Settings"
 msgstr ""
 
-#: /home/dan/KeePit/KeePit/Importer.qml:115
+#: /home/huy/workspace/KeePassTouch/KeePit/Importer.qml:115
 msgid "Importing database..."
 msgstr ""
 
-#: /home/dan/KeePit/KeePit/Importer.qml:136
+#: /home/huy/workspace/KeePassTouch/KeePit/Importer.qml:136
 msgid "Waiting"
 msgstr ""
 
-#: /home/dan/KeePit/KeePit/Importer.qml:138
+#: /home/huy/workspace/KeePassTouch/KeePit/Importer.qml:138
 msgid "Processing"
 msgstr ""
 
-#: /home/dan/KeePit/KeePit/Importer.qml:140
+#: /home/huy/workspace/KeePassTouch/KeePit/Importer.qml:140
 #, qt-format
 msgid "Imported to %1"
 msgstr ""
 
-#: /home/dan/KeePit/KeePit/Importer.qml:142
+#: /home/huy/workspace/KeePassTouch/KeePit/Importer.qml:142
 #, qt-format
 msgid "Already in library: %1"
 msgstr ""
 
-#: /home/dan/KeePit/KeePit/Importer.qml:144
+#: /home/huy/workspace/KeePassTouch/KeePit/Importer.qml:144
 #, qt-format
 msgid "Error: %1"
 msgstr ""
 
-#: /home/dan/KeePit/KeePit/ListEntryItems.qml:67
+#: /home/huy/workspace/KeePassTouch/KeePit/ListEntryItems.qml:67
 msgid "Home"
 msgstr ""
 
-#: /home/dan/KeePit/KeePit/ListEntryItems.qml:77
-#: /home/dan/KeePit/KeePit/Main.qml:194 /home/dan/KeePit/KeePit/Main.qml:202
+#: /home/huy/workspace/KeePassTouch/KeePit/ListEntryItems.qml:77
+#: /home/huy/workspace/KeePassTouch/KeePit/Main.qml:194
+#: /home/huy/workspace/KeePassTouch/KeePit/Main.qml:202
 msgid "Search"
 msgstr ""
 
-#: /home/dan/KeePit/KeePit/Main.qml:135
+#: /home/huy/workspace/KeePassTouch/KeePit/Main.qml:135
 msgid "Close Database"
 msgstr ""
 
-#: /home/dan/KeePit/KeePit/Main.qml:143 /home/dan/KeePit/KeePit/Main.qml:212
-#: /home/dan/KeePit/KeePit/Main.qml:238
+#: /home/huy/workspace/KeePassTouch/KeePit/Main.qml:143
+#: /home/huy/workspace/KeePassTouch/KeePit/Main.qml:212
+#: /home/huy/workspace/KeePassTouch/KeePit/Main.qml:238
 msgid "Cancel"
 msgstr ""
 
-#: /home/dan/KeePit/KeePit/Main.qml:153
+#: /home/huy/workspace/KeePassTouch/KeePit/Main.qml:153
 msgid "Error"
 msgstr ""
 
-#: /home/dan/KeePit/KeePit/Main.qml:154
+#: /home/huy/workspace/KeePassTouch/KeePit/Main.qml:154
 msgid "An error has occurred"
 msgstr ""
 
-#: /home/dan/KeePit/KeePit/Main.qml:156 /home/dan/KeePit/KeePit/Main.qml:169
-#: /home/dan/KeePit/KeePit/Main.qml:183
+#: /home/huy/workspace/KeePassTouch/KeePit/Main.qml:156
+#: /home/huy/workspace/KeePassTouch/KeePit/Main.qml:169
+#: /home/huy/workspace/KeePassTouch/KeePit/Main.qml:183
 msgid "Ok"
 msgstr ""
 
-#: /home/dan/KeePit/KeePit/Main.qml:166
-msgid "About (KeePit v2)"
+#: /home/huy/workspace/KeePassTouch/KeePit/Main.qml:166
+msgid "About (KeePit v2.0)"
 msgstr ""
 
-#: /home/dan/KeePit/KeePit/Main.qml:167
+#: /home/huy/workspace/KeePassTouch/KeePit/Main.qml:167
 msgid ""
 "Copyright &copy; 2016 Dan Beavon<br/>This software is distributed under the "
 "terms of the GNU General Public License v2 or Later"
 msgstr ""
 
-#: /home/dan/KeePit/KeePit/Main.qml:180
+#: /home/huy/workspace/KeePassTouch/KeePit/Main.qml:180
 msgid "Info"
 msgstr ""
 
-#: /home/dan/KeePit/KeePit/Main.qml:181
+#: /home/huy/workspace/KeePassTouch/KeePit/Main.qml:181
 msgid "Information: "
 msgstr ""
 
-#: /home/dan/KeePit/KeePit/Main.qml:197
+#: /home/huy/workspace/KeePassTouch/KeePit/Main.qml:197
 msgid "search term"
 msgstr ""
 
-#: /home/dan/KeePit/KeePit/Main.qml:223 /home/dan/KeePit/KeePit/Main.qml:230
+#: /home/huy/workspace/KeePassTouch/KeePit/Main.qml:223
+#: /home/huy/workspace/KeePassTouch/KeePit/Main.qml:230
 msgid "Delete"
 msgstr ""
 
-#: /home/dan/KeePit/KeePit/OpenDatabase.qml:37
+#: /home/huy/workspace/KeePassTouch/KeePit/OpenDatabase.qml:40
 msgid "Close"
 msgstr ""
 
-#: /home/dan/KeePit/KeePit/OpenDatabase.qml:48
+#: /home/huy/workspace/KeePassTouch/KeePit/OpenDatabase.qml:51
+msgid "Import key"
+msgstr ""
+
+#: /home/huy/workspace/KeePassTouch/KeePit/OpenDatabase.qml:59
 msgid "About"
 msgstr ""
 
-#: /home/dan/KeePit/KeePit/OpenDatabase.qml:85
+#: /home/huy/workspace/KeePassTouch/KeePit/OpenDatabase.qml:88
 msgid "Select Key"
 msgstr ""
 
-#: /home/dan/KeePit/KeePit/OpenDatabase.qml:97
+#: /home/huy/workspace/KeePassTouch/KeePit/OpenDatabase.qml:118
 msgid "Open Database"
 msgstr ""
 
-#: /home/dan/KeePit/KeePit/Selector.qml:30
-#: /home/dan/KeePit/KeePit/Selector.qml:42
+#: /home/huy/workspace/KeePassTouch/KeePit/Selector.qml:30
+#: /home/huy/workspace/KeePassTouch/KeePit/Selector.qml:42
 msgid "Available Databases"
 msgstr ""
 
-#: /home/dan/KeePit/KeePit/Selector.qml:35
+#: /home/huy/workspace/KeePassTouch/KeePit/Selector.qml:35
 msgid "Available Keys"
 msgstr ""
 
-#: /home/dan/KeePit/KeePit/Selector.qml:69
+#: /home/huy/workspace/KeePassTouch/KeePit/Selector.qml:69
 msgid "Import"
 msgstr ""
