@@ -31,6 +31,7 @@ class ReadKeyFile
 public:
     ReadKeyFile();
     vector<char> read(char*, int) const;
+    vector<char> readHex(char*, int) const;
 };
 
 #endif // READKEYFILE_H
