@@ -18,14 +18,16 @@
 * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
-import QtQuick 2.0
+import QtQuick 2.4
 import QtQuick.LocalStorage 2.0
 import QtGraphicalEffects 1.0
-import Ubuntu.Components 1.2
-import Ubuntu.Components.ListItems 1.0
-import Ubuntu.Components.Popups 1.0
-import Ubuntu.Components.ListItems 1.0 as ListItem
+import Ubuntu.Components 1.3 /* 1.2 */
+import Ubuntu.Components.ListItems 1.3 /* 1.0 */
+import Ubuntu.Components.Popups 1.3 /* 1.0 */
+import Ubuntu.Components.ListItems 1.3 as ListItem /* 1.0 */
 import Qt.labs.folderlistmodel 2.1
+
+//import KeePass 1.0
 
 Page {
     property alias pass: password
@@ -45,21 +47,22 @@ Page {
                 }
             },
             Action {
-                 iconName: "import"
-                 text: i18n.tr("Import key")
-                 onTriggered: {
-                     databaseListView.setKeyMode();
-                     pageStack.push(databaseListView)
-                 }
-             },
+                iconName: "import"
+                text: i18n.tr("Import key")
+                onTriggered: {
+                    databaseListView.setKeyMode();
+                    pageStack.push(databaseListView)
+                }
+            },
             Action {
-              iconName: "help"
-              text: i18n.tr("About")
-              onTriggered: PopupUtils.open(about)
+                iconName: "help"
+                text: i18n.tr("About")
+                onTriggered: PopupUtils.open(about)
             }]
     }
 
     Column {
+        id: column1
         spacing: units.gu(1)
         anchors {
             margins: units.gu(2)
@@ -75,9 +78,25 @@ Page {
 
         TextField {
             id: password
-            placeholderText: "Enter your password"
+            placeholderText: "Enter your DB password"
             width: parent.width
-            echoMode : TextInput.PasswordEchoOnEdit
+            echoMode : TextInput.Password
+        }
+
+// wilfridd : Switch + text
+        ListItem.Standard {
+            text: i18n.tr("Show DB password")
+            enabled: true
+            control: Switch {
+                id: switchShowPwd
+                onClicked: {
+                    if(password.echoMode == TextInput.Normal) {
+                        password.echoMode = TextInput.Password;
+                    } else {
+                        password.echoMode = TextInput.Normal;
+                    }
+                }
+            }
         }
 
         ComboButton {
