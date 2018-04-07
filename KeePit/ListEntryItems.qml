@@ -20,8 +20,8 @@
 
 import QtQuick 2.4
 import QtQuick.Layouts 1.1
-import Ubuntu.Components 1.2
-import Ubuntu.Components.Popups 1.2
+import Ubuntu.Components 1.3 /* 1.2 */
+import Ubuntu.Components.Popups 1.3 /* 1.2 */
 import KeePass3 1.0
 
 Page {    
@@ -107,7 +107,7 @@ Page {
                         }
                         Text {
                             text: title
-                            font.pointSize: 12
+                            font.pointSize: 35  /* Size 12 */
                             color: UbuntuColors.darkAubergine
                         }
                     }
