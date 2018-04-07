@@ -18,9 +18,9 @@
 * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
-import QtQuick 2.0
-import Ubuntu.Components 1.2
-import Ubuntu.Components.Popups 1.2
+import QtQuick 2.4 /* 2.0 */
+import Ubuntu.Components 1.3 /* 1.2 */
+import Ubuntu.Components.Popups 1.3 /* 1.2 */
 import KeePass3 1.0
 
 Page {
@@ -84,11 +84,10 @@ Page {
             }
 
             Button {
-                text: "..."
+                text: "Reveal / Hide" /* "..." */
                 width: parent.width
-                font.pointSize: 12
-                color: UbuntuColors.green
-                onClicked: {                    
+                font.pointSize: 25  /* Size 12 */
+                onClicked: {
                     if(password.echoMode == TextInput.Normal) {
                         password.echoMode = TextInput.Password;
                     } else {
