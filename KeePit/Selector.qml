@@ -100,8 +100,7 @@ Page {
                 width: sourcesView.width
                 height: units.gu(5)
                 Text {
-                    text: fileName
-                    font.pointSize: 12
+                    text: fileName                    
                     color: UbuntuColors.darkAubergine
                 }
 
