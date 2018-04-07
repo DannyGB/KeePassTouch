@@ -30,12 +30,12 @@ UBUNTU_TRANSLATION_SOURCES+= \
 # compiled and installed into the right place in the click package
 UBUNTU_PO_FILES+=$$files(po/*.po)
 
-aptest.target   = autopilot
-aptest.commands = bash $$PWD/KeePit/tests/autopilot/run
-aptest.depends  = sub-KeePit
+#aptest.target   = autopilot
+#aptest.commands = bash $$PWD/KeePit/tests/autopilot/run
+#aptest.depends  = sub-KeePit
 
-unittest.target   = check
-unittest.commands = /usr/bin/qmltestrunner -input $$PWD/KeePit/tests/unit
-unittest.depends  = sub-KeePit
+#unittest.target   = check
+#unittest.commands = /usr/bin/qmltestrunner -input $$PWD/KeePit/tests/unit
+#unittest.depends  = sub-KeePit
 
-QMAKE_EXTRA_TARGETS += aptest unittest
+#QMAKE_EXTRA_TARGETS += aptest unittest

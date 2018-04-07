@@ -582,16 +582,9 @@ void Database::readHeaderField(ByteStream* byteStream, bool* endOfHeaderReached,
             break;
 
         case CompressionFlags:
-            // Compression not supported (check pbData is 0 and throw exception if not)
-            // Put in version 2 if version 1 ever gets off the ground
             m_pbCompression = new char[uSize];
             copy(pbData, pbData + uSize, m_pbCompression);
             uCompression = ByteStream::ReadByte(m_pbCompression);
-            //if(uCompression != 0) {
-            //    *readError = true;
-            //    emit error("Compressed Databases are not currently supported");
-            //    return;
-            //}
             break;
 
         case MasterSeed:

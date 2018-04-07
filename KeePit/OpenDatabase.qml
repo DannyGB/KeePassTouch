@@ -24,7 +24,8 @@ import QtGraphicalEffects 1.0
 import Ubuntu.Components 1.2
 import Ubuntu.Components.ListItems 1.0
 import Ubuntu.Components.Popups 1.0
-//import KeePass 1.0
+import Ubuntu.Components.ListItems 1.0 as ListItem
+import Qt.labs.folderlistmodel 2.1
 
 Page {
     property alias pass: password
@@ -43,6 +44,14 @@ Page {
                     pageStack.push(databaseListView)
                 }
               },
+            Action {
+                 iconName: "import"
+                 text: i18n.tr("Import key")
+                 onTriggered: {
+                     databaseListView.setKeyMode();
+                     pageStack.push(databaseListView)
+                 }
+             },
             Action {
               iconName: "help"
               text: i18n.tr("About")
@@ -66,27 +75,37 @@ Page {
 
         TextField {
             id: password
-            placeholderText: "enter your password"
+            placeholderText: "Enter your password"
             width: parent.width
             echoMode : TextInput.PasswordEchoOnEdit
         }
 
-        TextField {
-            id: key
-            width: parent.width            
-            text: keyFileName
-            readOnly: true
-        }
-
-        Button {
-            objectName: "button"
+        ComboButton {
+            id: combo
             width: parent.width
-            color: UbuntuColors.green
             text: i18n.tr("Select Key")
+            onClicked: expanded = false
+            ListView {
+                width: parent.width
+                height: 200
 
-            onClicked: {
-                databaseListView.setKeyMode();
-                pageStack.push(databaseListView)
+                FolderListModel {
+                    id: folderModel
+                    nameFilters: ["*.key"]
+                    showDirs: false
+                    folder: 'file:'+ appLocation
+                }
+
+                model: folderModel
+                delegate: Standard {
+                    text: fileName
+                    onClicked: {
+                        keyFilePath = filePath
+                        keyFileName = fileName
+                        combo.text = text;
+                        combo.expanded = false;
+                    }
+                }
             }
         }
 

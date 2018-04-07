@@ -356,9 +356,9 @@ DISTFILES += \
     KeePit.contenthub \
     KeePit.apparmor
 
-unix:!macx: LIBS += -L$$OUT_PWD/../ziplib/ -lziplib
+LIBS += -L$$OUT_PWD/../ziplib/ -lziplib
 
 INCLUDEPATH += $$PWD/../ziplib
 DEPENDPATH += $$PWD/../ziplib
 
-unix:!macx: PRE_TARGETDEPS += $$OUT_PWD/../ziplib/libziplib.a
+#PRE_TARGETDEPS += $$OUT_PWD/../ziplib/libziplib.a
