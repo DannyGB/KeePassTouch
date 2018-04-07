@@ -27,8 +27,6 @@ import Ubuntu.Components.Popups 1.0
 import Ubuntu.Components.ListItems 1.0 as ListItem
 import Qt.labs.folderlistmodel 2.1
 
-//import KeePass 1.0
-
 Page {
     property alias pass: password
     title: i18n.tr(appTitle)
@@ -47,17 +45,17 @@ Page {
                 }
             },
             Action {
-                iconName: "import"
-                text: i18n.tr("Import key")
-                onTriggered: {
-                    databaseListView.setKeyMode();
-                    pageStack.push(databaseListView)
-                }
-            },
+                 iconName: "import"
+                 text: i18n.tr("Import key")
+                 onTriggered: {
+                     databaseListView.setKeyMode();
+                     pageStack.push(databaseListView)
+                 }
+             },
             Action {
-                iconName: "help"
-                text: i18n.tr("About")
-                onTriggered: PopupUtils.open(about)
+              iconName: "help"
+              text: i18n.tr("About")
+              onTriggered: PopupUtils.open(about)
             }]
     }
 

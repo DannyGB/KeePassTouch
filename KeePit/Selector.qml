@@ -33,7 +33,7 @@ Page {
     function setKeyMode() {
         keyMode = true
         pageTitle = i18n.tr("Available Keys")
-        folderModel.nameFilters = ["*.key"]
+        folderModel.nameFilters = ["*.*"]
         importer.headerText = 'Import key from'
     }
 
@@ -48,17 +48,15 @@ Page {
         if(keyMode) {
             keyFilePath = model.filePath
             keyFileName = model.fileName            
-            pageStack.clear()
         } else {
             databaseFilePath = model.filePath            
             databaseFileName = model.fileName
             keyFilePath = ''
             keyFileName = ''
-            pageStack.clear()
-
         }
-        pageStack.push(openDatabase)
 
+        pageStack.clear()
+        pageStack.push(openDatabase)
         sourcesView.currentIndex = index;
     }
 
@@ -102,8 +100,7 @@ Page {
                 width: sourcesView.width
                 height: units.gu(5)
                 Text {
-                    text: fileName
-                    font.pointSize: 12
+                    text: fileName                    
                     color: UbuntuColors.darkAubergine
                 }
 
