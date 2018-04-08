@@ -60,8 +60,7 @@ Item {
             var basename =components.join(".")
             console.info(basename)
             var newfilename = basename + "." + ext
-            console.info(newfilename)
-            //item.item.move(dir, newfilename)
+            console.info(newfilename)            
             item.state = importState.imported
         }
     }
@@ -97,8 +96,10 @@ Item {
             }
             if (i == itemList.count) {
                 importing = false
-                if (itemList.count == 1)
+                if (itemList.count == 1) {
                     clearAndLoad(itemList.get(0))
+                }
+                pageStack.pop()
             } else {
                 importTimer.start()
             }
