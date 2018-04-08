@@ -21,7 +21,7 @@
 #include "readkeyfile.h"
 #include <vector>
 #include <string>
-
+#include "sha256.h"
 #include "base64.h"
 #include "./tinyxml2.h"
 
@@ -48,17 +48,9 @@ vector<char> ReadKeyFile::read(char *memblock, int size) const {
 
     if (error != XML_SUCCESS)
     {
-        // Non-XML files should be read as binary or hex strings.
-        if (size == 32)
-        {
-            return vector<char>(memblock, memblock + size);
-        }
-        else if (size == 64)
-        {
-            return readHex(memblock, size);
-        }
-
-        throw exception();
+        // If the file is not XML then read it directly and hash it
+        SHA256 sha256;
+        return sha256.computeHash(vector<char>(memblock, memblock + size));
     }
 
     string key;
