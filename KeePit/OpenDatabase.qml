@@ -77,7 +77,18 @@ Page {
             id: password
             placeholderText: "Enter your password"
             width: parent.width
-            echoMode : TextInput.PasswordEchoOnEdit
+            echoMode : TextInput.Password
+        }
+
+        ListItem.Standard {
+            text: i18n.tr("Show password")
+            enabled: true
+            control: Switch {
+                id: showPassword
+                onClicked: {
+                    password.echoMode = (password.echoMode == TextInput.Normal ? TextInput.Password : TextInput.Normal)
+                }
+           }
         }
 
         ComboButton {
