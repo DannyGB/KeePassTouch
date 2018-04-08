@@ -106,8 +106,7 @@ Page {
                             color: UbuntuColors.darkAubergine
                         }
                         Text {
-                            text: title
-                            font.pointSize: 12
+                            text: title                            
                             color: UbuntuColors.darkAubergine
                         }
                     }

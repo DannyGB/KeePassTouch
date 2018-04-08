@@ -44,7 +44,7 @@ MainView {
     //headerColor: "#000"
 
     property string appLocation: '/home/phablet/.local/share/keepit.dannygb/Documents'
-    property string appTitle: 'KeePiT'
+    property string appTitle: 'KeePit'
     width: units.gu(100)
     height: units.gu(75)
     property var previousEntry: ({})
@@ -53,6 +53,8 @@ MainView {
     property string keyFilePath
     property string databaseFileName
     property string keyFileName
+    property date currentDate: new Date()
+    property var locale: Qt.locale()
 
     property var selectedDatabaseToDelete: ({});
 
@@ -164,7 +166,7 @@ MainView {
          Dialog {
              id: aboutDialog
              title: i18n.tr("About (KeePit v2.0)")
-             text: i18n.tr("Copyright &copy; 2016 Dan Beavon<br/>This software is distributed under the terms of the GNU General Public License v2 or Later")
+             text: i18n.tr("Copyright &copy; "+ currentDate.toLocaleString(locale, "yyyy") +" Dan Beavon<br/>This software is distributed under the terms of the GNU General Public License v2 or Later")
              Button {
                  text: i18n.tr("Ok")
                  onClicked: PopupUtils.close(aboutDialog)

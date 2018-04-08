@@ -91,7 +91,7 @@ Page {
 
                 FolderListModel {
                     id: folderModel
-                    nameFilters: ["*.key"]
+                    nameFilters: ["*.*"]
                     showDirs: false
                     folder: 'file:'+ appLocation
                 }

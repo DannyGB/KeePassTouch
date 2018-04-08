@@ -56,7 +56,7 @@ Page {
             }           
 
             Label {
-             text: "Username"
+             text: i18n.tr("Username")
              width: parent.width
              color: UbuntuColors.darkAubergine
             }
@@ -69,7 +69,7 @@ Page {
             }
 
             Label {
-             text: "Password"
+             text: i18n.tr("Password")
              width: parent.width
              color: UbuntuColors.darkAubergine
             }
@@ -84,21 +84,24 @@ Page {
             }
 
             Button {
-                text: "..."
+                id: reveal
+                text: i18n.tr("Show")
                 width: parent.width
-                font.pointSize: 12
+                font.pointSize: 25
                 color: UbuntuColors.green
                 onClicked: {                    
                     if(password.echoMode == TextInput.Normal) {
                         password.echoMode = TextInput.Password;
+                        reveal.text = i18n.tr("Show")
                     } else {
                         password.echoMode = TextInput.Normal;
+                        reveal.text = i18n.tr("Hide")
                     }
                 }
             }           
 
             Label {
-             text: "Url"
+             text: i18n.tr("Url")
              width: parent.width
              color: UbuntuColors.darkAubergine
             }
@@ -112,7 +115,7 @@ Page {
             }
 
             Label {
-             text: "Notes"
+             text: i18n.tr("Notes")
              width: parent.width
              color: UbuntuColors.darkAubergine
             }

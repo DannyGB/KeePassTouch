@@ -3,3 +3,5 @@
 /.project
 *.user
 *.pot
+*.log
+*.err
