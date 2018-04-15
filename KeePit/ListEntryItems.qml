@@ -26,12 +26,17 @@ import KeePass3 1.0
 
 Page {    
 
+    function resetEntryPage() {
+        entry.txtEntityPass.echoMode = TextInput.Password;
+        entry.btnRevealPass.text = i18n.tr("Show");
+    }
+
     /**
       * Handles the MouseArea.onClicked event of the entryDelegate
       */
     function onSelected(index, model) {
         // A variable property on Database (Main.qml)
-        database.selectedEntry = model
+        database.selectedEntry = model;
 
         // A variable property on MainView (Main.qml)
         previousEntry = {
@@ -41,7 +46,7 @@ Page {
 
         // See PageStack.onDepthChanged for how the pageStack and entry model are kept in synch
         if(database.selectedEntry.entryType === 2) { // is a password entry so push password page
-            entry.txtEntityPass.echoMode = TextInput.Password
+            resetEntryPage();
             pageStack.push(entry);
         } else if(database.selectedEntry.entryType === 1) { // is a further branch push another level
             pageStack.push(listEntryItems);

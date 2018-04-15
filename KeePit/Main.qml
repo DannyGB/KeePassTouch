@@ -165,7 +165,7 @@ MainView {
         id: about
          Dialog {
              id: aboutDialog
-             title: i18n.tr("About (KeePit v2.0)")
+             title: i18n.tr("About (KeePit v2.1)")
              text: i18n.tr("Copyright &copy; "+ currentDate.toLocaleString(locale, "yyyy") +" Dan Beavon<br/>This software is distributed under the terms of the GNU General Public License v2 or Later")
              Button {
                  text: i18n.tr("Ok")
@@ -251,17 +251,22 @@ MainView {
         onTriggered: reset()
     }
 
+    function resetOpenDatabasePage() {
+        openDatabase.pass.text = '';
+        openDatabase.cmbKeySelector.text = i18n.tr("Select Key");
+    }
+
     function reset() {
-        database.closeFile()
-        pageStack.clear()
-        databaseListView.setDatabaseMode()
-        pageStack.push(databaseListView)
-        openDatabase.pass.text = ''
-        resetTimer.stop()
+        database.closeFile();
+        pageStack.clear();
+        databaseListView.setDatabaseMode();
+        pageStack.push(databaseListView);
+        resetOpenDatabasePage();
+        resetTimer.stop();
         //Clipboard.clear() // Consistently crashes the app on phone (not desktop though) see bug: https://bugs.launchpad.net/ubuntu/+source/ubuntu-ui-toolkit/+bug/1457361
     }
 
     function resetLogoutTimer() {
-        resetTimer.restart()
+        resetTimer.restart();
     }
 }

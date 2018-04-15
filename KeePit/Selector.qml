@@ -86,7 +86,8 @@ Page {
             nameFilters: ["*.kdbx"]
             showDirs: false
             // I don't know yet how to make this get the correct folder for my app!
-            folder: 'file:'+ appLocation            
+            folder: 'file:'+ appLocation
+            sortField: Name
         }
 
         UbuntuListView {

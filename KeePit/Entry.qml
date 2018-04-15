@@ -26,6 +26,7 @@ import KeePass3 1.0
 Page {
 
     property alias txtEntityPass: password
+    property alias btnRevealPass: reveal
     title: i18n.tr(database.selectedEntry.title)
     head {
             actions: [
@@ -41,7 +42,7 @@ Page {
                     onTriggered: PopupUtils.open(settingsDisabledComponent)                    
                 }
             ]
-    }
+    }    
 
     Flow {
         spacing: units.gu(1)

@@ -28,7 +28,8 @@ import Ubuntu.Components.ListItems 1.0 as ListItem
 import Qt.labs.folderlistmodel 2.1
 
 Page {
-    property alias pass: password
+    property alias pass: password;
+    property alias cmbKeySelector: combo;
     title: i18n.tr(appTitle)
     head {
         actions: [
@@ -111,8 +112,8 @@ Page {
                 delegate: Standard {
                     text: fileName
                     onClicked: {
-                        keyFilePath = filePath
-                        keyFileName = fileName
+                        keyFilePath = filePath;
+                        keyFileName = fileName;
                         combo.text = text;
                         combo.expanded = false;
                     }
