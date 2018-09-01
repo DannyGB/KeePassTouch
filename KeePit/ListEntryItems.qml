@@ -26,11 +26,6 @@ import KeePass3 1.0
 
 Page {
 
-    function resetEntryPage() {
-        entry.txtEntityPass.echoMode = TextInput.Password;
-        entry.btnRevealPass.text = i18n.tr("Show");
-    }
-
     /**
       * Handles the MouseArea.onClicked event of the entryDelegate
       */
@@ -46,7 +41,6 @@ Page {
 
         // See PageStack.onDepthChanged for how the pageStack and entry model are kept in synch
         if(database.selectedEntry.entryType === 2) { // is a password entry so push password page
-            resetEntryPage();
             pageStack.push(entry);
         } else if(database.selectedEntry.entryType === 1) { // is a further branch push another level
             pageStack.push(listEntryItems);
@@ -64,37 +58,38 @@ Page {
     }
 
     // Could be the name of the group
-    title: i18n.tr(appTitle)
-    head {
-            actions: [
-                Action {
-                  iconName: "home"
-                  text: i18n.tr("Home")
-                  onTriggered: {
-                      database.loadHome()
-                      previousDepth = null
-                      pageStack.clear()
-                      pageStack.push(listEntryItems);
-                  }
-                },
-                Action {
-                  iconName: "search"
-                  text: i18n.tr("Search")
-                  onTriggered: PopupUtils.open(searchPopup)
-                },
-                /*Action {
-                    text: i18n.tr("Settings")
-                    iconName: "settings"
-                    onTriggered: PopupUtils.open(settingsDisabledComponent)
-                },*/
-                Action {
-                    iconName: "system-log-out"
-                    text: i18n.tr("Logout")
-                    onTriggered: {
-                        reset();
-                    }
-                }
-            ]
+    header: PageHeader {
+      id: pageHeader
+      title: i18n.tr(appTitle)
+      trailingActionBar.actions: [
+        Action {
+            iconName: "system-log-out"
+            text: i18n.tr("Logout")
+            onTriggered: {
+                reset();
+            }
+        },
+        Action {
+          iconName: "search"
+          text: i18n.tr("Search")
+          onTriggered: PopupUtils.open(searchPopup)
+        },
+        /*Action {
+            text: i18n.tr("Settings")
+            iconName: "settings"
+            onTriggered: PopupUtils.open(settingsDisabledComponent)
+        },*/
+        Action {
+          iconName: "home"
+          text: i18n.tr("Home")
+          onTriggered: {
+              database.loadHome()
+              previousDepth = null
+              pageStack.clear()
+              pageStack.push(listEntryItems);
+          }
+        }
+      ]
     }
 
     Column {
@@ -102,42 +97,42 @@ Page {
         anchors {
             margins: units.gu(2)
             fill: parent
+            topMargin: pageHeader.height + units.gu(2)
         }
 
-            Component {
-                id: entryDelegate
-                Item {
-                    width: listView.width
-                    height: units.gu(5)
-                    GridLayout {
-                        columns: 2
-                        Icon {
-                            width: 40
-                            height: 40
-                            name: getIconName(model)
-                            color: UbuntuColors.darkAubergine
-                        }
-                        Text {
-                            text: title
-                            color: UbuntuColors.darkAubergine
-                        }
-                    }
+        Component {
+            id: entryDelegate
+            ListItem {
+                width: listView.width
+                height: units.gu(5)
+                GridLayout {
+                  anchors.verticalCenter: parent.verticalCenter
+                  columns: 2
+                  Icon {
+                      width: 40
+                      height: 40
+                      name: getIconName(model)
+                  }
+                  Text {
+                    text: title
+                  }
+                }
 
-                    MouseArea {
-                        anchors.fill: parent
-                        onClicked: onSelected(index, model)
-                    }
+                MouseArea {
+                    anchors.fill: parent
+                    onClicked: onSelected(index, model)
                 }
             }
-
-            UbuntuListView {
-                id: listView
-                height: parent.height
-                width: parent.width
-                spacing: 5
-                model: passwordEntryModel //passwordEntryModel is the initial model from the C++ side of the application (See main.cpp)
-                delegate: entryDelegate
-                focus: true
-              }
         }
+
+        UbuntuListView {
+          id: listView
+          height: parent.height
+          width: parent.width
+          spacing: 5
+          model: passwordEntryModel //passwordEntryModel is the initial model from the C++ side of the application (See main.cpp)
+          delegate: entryDelegate
+          focus: true
+        }
+    }
 }

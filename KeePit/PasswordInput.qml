@@ -34,6 +34,7 @@ import Qt.labs.folderlistmodel 2.1
         property alias text: password.text
         property alias toggleVisible: toggle.visible
         property alias color: password.color
+        property alias readOnly: password.readOnly
 
         signal toggleClicked(bool state)
 
@@ -41,6 +42,7 @@ import Qt.labs.folderlistmodel 2.1
             id: password
             placeholderText: "Enter your password"
             echoMode : TextInput.Password
+            readOnly: false
         }
 
         ListItem.Standard {

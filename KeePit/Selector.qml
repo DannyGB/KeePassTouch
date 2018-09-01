@@ -26,7 +26,6 @@ import Ubuntu.Components 1.3
 import Ubuntu.Components.Popups 1.3
 import Ubuntu.Components.ListItems 1.3
 import Ubuntu.Components.Pickers 1.3
-//import Ubuntu.Layouts 1.0
 import Ubuntu.Content 1.1
 import Qt.labs.folderlistmodel 2.1
 
@@ -97,9 +96,10 @@ Page {
                 width: sourcesView.width
                 height: units.gu(5)
                 Text {
-                    anchors.centerIn: parent
+                    anchors.verticalCenter: parent.verticalCenter
+                    anchors.leftMargin: units.gu(2)
+                    anchors.rightMargin: units.gu(2)
                     text: fileName
-                    //color: UbuntuColors.darkAubergine
                 }
 
                 MouseArea {
@@ -237,7 +237,6 @@ Page {
                         Layout.fillWidth: true
                         iconName: "import"
                         text: i18n.tr("Import")
-                        //color: UbuntuColors.green
                         onTriggered: {
                           pageStack.push(importer.pickerPage)
                         }
@@ -247,8 +246,7 @@ Page {
                         Layout.fillWidth: true
                         id: actCreateDb
                         iconName: "add"
-                        text: i18n.tr("Add")
-                        //color: UbuntuColors.orange
+                        text: i18n.tr("Create")
                         onTriggered: {
                           pageStack.push(createDatabase.createDatabasePage)
                         }
