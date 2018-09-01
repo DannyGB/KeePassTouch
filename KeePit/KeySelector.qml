@@ -19,8 +19,8 @@
 */
 
 import QtQuick 2.0
-import Ubuntu.Components 1.2
-import Ubuntu.Components.ListItems 1.0
+import Ubuntu.Components 1.3
+import Ubuntu.Components.ListItems 1.3
 import Qt.labs.folderlistmodel 2.1
 
 ComboButton {

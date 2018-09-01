@@ -21,10 +21,10 @@
 import QtQuick 2.0
 import QtQuick.LocalStorage 2.0
 import QtGraphicalEffects 1.0
-import Ubuntu.Components 1.2
-import Ubuntu.Components.ListItems 1.0
-import Ubuntu.Components.Popups 1.0
-import Ubuntu.Components.ListItems 1.0 as ListItem
+import Ubuntu.Components 1.3
+import Ubuntu.Components.ListItems 1.3
+import Ubuntu.Components.Popups 1.3
+import Ubuntu.Components.ListItems 1.3 as ListItem
 import Qt.labs.folderlistmodel 2.1
 
 Page {
@@ -32,7 +32,7 @@ Page {
     property alias cmbKeySelector: combo;
     title: i18n.tr(appTitle)
     head {
-        actions: [            
+        actions: [
             Action {
                 iconName: "edit-undo"
                 text: i18n.tr("Close")

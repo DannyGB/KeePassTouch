@@ -1,7 +1,9 @@
 /*
 * This file is part of KeePit
 *
-* Copyright (C) 2016 Dan Beavon
+*  Copyright (C) 2018 Dan Beavon
+*  Copyright (C) 2016 Simon Stuerz <stuerz.simon@gmail.com>               *
+*  Copyright (C) 2016 Michael Zanetti  (KodiMote)
 *
 * This program is free software; you can redistribute it and/or
 * modify it under the terms of the GNU General Public License
@@ -18,10 +20,12 @@
 * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
-import QtQuick 2.0
-import Ubuntu.Components 1.2
-import Ubuntu.Components.Popups 1.2
-import Ubuntu.Components.ListItems 1.0
+import QtQuick 2.4
+import QtQuick.Layouts 1.1
+import Ubuntu.Components 1.3
+import Ubuntu.Components.Popups 1.3
+import Ubuntu.Components.ListItems 1.3
+import Ubuntu.Components.Pickers 1.3
 //import Ubuntu.Layouts 1.0
 import Ubuntu.Content 1.1
 import Qt.labs.folderlistmodel 2.1
@@ -35,15 +39,16 @@ Page {
         keyMode = true
         pageTitle = i18n.tr("Keys")
         folderModel.nameFilters = ["*.*"]
-        importer.headerText = 'Import key from'
-        //actCreateDb.visible = false;
+        importer.headerText = i18n.tr('Import key from')
+        actCreateDb.visible = false;
     }
 
     function setDatabaseMode() {
         keyMode = false
         pageTitle = i18n.tr("Databases")
         folderModel.nameFilters = ["*.kdbx"]
-        importer.headerText = 'Import database from'
+        importer.headerText = i18n.tr('Import database from')
+        actCreateDb.visible = true;
     }
 
     function onDatabaseSelected(index, model) {
@@ -62,26 +67,6 @@ Page {
         sourcesView.currentIndex = index;
     }
 
-    head {
-        actions: [
-            /*Action {
-                id: actCreateDb
-              iconName: "add"
-              text: i18n.tr("Add")
-              onTriggered: {
-                pageStack.push(createDatabase.createDatabasePage)
-              }
-            },*/
-            Action {
-              iconName: "import"
-              text: i18n.tr("Import")
-              onTriggered: {
-                pageStack.push(importer.pickerPage)
-              }
-            }
-        ]
-    }
-
     title: i18n.tr(pageTitle)
 
     Column {
@@ -98,7 +83,7 @@ Page {
             showDirs: false
             // I don't know yet how to make this get the correct folder for my app!
             folder: 'file:'+ appLocation
-            sortField: Name
+            sortField: 'Name'
         }
 
         UbuntuListView {
@@ -112,8 +97,9 @@ Page {
                 width: sourcesView.width
                 height: units.gu(5)
                 Text {
+                    anchors.centerIn: parent
                     text: fileName
-                    color: UbuntuColors.darkAubergine
+                    //color: UbuntuColors.darkAubergine
                 }
 
                 MouseArea {
@@ -136,5 +122,139 @@ Page {
                 }
             }
         }
+    }
+
+    Item {
+        id: root
+        anchors { left: parent.left; right: parent.right; bottom: parent.bottom }
+        height: units.gu(2)
+        z: 3
+
+        property real progress: 0
+
+        Rectangle {
+            anchors {fill: parent; topMargin: -units.gu(200) }
+            color: "#88000000"
+            opacity: root.progress
+            MouseArea {
+                anchors.fill: parent
+                onClicked: {
+                    root.progress = 0;
+                    mouse.accepted = true;
+                }
+                enabled: root.progress > 0
+            }
+        }
+
+        MouseArea {
+            anchors { left: parent.left; right: parent.right; bottom: parent.bottom }
+            height: contentRect.height
+            property bool ignoring: false
+
+            property var gesturePoints: new Array()
+
+            onPressed: {
+                gesturePoints = new Array();
+                ignoring = false;
+                if (root.progress == 0 && mouseY < height - units.gu(2)) {
+                    mouse.accepted = false;
+                    ignoring = true;
+                }
+            }
+
+            onMouseYChanged: {
+                if (ignoring) {
+                    return;
+                }
+                root.progress = Math.min(1, (height - mouseY) / height)
+                gesturePoints.push(mouseY)
+            }
+
+            onReleased: {
+                var oneWayFlick = true;
+                var upwards = gesturePoints[1] < gesturePoints[0];
+                for (var i = 1; i < gesturePoints.length; i++) {
+                    if (upwards && gesturePoints[i] > gesturePoints[i-1]) {
+                        oneWayFlick = false;
+                        break;
+                    } else if(!upwards && gesturePoints[i] < gesturePoints[i-1]) {
+                        oneWayFlick = false;
+                        break;
+                    }
+                }
+
+                if (oneWayFlick && upwards) {
+                    root.progress = 1;
+                } else if (oneWayFlick && !upwards) {
+                    root.progress = 0;
+                } else if (root.progress > .5) {
+                    root.progress = 1;
+                } else {
+                    root.progress = 0;
+                }
+            }
+
+            Rectangle {
+                id: contentRect
+
+                anchors {
+                    left: parent.left
+                    right: parent.right
+                    top: parent.bottom
+                    topMargin: -units.gu(2) - root.progress * (height - units.gu(2))
+                }
+
+                height: contentColumn.height + units.gu(4)
+
+                Behavior on anchors.topMargin {
+                    UbuntuNumberAnimation {}
+                }
+
+                Rectangle {
+                    id: borderRectangle
+                    anchors { left: contentRect.left; top: contentRect.top; right: contentRect.right }
+                    height: units.gu(2)
+
+                    UbuntuShape {
+                        anchors.centerIn: parent
+                        height: units.gu(1)
+                        width: units.gu(5)
+                        radius: "medium"
+                        color: UbuntuColors.inkstone
+                    }
+                }
+
+                RowLayout {
+                    id: contentColumn
+                    anchors {
+                        left: parent.left
+                        right: parent.right
+                        top: parent.top
+                        margins: units.gu(2)
+                    }
+
+                      Button {
+                        Layout.fillWidth: true
+                        iconName: "import"
+                        text: i18n.tr("Import")
+                        //color: UbuntuColors.green
+                        onTriggered: {
+                          pageStack.push(importer.pickerPage)
+                        }
+                      }
+
+                      Button {
+                        Layout.fillWidth: true
+                        id: actCreateDb
+                        iconName: "add"
+                        text: i18n.tr("Add")
+                        //color: UbuntuColors.orange
+                        onTriggered: {
+                          pageStack.push(createDatabase.createDatabasePage)
+                        }
+                      }
+              }
+          }
+      }
     }
 }

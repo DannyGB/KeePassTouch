@@ -19,9 +19,9 @@
 */
 
 import QtQuick 2.0
-import Ubuntu.Components 1.2
-import Ubuntu.Components.Popups 1.2
-import Ubuntu.Components.ListItems 1.0
+import Ubuntu.Components 1.3
+import Ubuntu.Components.Popups 1.3
+import Ubuntu.Components.ListItems 1.3
 import Ubuntu.Content 1.1
 
 Item {
@@ -36,7 +36,7 @@ Item {
     Connections {
         target: ContentHub
         onImportRequested: {
-            activeTransfer = transfer            
+            activeTransfer = transfer
             if (activeTransfer.state === ContentTransfer.Charged)
                 importItems(activeTransfer.items)
         }
@@ -60,7 +60,7 @@ Item {
             var basename =components.join(".")
             console.info(basename)
             var newfilename = basename + "." + ext
-            console.info(newfilename)            
+            console.info(newfilename)
             item.state = importState.imported
         }
     }

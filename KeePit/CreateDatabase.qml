@@ -19,7 +19,7 @@
 */
 
 import QtQuick 2.0
-import Ubuntu.Components 1.2
+import Ubuntu.Components 1.3
 
 Item {
 
@@ -32,7 +32,7 @@ Item {
 
     Page {
         id: page_create_database;
-        title: i18n.tr("Create Database");        
+        title: i18n.tr("Create Database");
 
         head {
             actions: [

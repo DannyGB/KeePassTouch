@@ -20,11 +20,11 @@
 
 import QtQuick 2.4
 import QtQuick.Layouts 1.1
-import Ubuntu.Components 1.2
-import Ubuntu.Components.Popups 1.2
+import Ubuntu.Components 1.3
+import Ubuntu.Components.Popups 1.3
 import KeePass3 1.0
 
-Page {    
+Page {
 
     function resetEntryPage() {
         entry.txtEntityPass.echoMode = TextInput.Password;
@@ -66,7 +66,7 @@ Page {
     // Could be the name of the group
     title: i18n.tr(appTitle)
     head {
-            actions: [                
+            actions: [
                 Action {
                   iconName: "home"
                   text: i18n.tr("Home")
@@ -85,7 +85,7 @@ Page {
                 /*Action {
                     text: i18n.tr("Settings")
                     iconName: "settings"
-                    onTriggered: PopupUtils.open(settingsDisabledComponent)                    
+                    onTriggered: PopupUtils.open(settingsDisabledComponent)
                 },*/
                 Action {
                     iconName: "system-log-out"
@@ -118,7 +118,7 @@ Page {
                             color: UbuntuColors.darkAubergine
                         }
                         Text {
-                            text: title                            
+                            text: title
                             color: UbuntuColors.darkAubergine
                         }
                     }
@@ -126,8 +126,8 @@ Page {
                     MouseArea {
                         anchors.fill: parent
                         onClicked: onSelected(index, model)
-                    }                    
-                }                
+                    }
+                }
             }
 
             UbuntuListView {
