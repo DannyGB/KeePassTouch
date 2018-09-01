@@ -66,7 +66,7 @@ Page {
     // Could be the name of the group
     title: i18n.tr(appTitle)
     head {
-            actions: [
+            actions: [                
                 Action {
                   iconName: "home"
                   text: i18n.tr("Home")
@@ -82,10 +82,17 @@ Page {
                   text: i18n.tr("Search")
                   onTriggered: PopupUtils.open(searchPopup)
                 },
-                Action {
+                /*Action {
                     text: i18n.tr("Settings")
                     iconName: "settings"
                     onTriggered: PopupUtils.open(settingsDisabledComponent)                    
+                },*/
+                Action {
+                    iconName: "system-log-out"
+                    text: i18n.tr("Logout")
+                    onTriggered: {
+                        reset();
+                    }
                 }
             ]
     }

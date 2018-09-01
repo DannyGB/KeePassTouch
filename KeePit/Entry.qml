@@ -35,14 +35,21 @@ Page {
                     iconName: "edit-copy"
                     onTriggered: Clipboard.push(password.text);
                 },
-
+                /*
                 Action {
                     text: i18n.tr("Settings")
                     iconName: "settings"
-                    onTriggered: PopupUtils.open(settingsDisabledComponent)                    
+                    onTriggered: PopupUtils.open(settingsDisabledComponent)
+                }*/
+                Action {
+                    iconName: "system-log-out"
+                    text: i18n.tr("Logout")
+                    onTriggered: {
+                        reset();
+                    }
                 }
             ]
-    }    
+    }
 
     Flow {
         spacing: units.gu(1)
@@ -54,7 +61,7 @@ Page {
             Label {
              text:  database.selectedEntry.uuid
              visible: false;
-            }           
+            }
 
             Label {
              text: i18n.tr("Username")
@@ -90,7 +97,7 @@ Page {
                 width: parent.width
                 font.pointSize: 25
                 color: UbuntuColors.green
-                onClicked: {                    
+                onClicked: {
                     if(password.echoMode == TextInput.Normal) {
                         password.echoMode = TextInput.Password;
                         reveal.text = i18n.tr("Show")
@@ -99,7 +106,7 @@ Page {
                         reveal.text = i18n.tr("Hide")
                     }
                 }
-            }           
+            }
 
             Label {
              text: i18n.tr("Url")

@@ -354,7 +354,10 @@ DISTFILES += \
     KeePit.desktop \
     KeePit.png \
     KeePit.contenthub \
-    KeePit.apparmor
+    KeePit.apparmor \
+    CreateDatabase.qml \
+    KeySelector.qml \
+    PasswordInput.qml
 
 LIBS += -L$$OUT_PWD/../ziplib/ -lziplib
 

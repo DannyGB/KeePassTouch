@@ -3,6 +3,12 @@
         <file>Main.qml</file>
     </qresource>
     <qresource prefix="/">
+        <file>KeySelector.qml</file>
+    </qresource>    
+    <qresource prefix="/">
+        <file>CreateDatabase.qml</file>
+    </qresource>
+    <qresource prefix="/">
         <file>OpenDatabase.qml</file>
     </qresource>
 	    <qresource prefix="/">
@@ -19,5 +25,8 @@
     </qresource>
     <qresource prefix="/">
         <file>Importer.qml</file>
+    </qresource>
+    <qresource prefix="/">
+        <file>PasswordInput.qml</file>
     </qresource>
 </RCC>

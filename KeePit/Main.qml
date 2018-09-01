@@ -28,7 +28,7 @@ import QtQml 2.2
     \brief MainView with a Label and Button elements.
 */
 
-MainView {    
+MainView {
     // objectName for functional testing purposes (autopilot-qt5)
     objectName: "mainView"
 
@@ -64,11 +64,11 @@ MainView {
         onError: {
             PopupUtils.open(dialog, '', {text: i18n.tr(msg)});
         }
-        onSuccess: {            
+        onSuccess: {
             pageStack.clear();
             pageStack.push(listEntryItems);
             resetTimer.start()
-        }        
+        }
     }
 
     PageStack {
@@ -80,7 +80,7 @@ MainView {
                }
            }
 
-           onDepthChanged: {               
+           onDepthChanged: {
                // This logic keeps track of where we are in the tree so we can move backwards and forwards
                // in the PageStack keeping a consistent position
                // See also listEntryItems(.qml).onSelected to see where we set the previousEntry details
@@ -93,7 +93,7 @@ MainView {
                        else if(previousDepth < depth) { // Forwards
                            database.selectBranch(previousEntry.UUID);
                        }
-                   }                   
+                   }
                }
 
                resetLogoutTimer()
@@ -123,9 +123,13 @@ MainView {
            Importer {
                id: importer
            }
+
+           CreateDatabase {
+               id: createDatabase
+           }
     }
 
-    Component {
+    /*Component {
             id: settingsDisabledComponent
 
             Dialog {
@@ -146,7 +150,7 @@ MainView {
                     onClicked: PopupUtils.close(settingsDisabledDialog)
                 }
             }
-        }
+        }*/
 
     Component {
          id: dialog
@@ -165,8 +169,8 @@ MainView {
         id: about
          Dialog {
              id: aboutDialog
-             title: i18n.tr("About (KeePit v2.1)")
-             text: i18n.tr("Copyright &copy; "+ currentDate.toLocaleString(locale, "yyyy") +" Dan Beavon<br/>This software is distributed under the terms of the GNU General Public License v2 or Later")
+             title: i18n.tr("About (KeePit v3.0)")
+             text: i18n.tr("Copyright &copy; "+ currentDate.toLocaleString(locale, "yyyy") +" Dan Beavon<br/>This software is distributed under the terms of the GNU General Public License v3")
              Button {
                  text: i18n.tr("Ok")
                  onClicked: PopupUtils.close(aboutDialog)

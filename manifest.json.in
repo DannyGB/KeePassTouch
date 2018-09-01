@@ -10,7 +10,7 @@
             "content-hub": "KeePit/KeePit.contenthub"
         }
     },
-    "version": "2.1",
+    "version": "3.0",
     "maintainer": "Dan Beavon <dan.beavon@gmail.com>",
-    "framework": "ubuntu-sdk-15.04.5"
+    "framework": "ubuntu-sdk-16.04"
 }

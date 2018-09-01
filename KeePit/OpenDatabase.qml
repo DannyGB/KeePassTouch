@@ -32,8 +32,7 @@ Page {
     property alias cmbKeySelector: combo;
     title: i18n.tr(appTitle)
     head {
-        actions: [
-
+        actions: [            
             Action {
                 iconName: "edit-undo"
                 text: i18n.tr("Close")
@@ -74,50 +73,17 @@ Page {
             readOnly: true
         }
 
-        TextField {
+        PasswordInput {
             id: password
-            placeholderText: "Enter your password"
-            width: parent.width
-            echoMode : TextInput.Password
+            inputWidth: parent.width
         }
 
-        ListItem.Standard {
-            text: i18n.tr("Show password")
-            enabled: true
-            control: Switch {
-                id: showPassword
-                onClicked: {
-                    password.echoMode = (password.echoMode == TextInput.Normal ? TextInput.Password : TextInput.Normal)
-                }
-           }
-        }
-
-        ComboButton {
+        KeySelector {
             id: combo
             width: parent.width
-            text: i18n.tr("Select Key")
-            onClicked: expanded = false
-            ListView {
-                width: parent.width
-                height: 200
-
-                FolderListModel {
-                    id: folderModel
-                    nameFilters: ["*.*"]
-                    showDirs: false
-                    folder: 'file:'+ appLocation
-                }
-
-                model: folderModel
-                delegate: Standard {
-                    text: fileName
-                    onClicked: {
-                        keyFilePath = filePath;
-                        keyFileName = fileName;
-                        combo.text = text;
-                        combo.expanded = false;
-                    }
-                }
+            onKeySelected: {
+                keyFilePath = filePath;
+                keyFileName = fileName;
             }
         }
 

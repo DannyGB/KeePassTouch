@@ -22,24 +22,26 @@ import QtQuick 2.0
 import Ubuntu.Components 1.2
 import Ubuntu.Components.Popups 1.2
 import Ubuntu.Components.ListItems 1.0
+//import Ubuntu.Layouts 1.0
 import Ubuntu.Content 1.1
 import Qt.labs.folderlistmodel 2.1
 
 Page {
 
-    property string pageTitle : i18n.tr("Available Databases")
+    property string pageTitle : i18n.tr("Databases")
     property bool keyMode: false
 
     function setKeyMode() {
         keyMode = true
-        pageTitle = i18n.tr("Available Keys")
+        pageTitle = i18n.tr("Keys")
         folderModel.nameFilters = ["*.*"]
         importer.headerText = 'Import key from'
+        //actCreateDb.visible = false;
     }
 
     function setDatabaseMode() {
         keyMode = false
-        pageTitle = i18n.tr("Available Databases")
+        pageTitle = i18n.tr("Databases")
         folderModel.nameFilters = ["*.kdbx"]
         importer.headerText = 'Import database from'
     }
@@ -47,9 +49,9 @@ Page {
     function onDatabaseSelected(index, model) {
         if(keyMode) {
             keyFilePath = model.filePath
-            keyFileName = model.fileName            
+            keyFileName = model.fileName
         } else {
-            databaseFilePath = model.filePath            
+            databaseFilePath = model.filePath
             databaseFileName = model.fileName
             keyFilePath = ''
             keyFileName = ''
@@ -62,13 +64,22 @@ Page {
 
     head {
         actions: [
+            /*Action {
+                id: actCreateDb
+              iconName: "add"
+              text: i18n.tr("Add")
+              onTriggered: {
+                pageStack.push(createDatabase.createDatabasePage)
+              }
+            },*/
             Action {
               iconName: "import"
               text: i18n.tr("Import")
               onTriggered: {
                 pageStack.push(importer.pickerPage)
               }
-            }]
+            }
+        ]
     }
 
     title: i18n.tr(pageTitle)
@@ -79,7 +90,7 @@ Page {
         anchors {
             margins: units.gu(2)
             fill: parent
-        }        
+        }
 
         FolderListModel {
             id: folderModel
@@ -96,12 +107,12 @@ Page {
             height: parent.height
             width: parent.width
             spacing: 5
-            model: folderModel            
+            model: folderModel
             delegate: ListItem {
                 width: sourcesView.width
                 height: units.gu(5)
                 Text {
-                    text: fileName                    
+                    text: fileName
                     color: UbuntuColors.darkAubergine
                 }
 
@@ -115,7 +126,7 @@ Page {
                     actions: [
                         Action {
                             iconName: "delete"
-                            onTriggered: {                                
+                            onTriggered: {
                                 selectedDatabaseToDelete.path = folderModel.get(index, "filePath")
                                 selectedDatabaseToDelete.name = folderModel.get(index, "fileName")
                                 PopupUtils.open(deletePopup)
