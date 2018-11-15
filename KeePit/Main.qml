@@ -124,9 +124,9 @@ MainView {
                id: importer
            }
 
-           CreateDatabase {
+           /*CreateDatabase {
                id: createDatabase
-           }
+           }*/
     }
 
     /*Component {
