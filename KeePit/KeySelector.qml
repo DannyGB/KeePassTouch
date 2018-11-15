@@ -21,43 +21,73 @@
 import QtQuick 2.0
 import Ubuntu.Components 1.3
 import Ubuntu.Components.ListItems 1.3
+import Ubuntu.Components.ListItems 1.3 as ListItemImport
 import Qt.labs.folderlistmodel 2.1
+import QtQuick.Layouts 1.1
 
-ComboButton {
+Column {
 
+    id: col
+    signal toggleChecked(bool state)
     signal keySelected(string fileName, string filePath)
     property alias nameFilters: folderModel.nameFilters
     property alias showDirs: folderModel.showDirs
     property alias folder: folderModel.folder
     property alias listHeight: list.height
     property alias text: key_selector.text
+    property alias labelText: toggle.text
 
-    id: key_selector
-    text: i18n.tr("Select Key")
-    onClicked: {
-        expanded = false
+    ListItemImport.Standard {
+        id: toggle
+        visible: true
+        text: i18n.tr("Use Key")
+        enabled: true
+        control: Switch {
+          id: useKey
+          checked: false
+          onClicked: {
+              importer.visible = checked
+          }
+          onCheckedChanged: {
+              toggleChecked(checked)
+          }
+        }
     }
 
-    ListView {
-        id: list
-        width: parent.width
-        height: 200
+    ListItem {
+        id: "importer"
+        visible: false
+        height: 500
 
-        FolderListModel {
-            id: folderModel
-            nameFilters: ["*.*"]
-            showDirs: false
-            folder: 'file:'+ appLocation
-        }
+        ComboButton {
+          id: key_selector
+          width: parent.width
+          text: i18n.tr("Select Key")
+          onClicked: {
+              expanded = false
+          }
 
-        model: folderModel
-        delegate: Standard {
-            text: fileName
-            onClicked: {
-                key_selector.text = text;
-                key_selector.expanded = false;
-                key_selector.keySelected(fileName, filePath)
-            }
-        }
+          ListView {
+              id: list
+              height: 200
+
+              FolderListModel {
+                  id: folderModel
+                  nameFilters: ["*.*"]
+                  showDirs: false
+                  folder: 'file:'+ appLocation
+              }
+
+              model: folderModel
+              delegate: Standard {
+                  text: fileName
+                  onClicked: {
+                        key_selector.text = text;
+                        key_selector.expanded = false;
+                        col.keySelected(fileName, filePath)
+                    }
+              }
+          }
+      }
     }
 }

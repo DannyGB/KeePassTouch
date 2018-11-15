@@ -90,9 +90,15 @@ Page {
                 keyFilePath = filePath;
                 keyFileName = fileName;
             }
+            onToggleChecked: {
+                if(!state) {
+                    keyFilePath = "";
+                    keyFileName = "";
+                }
+            }
         }
 
-        Button {
+        Button {            
             objectName: "button"
             width: parent.width
             color: UbuntuColors.orange

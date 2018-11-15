@@ -20,6 +20,7 @@
 
 import QtQuick 2.0
 import Ubuntu.Components 1.3
+import QtQuick.Layouts 1.1
 
 Item {
 
@@ -32,19 +33,19 @@ Item {
 
     Page {
         id: page_create_database;
-        title: i18n.tr("Create Database");
-
-        head {
-            actions: [
-                Action {
-                     iconName: "import"
-                     text: i18n.tr("Import key")
-                     onTriggered: {
-                         databaseListView.setKeyMode();
-                         pageStack.push(databaseListView)
-                     }
-                }
-            ]
+        header: PageHeader {
+            id: pageHeader
+            title: i18n.tr("Create Database");
+            trailingActionBar {
+                actions: [
+                    Action {
+                        iconName: "import"
+                        onTriggered: {
+                            pageStack.push(importer.pickerPage)
+                        }
+                    }
+                ]
+            }
         }
 
         Flow {
@@ -52,6 +53,7 @@ Item {
             anchors {
                 margins: units.gu(2)
                 fill: parent
+                topMargin: pageHeader.height + units.gu(2)
             }
 
             Label {
@@ -101,13 +103,20 @@ Item {
             KeySelector {
                 id: combo
                 width: parent.width
+                labelText: i18n.tr("Use Existing Key")
                 onKeySelected: {
                     keyFilePath = filePath;
                     keyFileName = fileName;
                 }
+                onToggleChecked: {
+                    if(!state) {
+                        keyFilePath = "";
+                        keyFileName = "";
+                    }
+                }
             }
 
-            Button {
+            /*Button {
                 id: save
                 text: i18n.tr("Save")
                 width: parent.width
@@ -116,7 +125,7 @@ Item {
                     //Create an XML key file
                     //Save to the file application location
                 }
-            }
+            }*/
         }
     }
 }

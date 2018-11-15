@@ -67,20 +67,17 @@ Page {
       Label {
        text: i18n.tr("Username")
        width: parent.width
-       color: UbuntuColors.darkAubergine
       }
 
       TextField {
         id: userName
         text: database.selectedEntry.username
         readOnly: true
-        color: UbuntuColors.darkAubergine
       }
 
       Label {
        text: i18n.tr("Password")
        width: parent.width
-       color: UbuntuColors.darkAubergine
       }
 
       PasswordInput {
@@ -94,7 +91,6 @@ Page {
       Label {
        text: i18n.tr("Url")
        width: parent.width
-       color: UbuntuColors.darkAubergine
       }
 
       TextField {
@@ -102,13 +98,11 @@ Page {
         text: database.selectedEntry.url
         readOnly: true
         width: parent.width
-        color: UbuntuColors.darkAubergine
       }
 
       Label {
        text: i18n.tr("Notes")
        width: parent.width
-       color: UbuntuColors.darkAubergine
       }
 
       TextArea {
@@ -116,7 +110,6 @@ Page {
         text: database.selectedEntry.notes
         readOnly: true
         width: parent.width
-        color: UbuntuColors.darkAubergine
       }
     }
 }
