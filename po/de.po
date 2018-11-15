@@ -7,193 +7,196 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-01 08:00+0000\n"
+"POT-Creation-Date: 2018-11-15 22:01+0000\n"
 "PO-Revision-Date: 2018-11-03 12:03+0100\n"
+"Last-Translator: \n"
 "Language-Team: \n"
+"Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 2.0.6\n"
-"Last-Translator: \n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"Language: de\n"
 
-#: /home/wolfgang/Documents/UBPort/KeePassTouch/KeePit/CreateDatabase.qml:35
+#: /home/dan/KeePit/KeePit/CreateDatabase.qml:38
 msgid "Create Database"
 msgstr "Datenbank erstellen"
 
-#: /home/wolfgang/Documents/UBPort/KeePassTouch/KeePit/CreateDatabase.qml:41
-#: /home/wolfgang/Documents/UBPort/KeePassTouch/KeePit/OpenDatabase.qml:49
-msgid "Import key"
-msgstr "Schlüssel importieren"
-
-#: /home/wolfgang/Documents/UBPort/KeePassTouch/KeePit/CreateDatabase.qml:58
-#: /home/wolfgang/Documents/UBPort/KeePassTouch/KeePit/CreateDatabase.qml:63
+#: /home/dan/KeePit/KeePit/CreateDatabase.qml:60
+#: /home/dan/KeePit/KeePit/CreateDatabase.qml:65
 msgid "Master Password"
 msgstr "Master-Passwort"
 
-#: /home/wolfgang/Documents/UBPort/KeePassTouch/KeePit/CreateDatabase.qml:74
+#: /home/dan/KeePit/KeePit/CreateDatabase.qml:76
 msgid "Repeat Password"
 msgstr "Passwort wiederholen"
 
-#: /home/wolfgang/Documents/UBPort/KeePassTouch/KeePit/CreateDatabase.qml:80
+#: /home/dan/KeePit/KeePit/CreateDatabase.qml:82
 msgid "Key file"
 msgstr "Schlüsseldatei"
 
-#: /home/wolfgang/Documents/UBPort/KeePassTouch/KeePit/CreateDatabase.qml:93
+#: /home/dan/KeePit/KeePit/CreateDatabase.qml:95
 msgid "Create Key"
 msgstr "Erzeuge Schlüssel"
 
-#: /home/wolfgang/Documents/UBPort/KeePassTouch/KeePit/CreateDatabase.qml:112
-msgid "Save"
-msgstr "Speichern"
+#: /home/dan/KeePit/KeePit/CreateDatabase.qml:106
+msgid "Use Existing Key"
+msgstr ""
 
-#: /home/wolfgang/Documents/UBPort/KeePassTouch/KeePit/Entry.qml:34
-msgid "Copy"
-msgstr "Kopieren"
-
-#: /home/wolfgang/Documents/UBPort/KeePassTouch/KeePit/Entry.qml:46
-#: /home/wolfgang/Documents/UBPort/KeePassTouch/KeePit/ListEntryItems.qml:92
+#: /home/dan/KeePit/KeePit/Entry.qml:34
+#: /home/dan/KeePit/KeePit/ListEntryItems.qml:67
 msgid "Logout"
 msgstr "Ausloggen"
 
-#: /home/wolfgang/Documents/UBPort/KeePassTouch/KeePit/Entry.qml:67
+#: /home/dan/KeePit/KeePit/Entry.qml:47
+msgid "Copy"
+msgstr "Kopieren"
+
+#: /home/dan/KeePit/KeePit/Entry.qml:68
 msgid "Username"
 msgstr "Benutzername"
 
-#: /home/wolfgang/Documents/UBPort/KeePassTouch/KeePit/Entry.qml:80
+#: /home/dan/KeePit/KeePit/Entry.qml:79
 msgid "Password"
 msgstr "Passwort"
 
-#: /home/wolfgang/Documents/UBPort/KeePassTouch/KeePit/Entry.qml:96
-#: /home/wolfgang/Documents/UBPort/KeePassTouch/KeePit/Entry.qml:103
-#: /home/wolfgang/Documents/UBPort/KeePassTouch/KeePit/ListEntryItems.qml:31
-msgid "Show"
-msgstr "Zeige"
-
-#: /home/wolfgang/Documents/UBPort/KeePassTouch/KeePit/Entry.qml:106
-msgid "Hide"
-msgstr "Verstecke"
-
-#: /home/wolfgang/Documents/UBPort/KeePassTouch/KeePit/Entry.qml:112
+#: /home/dan/KeePit/KeePit/Entry.qml:92
 msgid "Url"
 msgstr "URL"
 
-#: /home/wolfgang/Documents/UBPort/KeePassTouch/KeePit/Entry.qml:126
+#: /home/dan/KeePit/KeePit/Entry.qml:104
 msgid "Notes"
 msgstr "Notizen"
 
-#: /home/wolfgang/Documents/UBPort/KeePassTouch/KeePit/Importer.qml:116
+#: /home/dan/KeePit/KeePit/Importer.qml:116
 msgid "Importing database..."
 msgstr "Importiere Datenbank..."
 
-#: /home/wolfgang/Documents/UBPort/KeePassTouch/KeePit/Importer.qml:137
+#: /home/dan/KeePit/KeePit/Importer.qml:137
 msgid "Waiting"
 msgstr "Warte"
 
-#: /home/wolfgang/Documents/UBPort/KeePassTouch/KeePit/Importer.qml:139
+#: /home/dan/KeePit/KeePit/Importer.qml:139
 msgid "Processing"
 msgstr "In Bearbeitung"
 
-#: /home/wolfgang/Documents/UBPort/KeePassTouch/KeePit/Importer.qml:141
+#: /home/dan/KeePit/KeePit/Importer.qml:141
 #, qt-format
 msgid "Imported to %1"
 msgstr "Importiert nach %1"
 
-#: /home/wolfgang/Documents/UBPort/KeePassTouch/KeePit/Importer.qml:143
+#: /home/dan/KeePit/KeePit/Importer.qml:143
 #, qt-format
 msgid "Already in library: %1"
 msgstr "Bereits in Bibliothek: %1"
 
-#: /home/wolfgang/Documents/UBPort/KeePassTouch/KeePit/Importer.qml:145
+#: /home/dan/KeePit/KeePit/Importer.qml:145
 #, qt-format
 msgid "Error: %1"
 msgstr "Fehler: %1"
 
-#: /home/wolfgang/Documents/UBPort/KeePassTouch/KeePit/KeySelector.qml:36
-#: /home/wolfgang/Documents/UBPort/KeePassTouch/KeePit/Main.qml:260
+#: /home/dan/KeePit/KeePit/KeySelector.qml:43
+msgid "Use Key"
+msgstr "Schlüssel auswählen"
+
+#: /home/dan/KeePit/KeePit/KeySelector.qml:65
+#: /home/dan/KeePit/KeePit/Main.qml:260
 msgid "Select Key"
 msgstr "Schlüssel auswählen"
 
-#: /home/wolfgang/Documents/UBPort/KeePassTouch/KeePit/ListEntryItems.qml:72
-msgid "Home"
-msgstr "Home"
-
-#: /home/wolfgang/Documents/UBPort/KeePassTouch/KeePit/ListEntryItems.qml:82
-#: /home/wolfgang/Documents/UBPort/KeePassTouch/KeePit/Main.qml:200
-#: /home/wolfgang/Documents/UBPort/KeePassTouch/KeePit/Main.qml:208
+#: /home/dan/KeePit/KeePit/ListEntryItems.qml:74
+#: /home/dan/KeePit/KeePit/Main.qml:200 /home/dan/KeePit/KeePit/Main.qml:208
 msgid "Search"
 msgstr "Suche"
 
-#: /home/wolfgang/Documents/UBPort/KeePassTouch/KeePit/Main.qml:159
+#: /home/dan/KeePit/KeePit/ListEntryItems.qml:84
+msgid "Home"
+msgstr "Home"
+
+#: /home/dan/KeePit/KeePit/Main.qml:159
 msgid "Error"
 msgstr "Fehler"
 
-#: /home/wolfgang/Documents/UBPort/KeePassTouch/KeePit/Main.qml:160
+#: /home/dan/KeePit/KeePit/Main.qml:160
 msgid "An error has occurred"
 msgstr "Ein Fehler ist aufgetreten"
 
-#: /home/wolfgang/Documents/UBPort/KeePassTouch/KeePit/Main.qml:162
-#: /home/wolfgang/Documents/UBPort/KeePassTouch/KeePit/Main.qml:175
-#: /home/wolfgang/Documents/UBPort/KeePassTouch/KeePit/Main.qml:189
+#: /home/dan/KeePit/KeePit/Main.qml:162 /home/dan/KeePit/KeePit/Main.qml:175
+#: /home/dan/KeePit/KeePit/Main.qml:189
 msgid "Ok"
 msgstr "OK"
 
-#: /home/wolfgang/Documents/UBPort/KeePassTouch/KeePit/Main.qml:172
+#: /home/dan/KeePit/KeePit/Main.qml:172
 msgid "About (KeePit v3.0)"
 msgstr "Über (KeePit v3.0)"
 
-#: /home/wolfgang/Documents/UBPort/KeePassTouch/KeePit/Main.qml:173
+#: /home/dan/KeePit/KeePit/Main.qml:173
 msgid "Copyright &copy; "
 msgstr "Copyright &copy;"
 
-#: /home/wolfgang/Documents/UBPort/KeePassTouch/KeePit/Main.qml:186
+#: /home/dan/KeePit/KeePit/Main.qml:186
 msgid "Info"
 msgstr "Info"
 
-#: /home/wolfgang/Documents/UBPort/KeePassTouch/KeePit/Main.qml:187
+#: /home/dan/KeePit/KeePit/Main.qml:187
 msgid "Information: "
 msgstr "Information:"
 
-#: /home/wolfgang/Documents/UBPort/KeePassTouch/KeePit/Main.qml:203
+#: /home/dan/KeePit/KeePit/Main.qml:203
 msgid "search term"
 msgstr "Suchparameter"
 
-#: /home/wolfgang/Documents/UBPort/KeePassTouch/KeePit/Main.qml:218
-#: /home/wolfgang/Documents/UBPort/KeePassTouch/KeePit/Main.qml:244
+#: /home/dan/KeePit/KeePit/Main.qml:218 /home/dan/KeePit/KeePit/Main.qml:244
 msgid "Cancel"
 msgstr "Abbrechen"
 
-#: /home/wolfgang/Documents/UBPort/KeePassTouch/KeePit/Main.qml:229
-#: /home/wolfgang/Documents/UBPort/KeePassTouch/KeePit/Main.qml:236
+#: /home/dan/KeePit/KeePit/Main.qml:229 /home/dan/KeePit/KeePit/Main.qml:236
 msgid "Delete"
 msgstr "Löschen"
 
-#: /home/wolfgang/Documents/UBPort/KeePassTouch/KeePit/OpenDatabase.qml:38
-msgid "Close"
-msgstr "Schließen"
-
-#: /home/wolfgang/Documents/UBPort/KeePassTouch/KeePit/OpenDatabase.qml:57
+#: /home/dan/KeePit/KeePit/OpenDatabase.qml:42
 msgid "About"
 msgstr "Über"
 
-#: /home/wolfgang/Documents/UBPort/KeePassTouch/KeePit/OpenDatabase.qml:94
+#: /home/dan/KeePit/KeePit/OpenDatabase.qml:47
+msgid "Import key"
+msgstr "Schlüssel importieren"
+
+#: /home/dan/KeePit/KeePit/OpenDatabase.qml:55
+msgid "Close"
+msgstr "Schließen"
+
+#: /home/dan/KeePit/KeePit/OpenDatabase.qml:105
 msgid "Open Database"
 msgstr "Öffne Datenbank"
 
-#: /home/wolfgang/Documents/UBPort/KeePassTouch/KeePit/PasswordInput.qml:49
+#: /home/dan/KeePit/KeePit/PasswordInput.qml:51
 msgid "Show password"
 msgstr "Zeige Passwort"
 
-#: /home/wolfgang/Documents/UBPort/KeePassTouch/KeePit/Selector.qml:31
-#: /home/wolfgang/Documents/UBPort/KeePassTouch/KeePit/Selector.qml:44
+#: /home/dan/KeePit/KeePit/Selector.qml:34
+#: /home/dan/KeePit/KeePit/Selector.qml:47
 msgid "Databases"
 msgstr "Datenbänke"
 
-#: /home/wolfgang/Documents/UBPort/KeePassTouch/KeePit/Selector.qml:36
+#: /home/dan/KeePit/KeePit/Selector.qml:39
 msgid "Keys"
 msgstr "Schlüssel"
 
-#: /home/wolfgang/Documents/UBPort/KeePassTouch/KeePit/Selector.qml:77
+#: /home/dan/KeePit/KeePit/Selector.qml:239
 msgid "Import"
 msgstr "Importieren"
+
+#: /home/dan/KeePit/KeePit/Selector.qml:249
+#, fuzzy
+msgid "Create"
+msgstr "Erzeuge Schlüssel"
+
+#~ msgid "Save"
+#~ msgstr "Speichern"
+
+#~ msgid "Show"
+#~ msgstr "Zeige"
+
+#~ msgid "Hide"
+#~ msgstr "Verstecke"
