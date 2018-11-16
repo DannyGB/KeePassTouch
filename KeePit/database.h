@@ -3,10 +3,10 @@
 *
 * Copyright (C) 2016 Dan Beavon
 *
-* This program is free software; you can redistribute it and/or
-* modify it under the terms of the GNU General Public License
-* as published by the Free Software Foundation; either version 2
-* of the License, or (at your option) any later version.
+* This program is free software: you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation, either version 3 of the License, or
+* (at your option) any later version.
 *
 * This program is distributed in the hope that it will be useful,
 * but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -14,8 +14,7 @@
 * GNU General Public License for more details.
 *
 * You should have received a copy of the GNU General Public License
-* along with this program; if not, write to the Free Software
-* Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+* along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
 #ifndef DATABASE_H
@@ -35,17 +34,17 @@ using namespace std;
 
 class Database : public QObject
 {
-    Q_OBJECT    
+    Q_OBJECT
 
 public:
     explicit Database(QObject *parent = 0);
     ~Database();
     Q_INVOKABLE void openFile(QString, QString, QString);
-    Q_INVOKABLE void closeFile();    
+    Q_INVOKABLE void closeFile();
     Q_INVOKABLE void selectBranch(QString);
     Q_INVOKABLE QString reloadBranch(QString, int);
     Q_INVOKABLE void search(QString);
-    PasswordEntryModel* createModel();    
+    PasswordEntryModel* createModel();
     Q_INVOKABLE void loadHome();
     Q_INVOKABLE void deleteFile(QString);
 
@@ -57,11 +56,11 @@ protected:
     bool equal(char*, char*, uint);
     uint loadByte(char*, int);
     void readHeaderField(ByteStream*, bool*, bool*);
-    uint readBytes(char*, int, uint);    
+    uint readBytes(char*, int, uint);
     bool fileExists(const char *);
     std::string generateSHA256Hash(char*, uint);
     bool getChildBranch(QString, vector<TreeNode*>);
-    bool getMyBranch(QString, vector<TreeNode*>);    
+    bool getMyBranch(QString, vector<TreeNode*>);
     void readPayload(vector<char>*, vector<char>);
     void searchInternal(QString, vector<TreeNode*>);
 
@@ -83,4 +82,3 @@ private:
 };
 
 #endif // DATABASE_H
-

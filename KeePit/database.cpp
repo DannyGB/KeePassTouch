@@ -3,10 +3,10 @@
 *
 * Copyright (C) 2016 Dan Beavon
 *
-* This program is free software; you can redistribute it and/or
-* modify it under the terms of the GNU General Public License
-* as published by the Free Software Foundation; either version 2
-* of the License, or (at your option) any later version.
+* This program is free software: you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation, either version 3 of the License, or
+* (at your option) any later version.
 *
 * This program is distributed in the hope that it will be useful,
 * but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -14,8 +14,7 @@
 * GNU General Public License for more details.
 *
 * You should have received a copy of the GNU General Public License
-* along with this program; if not, write to the Free Software
-* Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+* along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
 #include "database.h"
@@ -96,7 +95,7 @@ PasswordEntryModel* model;
 ///
 Database::Database(QObject *parent) :
     QObject(parent)
-{    
+{
 }
 
 ///
@@ -264,7 +263,7 @@ bool Database::getMyBranch(QString uuid, vector<TreeNode*> currentBranch)
 ///
 PasswordEntryModel* Database::createModel()
 {
-    model = new PasswordEntryModel();    
+    model = new PasswordEntryModel();
 
     return model;
 }
@@ -322,7 +321,7 @@ void Database::openFile(QString url, QString password, QString passKey) {
         hasKeyFile = true;
     }
 
-    uint uSig1 = 0, uSig2 = 0, uVersion = 0;  
+    uint uSig1 = 0, uSig2 = 0, uVersion = 0;
     uSig1 = byteStream->ReadByte();
     uSig2 = byteStream->ReadByte();
 
@@ -404,7 +403,7 @@ void Database::openFile(QString url, QString password, QString passKey) {
     uint uNumRounds = ByteStream::ReadByte(m_pwDatabaseKeyEncryptionRounds);
 
     CompositeKey* cmpKey = new CompositeKey(vKey, vKeyFileData);
-    vector<char> pKey32 = cmpKey->generateKey32(vKeySeed, uNumRounds);    
+    vector<char> pKey32 = cmpKey->generateKey32(vKeySeed, uNumRounds);
     delete cmpKey;
     cmpKey = 0;
 
@@ -475,7 +474,7 @@ void Database::openFile(QString url, QString password, QString passKey) {
     vector<char> read;
     assert(read.size() == 0);
 
-    try {       
+    try {
         // Now lets read the payload
         readPayload(&read, payload);
 
@@ -498,7 +497,7 @@ void Database::openFile(QString url, QString password, QString passKey) {
     } catch(exception &ex) {
         emit error("Could not read payload (incorrect composite key?)");
         return;
-    }         
+    }
 
     // We have Xml so we need to parse it. My idea is to convert the entire Xml file into c++ objects and then
     // pass them back a level at a time as requested
@@ -507,10 +506,10 @@ void Database::openFile(QString url, QString password, QString passKey) {
     assert(read.size() > 0);
     ReadXmlFile *readXml = new ReadXmlFile(xml, read.size(), salsa);
     dataTree = readXml->GetTopGroup();
-    loadHome();    
+    loadHome();
 
     ArrayExtensions::Reset(payload); // This should be reset when the HashedBlockStream is disposed (we need to be passing it by ref maybe?)
-    ArrayExtensions::Reset(read);    
+    ArrayExtensions::Reset(read);
 
     delete readXml;
     readXml = 0;
@@ -553,7 +552,7 @@ void Database::readPayload(vector<char>* read, vector<char> payload) {
 /// \param readError
 ///
 void Database::readHeaderField(ByteStream* byteStream, bool* endOfHeaderReached, bool *readError)
-{    
+{
     char btFieldID = byteStream->Read();
     ushort uSize = byteStream->ReadShort();
 
