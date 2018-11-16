@@ -62,13 +62,17 @@ Page {
       id: pageHeader
       title: i18n.tr(appTitle)
       trailingActionBar.actions: [
-        Action {
-            iconName: "system-log-out"
-            text: i18n.tr("Logout")
+          Action {
+            iconName: "switch"
+            text: i18n.tr("Sort")
             onTriggered: {
-                reset();
+                if(sortedEntries.sort.order === Qt.AscendingOrder) {
+                    sortedEntries.sort.order = Qt.DescendingOrder
+                } else {
+                    sortedEntries.sort.order = Qt.AscendingOrder
+                }
             }
-        },
+          },
         Action {
           iconName: "search"
           text: i18n.tr("Search")
@@ -86,7 +90,14 @@ Page {
               database.loadHome()
               previousDepth = null
               pageStack.clear()
-              pageStack.push(listEntryItems);
+              pageStack.push(listEntryItems)
+          }
+        },
+        Action {
+          iconName: "system-log-out"
+          text: i18n.tr("Logout")
+          onTriggered: {
+              reset();
           }
         }
       ]
@@ -125,12 +136,21 @@ Page {
             }
         }
 
+        SortFilterModel {
+            id: sortedEntries
+            model: passwordEntryModel
+            sort.property: "title"
+            sort.order: Qt.AscendingOrder
+            sortCaseSensitivity: Qt.CaseInsensitive
+        }
+
         UbuntuListView {
           id: listView
           height: parent.height
           width: parent.width
           spacing: 5
-          model: passwordEntryModel //passwordEntryModel is the initial model from the C++ side of the application (See main.cpp)
+          //model: passwordEntryModel //passwordEntryModel is the initial model from the C++ side of the application (See main.cpp)
+          model: sortedEntries
           delegate: entryDelegate
           focus: true
         }

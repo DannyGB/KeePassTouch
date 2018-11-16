@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-16 16:19+0000\n"
+"POT-Creation-Date: 2018-11-16 17:09+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -43,7 +43,7 @@ msgid "Use Existing Key"
 msgstr ""
 
 #: /home/dan/KeePit/KeePit/Entry.qml:34
-#: /home/dan/KeePit/KeePit/ListEntryItems.qml:67
+#: /home/dan/KeePit/KeePit/ListEntryItems.qml:98
 msgid "Logout"
 msgstr ""
 
@@ -103,12 +103,16 @@ msgstr ""
 msgid "Select Key"
 msgstr ""
 
-#: /home/dan/KeePit/KeePit/ListEntryItems.qml:74
+#: /home/dan/KeePit/KeePit/ListEntryItems.qml:67
+msgid "Sort"
+msgstr ""
+
+#: /home/dan/KeePit/KeePit/ListEntryItems.qml:78
 #: /home/dan/KeePit/KeePit/Main.qml:200 /home/dan/KeePit/KeePit/Main.qml:208
 msgid "Search"
 msgstr ""
 
-#: /home/dan/KeePit/KeePit/ListEntryItems.qml:84
+#: /home/dan/KeePit/KeePit/ListEntryItems.qml:88
 msgid "Home"
 msgstr ""
 

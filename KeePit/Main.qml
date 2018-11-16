@@ -67,7 +67,7 @@ MainView {
         onSuccess: {
             pageStack.clear();
             pageStack.push(listEntryItems);
-            resetTimer.start()
+            //resetTimer.start()
         }
     }
 
@@ -271,6 +271,6 @@ MainView {
     }
 
     function resetLogoutTimer() {
-        resetTimer.restart();
+        //resetTimer.restart();
     }
 }
