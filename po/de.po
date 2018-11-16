@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-15 22:01+0000\n"
+"POT-Creation-Date: 2018-11-16 16:19+0000\n"
 "PO-Revision-Date: 2018-11-03 12:03+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -169,6 +169,11 @@ msgstr "Schließen"
 #: /home/dan/KeePit/KeePit/OpenDatabase.qml:105
 msgid "Open Database"
 msgstr "Öffne Datenbank"
+
+#: /home/dan/KeePit/KeePit/PasswordInput.qml:43
+#, fuzzy
+msgid "Enter your password"
+msgstr "Master-Passwort"
 
 #: /home/dan/KeePit/KeePit/PasswordInput.qml:51
 msgid "Show password"

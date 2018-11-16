@@ -40,7 +40,7 @@ import Qt.labs.folderlistmodel 2.1
 
         TextField {
             id: password
-            placeholderText: "Enter your password"
+            placeholderText: i18n.tr("Enter your password")
             echoMode : TextInput.Password
             readOnly: false
         }
