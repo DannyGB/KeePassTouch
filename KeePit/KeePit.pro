@@ -150,20 +150,9 @@ SOURCES += main.cpp \
 
 RESOURCES += KeePit.qrc
 
-QML_FILES += $$files(qml/*.qml,true) \
-             $$files(*.js,true)
-
 CONF_FILES +=  KeePit.apparmor \
                KeePit.png \
                KeePit.contenthub
-
-AP_TEST_FILES += tests/autopilot/run \
-                 $$files(tests/*.py,true)
-
-#show all the files in QtCreator
-OTHER_FILES += $${CONF_FILES} \
-               $${QML_FILES} \
-               $${AP_TEST_FILES}
 
 #specify where the config files are installed to
 config_files.path = /KeePit
@@ -335,29 +324,6 @@ HEADERS += \
     filehandler.h \
     bytestream.h \
     stdafx.h
-
-DISTFILES += \
-    qml/OpenDatabase.qml \
-    qml/Entry.qml \
-    qml/EntryModel.qml \
-    qml/ListEntryItems.qml \
-    qml/Selector.qml \
-    qml/Importer.qml \
-    cryptopp/cryptest.exe \
-    cryptopp/strciphr.o \
-    cryptopp/polynomi.o \
-    cryptopp/eprecomp.o \
-    cryptopp/eccrypto.o \
-    cryptopp/algebra.o \
-    cryptopp/adhoc.o \
-    cryptopp/Makefile \
-    KeePit.desktop \
-    KeePit.png \
-    KeePit.contenthub \
-    KeePit.apparmor \
-    qml/CreateDatabase.qml \
-    qml/KeySelector.qml \
-    qml/PasswordInput.qml
 
 LIBS += -L$$OUT_PWD/../ziplib/ -lziplib
 
