@@ -33,7 +33,7 @@
 /// \return
 ///
 int main(int argc, char *argv[])
-{   
+{
     QGuiApplication app(argc, argv);
 
     Database fs;
@@ -42,7 +42,7 @@ int main(int argc, char *argv[])
     qmlRegisterType<Database>("KeePass3", 1, 0, "Database");
 
     QQuickView view;
-    view.setSource(QUrl(QStringLiteral("qrc:///Main.qml")));
+    view.setSource(QUrl(QStringLiteral("qrc:///qml//Main.qml")));
     view.setResizeMode(QQuickView::SizeRootObjectToView);
 
     QQmlContext *ctxt = view.rootContext();

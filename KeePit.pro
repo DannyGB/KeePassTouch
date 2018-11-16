@@ -22,7 +22,7 @@ UBUNTU_TRANSLATION_DOMAIN="keepit.dannygb"
 # template is created in po/template.pot, to create a
 # translation copy the template to e.g. de.po and edit the sources
 UBUNTU_TRANSLATION_SOURCES+= \
-    $$files(*.qml,true) \
+    $$files(qml/*.qml,true) \
     $$files(*.js,true) \
     $$files(*.desktop,true)
 

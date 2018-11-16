@@ -1,32 +1,32 @@
 <RCC>
     <qresource prefix="/">
-        <file>Main.qml</file>
+        <file>qml/Main.qml</file>
     </qresource>
     <qresource prefix="/">
-        <file>KeySelector.qml</file>
-    </qresource>    
-    <qresource prefix="/">
-        <file>CreateDatabase.qml</file>
+        <file>qml/KeySelector.qml</file>
     </qresource>
     <qresource prefix="/">
-        <file>OpenDatabase.qml</file>
-    </qresource>
-	    <qresource prefix="/">
-        <file>Entry.qml</file>
+        <file>qml/CreateDatabase.qml</file>
     </qresource>
     <qresource prefix="/">
-        <file>EntryModel.qml</file>
+        <file>qml/OpenDatabase.qml</file>
     </qresource>
     <qresource prefix="/">
-        <file>ListEntryItems.qml</file>
+    <file>qml/Entry.qml</file>
     </qresource>
     <qresource prefix="/">
-        <file>Selector.qml</file>
+        <file>qml/EntryModel.qml</file>
     </qresource>
     <qresource prefix="/">
-        <file>Importer.qml</file>
+        <file>qml/ListEntryItems.qml</file>
     </qresource>
     <qresource prefix="/">
-        <file>PasswordInput.qml</file>
+        <file>qml/Selector.qml</file>
+    </qresource>
+    <qresource prefix="/">
+        <file>qml/Importer.qml</file>
+    </qresource>
+    <qresource prefix="/">
+        <file>qml/PasswordInput.qml</file>
     </qresource>
 </RCC>

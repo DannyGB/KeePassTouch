@@ -1,5 +1,5 @@
 {
-    	"template": "qmake",
+	"template": "qmake",
 	"sdk":"ubuntu-sdk-16.04",
 	"arch":"armhf",
 	"app":"keepit.dannygb"

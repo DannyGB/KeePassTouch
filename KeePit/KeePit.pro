@@ -5,7 +5,7 @@ load(ubuntu-click)
 
 QT += qml quick
 
-SOURCES += main.cpp \    
+SOURCES += main.cpp \
     backend.cpp \
     compositekey.cpp \
     hashedblockstream.cpp \
@@ -146,11 +146,11 @@ SOURCES += main.cpp \
     arrayextensions.cpp \
     aes.cpp \
     filehandler.cpp \
-    bytestream.cpp \   
+    bytestream.cpp \
 
 RESOURCES += KeePit.qrc
 
-QML_FILES += $$files(*.qml,true) \
+QML_FILES += $$files(qml/*.qml,true) \
              $$files(*.js,true)
 
 CONF_FILES +=  KeePit.apparmor \
@@ -170,7 +170,7 @@ config_files.path = /KeePit
 config_files.files += $${CONF_FILES}
 INSTALLS+=config_files
 
-#install the desktop file, a translated version is 
+#install the desktop file, a translated version is
 #automatically created in the build directory
 desktop_file.path = /KeePit
 desktop_file.files = $$OUT_PWD/KeePit.desktop
@@ -189,7 +189,7 @@ HEADERS += \
     readxmlfile.h \
     salsa20.h \
     sha256.h \
-    tinyxml2.h \ 
+    tinyxml2.h \
     cryptopp/zlib.h \
     cryptopp/zinflate.h \
     cryptopp/zdeflate.h \
@@ -333,16 +333,16 @@ HEADERS += \
     arrayextensions.h \
     aes.h \
     filehandler.h \
-    bytestream.h \  
+    bytestream.h \
     stdafx.h
 
 DISTFILES += \
-    OpenDatabase.qml \
-    Entry.qml \
-    EntryModel.qml \
-    ListEntryItems.qml \
-    Selector.qml \
-    Importer.qml \
+    qml/OpenDatabase.qml \
+    qml/Entry.qml \
+    qml/EntryModel.qml \
+    qml/ListEntryItems.qml \
+    qml/Selector.qml \
+    qml/Importer.qml \
     cryptopp/cryptest.exe \
     cryptopp/strciphr.o \
     cryptopp/polynomi.o \
@@ -355,9 +355,9 @@ DISTFILES += \
     KeePit.png \
     KeePit.contenthub \
     KeePit.apparmor \
-    CreateDatabase.qml \
-    KeySelector.qml \
-    PasswordInput.qml
+    qml/CreateDatabase.qml \
+    qml/KeySelector.qml \
+    qml/PasswordInput.qml
 
 LIBS += -L$$OUT_PWD/../ziplib/ -lziplib
 
