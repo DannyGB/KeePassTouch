@@ -17,7 +17,7 @@
 * along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-import QtQuick 2.0
+import QtQuick 2.4
 import Ubuntu.Components 1.3
 import Ubuntu.Components.Popups 1.3
 import Ubuntu.Components.ListItems 1.3
@@ -112,8 +112,8 @@ Item {
     Page {
         id: importPage
         visible: false
-        title: i18n.tr(importer.headerText)
         header: PageHeader {
+            title: i18n.tr(importer.headerText)
             leadingActionBar.actions: [
                 Action {
                     iconName: importing ? "preferences-system-updates-symbolic" : "back"
