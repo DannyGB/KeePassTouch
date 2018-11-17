@@ -193,35 +193,6 @@ MainView {
     }
 
     Component {
-         id: searchPopup
-         Dialog {
-             id: searchPopupDialogue
-             title: i18n.tr("Search")
-             TextField {
-                 id: searchTerm
-                 placeholderText: i18n.tr("search term")
-                 width: parent.width
-                 color: UbuntuColors.darkAubergine
-             }
-             Button {
-                 text: i18n.tr("Search")
-                 onClicked: {
-                     if(searchTerm.text !== '') {
-                        PopupUtils.close(searchPopupDialogue)
-                        database.search(searchTerm.text)
-                     }
-                 }
-                 color: UbuntuColors.green
-             }
-             Button {
-                 text: i18n.tr("Cancel")
-                 onClicked: PopupUtils.close(searchPopupDialogue)
-                 color: UbuntuColors.lightGrey
-             }
-         }
-    }
-
-    Component {
          id: deletePopup
          Dialog {
              id: deletePopupDialogue

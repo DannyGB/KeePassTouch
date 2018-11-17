@@ -112,15 +112,20 @@ Item {
     Page {
         id: importPage
         visible: false
-        title: i18n.tr("Importing database...")
-        head.backAction: Action {
-            iconName: importing ? "preferences-system-updates-symbolic" : "back"
-            onTriggered: {
-                if (!importing) {
-                    itemList.clear()
-                    pageStack.pop()
+        title: i18n.tr(importer.headerText)
+        header: PageHeader {
+            leadingActionBar.actions: [
+                Action {
+                    iconName: importing ? "preferences-system-updates-symbolic" : "back"
+                    text: "Back"
+                    onTriggered: {
+                        if (!importing) {
+                            itemList.clear()
+                            pageStack.pop()
+                        }
+                    }
                 }
-            }
+            ]
         }
 
         ListView {
@@ -162,8 +167,7 @@ Item {
         ContentPeerPicker {
             handler: ContentHandler.Source
             contentType: ContentType.Documents
-            headerText: i18n.tr(importer.headerText)
-
+            showTitle: false
             onPeerSelected: {
                 peer.selectionType = ContentTransfer.Multiple
                 activeTransfer = peer.request(appStore)

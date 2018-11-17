@@ -30,7 +30,7 @@ import Qt.labs.folderlistmodel 2.1
 
 Page {
 
-    property string pageTitle : i18n.tr("Databases")
+    property string pageTitle : appTitle + " - " + i18n.tr("Databases")
     property bool keyMode: false
 
     function setKeyMode() {
@@ -43,7 +43,7 @@ Page {
 
     function setDatabaseMode() {
         keyMode = false
-        pageTitle = i18n.tr("Databases")
+        pageTitle = appTitle + " - " + i18n.tr("Databases")
         folderModel.nameFilters = ["*.kdbx"]
         importer.headerText = i18n.tr('Import database from')
         actCreateDb.visible = true;

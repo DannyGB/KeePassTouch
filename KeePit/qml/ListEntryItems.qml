@@ -72,11 +72,6 @@ Page {
                 }
             }
           },
-        Action {
-          iconName: "search"
-          text: i18n.tr("Search")
-          onTriggered: PopupUtils.open(searchPopup)
-        },
         /*Action {
             text: i18n.tr("Settings")
             iconName: "settings"
@@ -143,12 +138,32 @@ Page {
             sortCaseSensitivity: Qt.CaseInsensitive
         }
 
+        TextField {
+            id: search
+            width: parent.width
+            placeholderText: i18n.tr("Enter a search term")
+            hasClearButton: false
+            onAccepted: {
+                database.search(search.text)
+            }
+            secondaryItem: Row {
+                Button {
+                    height: parent.height
+                    width: height
+                    iconName: "clear"
+                    onClicked: {
+                        search.text = ""
+                        database.loadHome()
+                    }
+                }
+            }
+        }
+
         UbuntuListView {
           id: listView
           height: parent.height
           width: parent.width
           spacing: 5
-          //model: passwordEntryModel //passwordEntryModel is the initial model from the C++ side of the application (See main.cpp)
           model: sortedEntries
           delegate: entryDelegate
           focus: true

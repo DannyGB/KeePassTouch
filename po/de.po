@@ -177,7 +177,7 @@ msgstr "Öffne Datenbank"
 #: /home/dan/KeePit/KeePit/PasswordInput.qml:43
 #, fuzzy
 msgid "Enter your password"
-msgstr "Master-Passwort"
+msgstr "Passwort eingeben"
 
 #: /home/dan/KeePit/KeePit/PasswordInput.qml:51
 msgid "Show password"
@@ -197,9 +197,8 @@ msgid "Import"
 msgstr "Importieren"
 
 #: /home/dan/KeePit/KeePit/Selector.qml:249
-#, fuzzy
 msgid "Create"
-msgstr "Erzeuge Schlüssel"
+msgstr "Schaffen"
 
 #~ msgid "Save"
 #~ msgstr "Speichern"
