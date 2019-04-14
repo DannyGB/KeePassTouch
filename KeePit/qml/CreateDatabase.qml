@@ -56,6 +56,16 @@ Item {
             }
 
             Label {
+                text: i18n.tr("Database Name")
+            }
+
+            TextField {
+                id: databaseName
+                width: parent.width
+                text: "Q.xml"
+            }
+
+            Label {
                 text: i18n.tr("Master Password")
             }
 
@@ -79,24 +89,12 @@ Item {
 
             Label {
                 text: i18n.tr("Key file")
-                color: UbuntuColors.darkAubergine
             }
 
             TextField {
                 id: keyfile
                 readOnly: true
-                color: UbuntuColors.darkAubergine
                 width: parent.width
-            }
-
-            Button {
-                id: create_keyfile
-                text: i18n.tr("Create Key")
-                width: parent.width
-                onClicked: {
-                    //Create an XML key file
-                    //Save to the file application location
-                }
             }
 
             KeySelector {
@@ -115,16 +113,15 @@ Item {
                 }
             }
 
-            /*Button {
+            Button {
                 id: save
                 text: i18n.tr("Save")
                 width: parent.width
                 color: UbuntuColors.green
                 onClicked: {
-                    //Create an XML key file
-                    //Save to the file application location
+                    database.createNewDatabase(appLocation + "/" + databaseName.text)
                 }
-            }*/
+            }
         }
     }
 }

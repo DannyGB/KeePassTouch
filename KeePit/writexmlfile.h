@@ -1,7 +1,7 @@
 /*
 * This file is part of KeePit
 *
-* Copyright (C) 2016 Dan Beavon
+* Copyright (C) 2016-2018 Dan Beavon
 *
 * This program is free software: you can redistribute it and/or modify
 * it under the terms of the GNU General Public License as published by
@@ -17,19 +17,35 @@
 * along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-#ifndef _BASE64_H_
-#define _BASE64_H_
+#ifndef WRITEXMLFILE_H
+#define WRITEXMLFILE_H
 
-#include <vector>
+#include "passwordentry.h"
+#include "treenode.h"
+#include "salsa20.h"
+#include "base64.h"
+#include "tinyxml2.h"
 #include <string>
-//typedef unsigned char BYTE;
+#include <vector>
+#include <QString>
 
-class Base64 {
+using namespace std;
+using namespace tinyxml2;
 
+class WriteXmlFile
+{
 public:
-    Base64();
-    std::vector<char> base64_encode(std::string const& string);
-    std::string base64_encode(char const* buf, unsigned int bufLen);
-    std::vector<char> base64_decode(std::string const&);
+    WriteXmlFile(const char*, size_t, Salsa20*);
+    ~WriteXmlFile();
+    //QString ToString(vector<TreeNode*>);
+    static void CreateNewDatabase(QString fileName);
+
+private:
+    size_t m_size;
+    Base64 base64;
+    Salsa20 *m_salsa;
+    const char * m_xml;
+    TreeNode *lastRead = 0;
 };
-#endif
+
+#endif // WRITEXMLFILE_H

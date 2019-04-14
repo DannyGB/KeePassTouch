@@ -1,7 +1,7 @@
 /*
 * This file is part of KeePit
 *
-* Copyright (C) 2016 Dan Beavon
+* Copyright (C) 2016-2018 Dan Beavon
 *
 * This program is free software: you can redistribute it and/or modify
 * it under the terms of the GNU General Public License as published by
@@ -17,19 +17,17 @@
 * along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-#ifndef _BASE64_H_
-#define _BASE64_H_
+#ifndef HEX_H
+#define HEX_H
 
-#include <vector>
-#include <string>
-//typedef unsigned char BYTE;
+#include <QString>
 
-class Base64 {
-
+class Hex
+{
 public:
-    Base64();
-    std::vector<char> base64_encode(std::string const& string);
-    std::string base64_encode(char const* buf, unsigned int bufLen);
-    std::vector<char> base64_decode(std::string const&);
+     Hex();
+     static QString ByteArrayToHexString(QByteArray array);
+     static QByteArray HexStringToByteArray(QString strHex);
 };
-#endif
+
+#endif //HEX_H

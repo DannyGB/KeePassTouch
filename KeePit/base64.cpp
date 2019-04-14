@@ -19,6 +19,7 @@
 
 #include "base64.h"
 #include <iostream>
+#include <string.h>
 
 static const std::string base64_chars =
              "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
@@ -32,6 +33,13 @@ static inline bool is_base64(char c) {
 
 Base64::Base64()
 {
+}
+
+std::vector<char> Base64::base64_encode(std::string const& string) {
+    const char * buf = string.c_str();
+    std::string bStr = Base64::base64_encode(buf, string.length());
+    std::vector<char> data(bStr.begin(), bStr.end());
+    return data;
 }
 
 /// \brief Base64::base64_encode

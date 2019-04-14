@@ -11,6 +11,7 @@ SOURCES += main.cpp \
     hashedblockstream.cpp \
     passwordentry.cpp \
     readxmlfile.cpp \
+    writexmlfile.cpp \
     salsa20.cpp \
     sha256.cpp \
     tinyxml2.cpp \
@@ -147,6 +148,7 @@ SOURCES += main.cpp \
     aes.cpp \
     filehandler.cpp \
     bytestream.cpp \
+    hexx.cpp
 
 RESOURCES += KeePit.qrc
 
@@ -176,6 +178,7 @@ HEADERS += \
     hashedblockstream.h \
     passwordentry.h \
     readxmlfile.h \
+    writexmlfile.h \
     salsa20.h \
     sha256.h \
     tinyxml2.h \
@@ -323,7 +326,8 @@ HEADERS += \
     aes.h \
     filehandler.h \
     bytestream.h \
-    stdafx.h
+    stdafx.h \
+    hexx.h
 
 LIBS += -L$$OUT_PWD/../ziplib/ -lziplib
 

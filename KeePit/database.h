@@ -47,6 +47,7 @@ public:
     PasswordEntryModel* createModel();
     Q_INVOKABLE void loadHome();
     Q_INVOKABLE void deleteFile(QString);
+    Q_INVOKABLE void createNewDatabase(QString);
 
 Q_SIGNALS:
     void error(QString msg);

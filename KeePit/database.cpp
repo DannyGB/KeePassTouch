@@ -34,6 +34,7 @@
 #include "passwordentry.h"
 #include "base64.h"
 #include "readkeyfile.h"
+#include "writexmlfile.h"
 #include "filehandler.h"
 #include "bytestream.h"
 #include "../ziplib/GZipHelper.h"
@@ -102,6 +103,10 @@ Database::Database(QObject *parent) :
 /// \brief Database::~Database
 ///
 Database::~Database() {
+}
+
+void Database::createNewDatabase(QString filePath) {
+    WriteXmlFile::CreateNewDatabase(filePath);
 }
 
 ///
