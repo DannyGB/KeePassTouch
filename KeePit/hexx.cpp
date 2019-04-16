@@ -57,40 +57,6 @@ QByteArray Hex::HexStringToByteArray(QString strHex)
         bytes.push_back(byte);
     }
 
-    QByteArray qb(reinterpret_cast<const char*>(bytes.data()), bytes.size()); // = new QByteArray(reinterpret_cast<const char*>(bytes.data()), bytes.size());
-    return qb; 
-
-    /*int nStrLen = strHex.length();
-
-    const char *data = strHex.toStdString().c_str();
-    unsigned char *pb = new unsigned char[nStrLen / 2];
-    unsigned char bt;
-    char ch;
-
-    for(int i = 0; i < nStrLen; i += 2)
-    {
-        ch = data[i];
-
-        if((ch >= '0') && (ch <= '9'))
-            bt = (unsigned char)(ch - '0');
-        else if((ch >= 'a') && (ch <= 'f'))
-            bt = (unsigned char)(ch - 'a' + 10);
-        else if((ch >= 'A') && (ch <= 'F'))
-            bt = (unsigned char)(ch - 'A' + 10);
-        else { bt = 0; }
-
-        bt <<= 4;
-
-        ch = data[i + 1];
-        if((ch >= '0') && (ch <= '9'))
-            bt += (unsigned char)(ch - '0');
-        else if((ch >= 'a') && (ch <= 'f'))
-            bt += (unsigned char)(ch - 'a' + 10);
-        else if((ch >= 'A') && (ch <= 'F'))
-            bt += (unsigned char)(ch - 'A' + 10);
-
-        pb[i >> 1] = bt;
-    }
-
-    return QByteArray(reinterpret_cast<const char*>(pb));*/
+    QByteArray qb(reinterpret_cast<const char*>(bytes.data()), bytes.size());
+    return qb;
 }

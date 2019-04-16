@@ -27,9 +27,61 @@
 #include <QUuid>
 
 #include "hexx.h"
+#include "uuid.h"
 #include "./tinyxml2.h"
 
 using namespace tinyxml2;
+
+const char * WriteXmlFile::LASTTOPVISIBLEENTRY = "LastTopVisibleEntry";
+const char * WriteXmlFile::ENABLESEARCHING = "EnableSearching";
+const char * WriteXmlFile::ENABLEAUTOTYPE = "EnableAutoType";
+const char * WriteXmlFile::DEFAULTAUTOTYPESEQUENCE = "DefaultAutoTypeSequence";
+const char * WriteXmlFile::ISEXPANDED = "IsExpanded";
+const char * WriteXmlFile::LOCATIONCHANGED = "LocationChanged";
+const char * WriteXmlFile::USAGECOUNT = "UsageCount";
+const char * WriteXmlFile::EXPIRES = "Expires";
+const char * WriteXmlFile::EXPIRYTIME = "ExpiryTime";
+const char * WriteXmlFile::LASTACCESSTIME = "LastAccessTime";
+const char * WriteXmlFile::LASTMODIFICATIONTIME = "LastModificationTime";
+const char * WriteXmlFile::CREATIONTIME = "CreationTime";
+const char * WriteXmlFile::TIMES = "Times";
+const char * WriteXmlFile::NOTES = "Notes";
+const char * WriteXmlFile::NAME = "Name";
+const char * WriteXmlFile::UUID = "UUID";
+const char * WriteXmlFile::DELETEDOBJECTS = "DeletedObjects";
+const char * WriteXmlFile::GROUP = "Group";
+const char * WriteXmlFile::ROOT = "Root";
+const char * WriteXmlFile::CUSTOMDATA = "CustomData";
+const char * WriteXmlFile::BINARIES = "Binaries";
+const char * WriteXmlFile::LASTSELECTEDGROUP = "LastSelectedGroup";
+const char * WriteXmlFile::LASTTOPVISIBLEGROUP = "LastTopVisibleGroup";
+const char * WriteXmlFile::HISTORYMAXSIZE = "HistoryMaxSize";
+const char * WriteXmlFile::HISTORYMAXITEMS = "HistoryMaxItems";
+const char * WriteXmlFile::ENTRYTEMPLATESGROUPCHANGED = "EntryTemplatesGroupChanged";
+const char * WriteXmlFile::ENTRYTEMPLATESGROUP = "EntryTemplatesGroup";
+const char * WriteXmlFile::RECYCLEBINCHANGED = "RecycleBinChanged";
+const char * WriteXmlFile::RECYCLEBINUUID = "RecycleBinUUID";
+const char * WriteXmlFile::RECYCLEBINENABLED = "RecycleBinEnabled";
+const char * WriteXmlFile::PROTECTNOTES = "ProtectNotes";
+const char * WriteXmlFile::PROTECTURL = "ProtectURL";
+const char * WriteXmlFile::PROTECTPASSWORD = "ProtectPassword";
+const char * WriteXmlFile::PROTECTUSERNAME = "ProtectUserName";
+const char * WriteXmlFile::PROTECTTITLE = "ProtectTitle";
+const char * WriteXmlFile::MEMORYPROTECTION = "MemoryProtection";
+const char * WriteXmlFile::MASTERKEYCHANGEFORCE = "MasterKeyChangeForce";
+const char * WriteXmlFile::MASTERKEYCHANGEREC = "MasterKeyChangeRec";
+const char * WriteXmlFile::MASTERKEYCHANGED = "MasterKeyChanged";
+const char * WriteXmlFile::COLOR = "Color";
+const char * WriteXmlFile::MAINTENANCEHISTORYDAYS = "MaintenanceHistoryDays";
+const char * WriteXmlFile::DEFAULTUSERNAMECHANGED = "DefaultUserNameChanged";
+const char * WriteXmlFile::DEFAULTUSERNAME = "DefaultUserName";
+const char * WriteXmlFile::DATABASEDESCRIPTIONCHANGED = "DatabaseDescriptionChanged";
+const char * WriteXmlFile::DATABASEDESCRIPTION = "DatabaseDescription";
+const char * WriteXmlFile::DATABASENAMECHANGED = "DatabaseNameChanged";
+const char * WriteXmlFile::DATABASENAME = "DatabaseName";
+const char * WriteXmlFile::GENERATOR = "Generator";
+const char * WriteXmlFile::META = "Meta";
+const char * WriteXmlFile::KEEPASSFILE = "KeePassFile";
 
 ///
 /// \brief WriteXmlFile::WriteXmlFile
@@ -67,19 +119,19 @@ void WriteXmlFile::CreateNewDatabase(QString filePath)
     XMLDeclaration * decl = doc.NewDeclaration();
     doc.InsertFirstChild(decl);
 
-	XMLElement * keepassFile = doc.NewElement( "KeePassFile" ); // everything hangs off this element
+	XMLElement * keepassFile = doc.NewElement( WriteXmlFile::KEEPASSFILE ); // everything hangs off this element
     doc.InsertEndChild(keepassFile);
 
-    XMLElement * meta = doc.NewElement( "Meta" ); // meta and root are sibling elements
+    XMLElement * meta = doc.NewElement( WriteXmlFile::META ); // meta and root are sibling elements
     keepassFile->InsertEndChild( meta );
 
-    XMLElement * generator = doc.NewElement( "Generator" );
+    XMLElement * generator = doc.NewElement( WriteXmlFile::GENERATOR );
     generator->SetText("KeePass");
     meta->InsertEndChild( generator );
-    XMLElement * databaseName = doc.NewElement( "DatabaseName" );
+    XMLElement * databaseName = doc.NewElement( WriteXmlFile::DATABASENAME );
     databaseName->SetText("KeePass database");
     meta->InsertEndChild( databaseName );
-    XMLElement * DatabaseNameChanged = doc.NewElement( "DatabaseNameChanged" );
+    XMLElement * DatabaseNameChanged = doc.NewElement( WriteXmlFile::DATABASENAMECHANGED );
 
     char nowBuff[70];
     std::time_t now_c = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
@@ -88,108 +140,99 @@ void WriteXmlFile::CreateNewDatabase(QString filePath)
     DatabaseNameChanged->SetText(nowBuff);
     meta->InsertEndChild( DatabaseNameChanged );
 
-    XMLElement * DatabaseDescription = doc.NewElement( "DatabaseDescription" );
+    XMLElement * DatabaseDescription = doc.NewElement( WriteXmlFile::DATABASEDESCRIPTION );
     meta->InsertEndChild( DatabaseDescription );
-    XMLElement * DatabaseDescriptionChanged = doc.NewElement( "DatabaseDescriptionChanged" );
+    XMLElement * DatabaseDescriptionChanged = doc.NewElement( WriteXmlFile::DATABASEDESCRIPTIONCHANGED );
     DatabaseDescriptionChanged->SetText(nowBuff);
     meta->InsertEndChild( DatabaseDescriptionChanged );
 
-    XMLElement * DefaultUserName = doc.NewElement( "DefaultUserName" );
+    XMLElement * DefaultUserName = doc.NewElement( WriteXmlFile::DEFAULTUSERNAME );
     meta->InsertEndChild( DefaultUserName );
 
-    XMLElement * DefaultUserNameChanged = doc.NewElement( "DefaultUserNameChanged" );
+    XMLElement * DefaultUserNameChanged = doc.NewElement( WriteXmlFile::DEFAULTUSERNAMECHANGED );
     DefaultUserNameChanged->SetText(nowBuff);
     meta->InsertEndChild( DefaultUserNameChanged );
 
-    XMLElement * MaintenanceHistoryDays = doc.NewElement( "MaintenanceHistoryDays" );
+    XMLElement * MaintenanceHistoryDays = doc.NewElement( WriteXmlFile::MAINTENANCEHISTORYDAYS );
     MaintenanceHistoryDays->SetText(365);
     meta->InsertEndChild( MaintenanceHistoryDays );
 
-    XMLElement * Color = doc.NewElement( "Color" );
+    XMLElement * Color = doc.NewElement( WriteXmlFile::COLOR );
     meta->InsertEndChild( Color );
 
-    XMLElement * MasterKeyChanged = doc.NewElement( "MasterKeyChanged" );
+    XMLElement * MasterKeyChanged = doc.NewElement( WriteXmlFile::MASTERKEYCHANGED );
     MasterKeyChanged->SetText(nowBuff);
     meta->InsertEndChild( MasterKeyChanged );
 
-    XMLElement * MasterKeyChangeRec = doc.NewElement( "MasterKeyChangeRec" );
+    XMLElement * MasterKeyChangeRec = doc.NewElement( WriteXmlFile::MASTERKEYCHANGEREC );
     MasterKeyChangeRec ->SetText("-1");
     meta->InsertEndChild( MasterKeyChangeRec );
 
-    XMLElement * MasterKeyChangeForce = doc.NewElement( "MasterKeyChangeForce" );
+    XMLElement * MasterKeyChangeForce = doc.NewElement( WriteXmlFile::MASTERKEYCHANGEFORCE );
     MasterKeyChangeForce ->SetText(1);
     meta->InsertEndChild( MasterKeyChangeForce );
 
-    XMLElement * MemoryProtection = doc.NewElement( "MemoryProtection" );
+    XMLElement * MemoryProtection = doc.NewElement( WriteXmlFile::MEMORYPROTECTION );
     meta->InsertEndChild( MemoryProtection );
-    XMLElement * ProtectTitle = doc.NewElement( "ProtectTitle" );
+    XMLElement * ProtectTitle = doc.NewElement( WriteXmlFile::PROTECTTITLE );
     ProtectTitle->SetText("False");
     MemoryProtection->InsertEndChild( ProtectTitle );
-    XMLElement * ProtectUserName = doc.NewElement( "ProtectUserName" );
+    XMLElement * ProtectUserName = doc.NewElement( WriteXmlFile::PROTECTUSERNAME );
     ProtectUserName->SetText("False");
     MemoryProtection->InsertEndChild( ProtectUserName );
-    XMLElement * ProtectPassword = doc.NewElement( "ProtectPassword" );
+    XMLElement * ProtectPassword = doc.NewElement( WriteXmlFile::PROTECTPASSWORD );
     ProtectPassword->SetText("True");
     MemoryProtection->InsertEndChild( ProtectPassword );
-    XMLElement * ProtectURL = doc.NewElement( "ProtectURL" );
+    XMLElement * ProtectURL = doc.NewElement( WriteXmlFile::PROTECTURL );
     ProtectURL->SetText("False");
     MemoryProtection->InsertEndChild( ProtectURL );
-    XMLElement * ProtectNotes = doc.NewElement( "ProtectNotes" );
+    XMLElement * ProtectNotes = doc.NewElement( WriteXmlFile::PROTECTNOTES );
     ProtectNotes->SetText("False");
     MemoryProtection->InsertEndChild( ProtectNotes );
 
-    XMLElement * RecycleBinEnabled = doc.NewElement( "RecycleBinEnabled" );
+    XMLElement * RecycleBinEnabled = doc.NewElement( WriteXmlFile::RECYCLEBINENABLED );
     RecycleBinEnabled->SetText("True");
     meta->InsertEndChild( RecycleBinEnabled );
-    XMLElement * RecycleBinUUID = doc.NewElement( "RecycleBinUUID" );
-    RecycleBinUUID->SetText("AAAAAAAAAAAAAAAAAAAAAA==");
+    XMLElement * RecycleBinUUID = doc.NewElement( WriteXmlFile::RECYCLEBINUUID  );
+    RecycleBinUUID->SetText(UUID::EMPTYUUIDSTRING);
     meta->InsertEndChild( RecycleBinUUID );
-    XMLElement * RecycleBinChanged = doc.NewElement( "RecycleBinChanged" );
+    XMLElement * RecycleBinChanged = doc.NewElement( WriteXmlFile::RECYCLEBINCHANGED );
     RecycleBinChanged->SetText(nowBuff);
     meta->InsertEndChild( RecycleBinChanged );
-    XMLElement * EntryTemplatesGroup = doc.NewElement( "EntryTemplatesGroup" );
-    EntryTemplatesGroup->SetText("AAAAAAAAAAAAAAAAAAAAAA==");
+    XMLElement * EntryTemplatesGroup = doc.NewElement( WriteXmlFile::ENTRYTEMPLATESGROUP  );
+    EntryTemplatesGroup->SetText(UUID::EMPTYUUIDSTRING);
     meta->InsertEndChild( EntryTemplatesGroup );
-    XMLElement * EntryTemplatesGroupChanged = doc.NewElement( "EntryTemplatesGroupChanged" );
+    XMLElement * EntryTemplatesGroupChanged = doc.NewElement( WriteXmlFile::ENTRYTEMPLATESGROUPCHANGED );
     EntryTemplatesGroupChanged->SetText(nowBuff);
     meta->InsertEndChild( EntryTemplatesGroupChanged );
-    XMLElement * HistoryMaxItems = doc.NewElement( "HistoryMaxItems" );
+    XMLElement * HistoryMaxItems = doc.NewElement( WriteXmlFile::HISTORYMAXITEMS );
     HistoryMaxItems->SetText(10);
     meta->InsertEndChild( HistoryMaxItems );
-    XMLElement * HistoryMaxSize = doc.NewElement( "HistoryMaxSize" );
+    XMLElement * HistoryMaxSize = doc.NewElement( WriteXmlFile::HISTORYMAXSIZE );
     HistoryMaxSize->SetText(621456);
     meta->InsertEndChild( HistoryMaxSize );
-    XMLElement * LastSelectedGroup = doc.NewElement( "LastSelectedGroup" );
-    LastSelectedGroup->SetText("AAAAAAAAAAAAAAAAAAAAAA==");
+    XMLElement * LastSelectedGroup = doc.NewElement( WriteXmlFile::LASTSELECTEDGROUP );
+    LastSelectedGroup->SetText(UUID::EMPTYUUIDSTRING);
     meta->InsertEndChild( LastSelectedGroup );
-    XMLElement * LastTopVisibleGroup = doc.NewElement( "LastTopVisibleGroup" );
-    LastTopVisibleGroup->SetText("AAAAAAAAAAAAAAAAAAAAAA==");
+    XMLElement * LastTopVisibleGroup = doc.NewElement( WriteXmlFile::LASTTOPVISIBLEGROUP );
+    LastTopVisibleGroup->SetText(UUID::EMPTYUUIDSTRING);
     meta->InsertEndChild( LastTopVisibleGroup );
-    XMLElement * Binaries = doc.NewElement( "Binaries" );
+    XMLElement * Binaries = doc.NewElement( WriteXmlFile::BINARIES );
     meta->InsertEndChild( Binaries );
-    XMLElement * CustomData = doc.NewElement( "CustomData" );
+    XMLElement * CustomData = doc.NewElement( WriteXmlFile::CUSTOMDATA );
     meta->InsertEndChild( CustomData );
 
-    XMLElement * root = doc.NewElement( "Root" );
+    XMLElement * root = doc.NewElement( WriteXmlFile::ROOT );
     keepassFile->InsertEndChild( root );
 
-    XMLElement * group = doc.NewElement( "Group" ); // Group element hangs off root
+    XMLElement * group = doc.NewElement( WriteXmlFile::GROUP ); // Group element hangs off root
     root->InsertEndChild( group );
 
-    XMLElement * deletedObjects = doc.NewElement( "DeletedObjects" );
+    XMLElement * deletedObjects = doc.NewElement( WriteXmlFile::DELETEDOBJECTS );
     root->InsertEndChild( deletedObjects );
 
-    XMLElement * uuid = doc.NewElement( "UUID" ); // hangs off Group
-    
-    QUuid uid = QUuid::createUuid();
-    QString uuidStr = uid.toString();
-    
-    uuidStr.remove("{");
-    uuidStr.remove("}");
-    uuidStr.remove("-");
-
-    QByteArray strBytes = Hex::HexStringToByteArray(uuidStr);
-    
+    XMLElement * uuid = doc.NewElement( WriteXmlFile::UUID ); // hangs off Group
+    QByteArray strBytes = UUID::CreateUUID();
     std::string uStr = base64.base64_encode(strBytes.data(), strBytes.size());
     uuid->SetText(uStr.c_str());
     group->InsertEndChild( uuid );
@@ -200,59 +243,50 @@ void WriteXmlFile::CreateNewDatabase(QString filePath)
     // group->InsertEndChild( uuid_temp );
 
 
-    XMLElement * name = doc.NewElement( "Name" ); // hangs off Group
+    XMLElement * name = doc.NewElement( WriteXmlFile::NAME ); // hangs off Group
     name->SetText("keepass");
     group->InsertEndChild( name );
-    XMLElement * notes = doc.NewElement( "Notes" ); // hangs off Group
+    XMLElement * notes = doc.NewElement( WriteXmlFile::NOTES ); // hangs off Group
     group->InsertEndChild( notes );
 
-    XMLElement * times = doc.NewElement( "Times" ); // hangs off Group
+    XMLElement * times = doc.NewElement( WriteXmlFile::TIMES ); // hangs off Group
     group->InsertEndChild( times );
-    XMLElement * creationTime = doc.NewElement( "CreationTime" ); // hangs off Times
+    XMLElement * creationTime = doc.NewElement( WriteXmlFile::CREATIONTIME ); // hangs off Times
     creationTime->SetText(nowBuff);
     times->InsertEndChild( creationTime );
-    XMLElement * lastModificationTime = doc.NewElement( "LastModificationTime" ); // hangs off Times
+    XMLElement * lastModificationTime = doc.NewElement( WriteXmlFile::LASTMODIFICATIONTIME ); // hangs off Times
     lastModificationTime->SetText(nowBuff);
     times->InsertEndChild( lastModificationTime );
-    XMLElement * lastAccessTime = doc.NewElement( "LastAccessTime" ); // hangs off Times
+    XMLElement * lastAccessTime = doc.NewElement( WriteXmlFile::LASTACCESSTIME  ); // hangs off Times
     lastAccessTime->SetText(nowBuff);
     times->InsertEndChild( lastAccessTime );
-    XMLElement * expiryTime = doc.NewElement( "ExpiryTime" ); // hangs off Times
+    XMLElement * expiryTime = doc.NewElement( WriteXmlFile::EXPIRYTIME ); // hangs off Times
     expiryTime->SetText(nowBuff);
     times->InsertEndChild( expiryTime );
-    XMLElement * expires = doc.NewElement( "Expires" ); // hangs off Times
+    XMLElement * expires = doc.NewElement( WriteXmlFile::EXPIRES ); // hangs off Times
     expires->SetText("False");
     times->InsertEndChild( expires );
-    XMLElement * usageCount = doc.NewElement( "UsageCount" ); // hangs off Times
+    XMLElement * usageCount = doc.NewElement( WriteXmlFile::USAGECOUNT ); // hangs off Times
     usageCount->SetText(0);
     times->InsertEndChild( usageCount );
-    XMLElement * locationChanged = doc.NewElement( "LocationChanged" ); // hangs off Times
+    XMLElement * locationChanged = doc.NewElement( WriteXmlFile::LOCATIONCHANGED ); // hangs off Times
     locationChanged->SetText(nowBuff);
     times->InsertEndChild( locationChanged );
 
-    XMLElement * isExpanded = doc.NewElement( "IsExpanded" ); // hangs off Group
+    XMLElement * isExpanded = doc.NewElement( WriteXmlFile::ISEXPANDED ); // hangs off Group
     isExpanded->SetText("True");
     group->InsertEndChild( isExpanded );
-    XMLElement * defaultAutoTypeSequence = doc.NewElement( "DefaultAutoTypeSequence" ); // hangs off Group
+    XMLElement * defaultAutoTypeSequence = doc.NewElement( WriteXmlFile::DEFAULTAUTOTYPESEQUENCE ); // hangs off Group
     group->InsertEndChild( defaultAutoTypeSequence );
-    XMLElement * enableAutoType = doc.NewElement( "EnableAutoType" ); // hangs off Group
+    XMLElement * enableAutoType = doc.NewElement( WriteXmlFile::ENABLEAUTOTYPE ); // hangs off Group
     enableAutoType->SetText("null");
     group->InsertEndChild( enableAutoType );
-    XMLElement * enableSearching = doc.NewElement( "EnableSearching" ); // hangs off Group
+    XMLElement * enableSearching = doc.NewElement( WriteXmlFile::ENABLESEARCHING ); // hangs off Group
     enableSearching->SetText("null");
     group->InsertEndChild( enableSearching );
-    XMLElement * lastTopVisibleEntry = doc.NewElement( "LastTopVisibleEntry" ); // hangs off Group
-    lastTopVisibleEntry->SetText("AAAAAAAAAAAAAAAAAAAAAA==");
+    XMLElement * lastTopVisibleEntry = doc.NewElement( WriteXmlFile::LASTTOPVISIBLEENTRY ); // hangs off Group
+    lastTopVisibleEntry->SetText(UUID::EMPTYUUIDSTRING);
     group->InsertEndChild( lastTopVisibleEntry );
 
-    //XmlText * text = new TiXmlText( "World" );
-	//doc.SaveFile( filePath.toLocal8Bit().data() );
+	doc.SaveFile( filePath.toLocal8Bit().data() );
 }
-
-///
-/// \brief WriteXmlFile::ToString
-/// \return
-///
-/*QString WriteXmlFile::ToString(vector<TreeNode*>)
-{
-}*/

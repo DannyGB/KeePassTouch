@@ -148,7 +148,8 @@ SOURCES += main.cpp \
     aes.cpp \
     filehandler.cpp \
     bytestream.cpp \
-    hexx.cpp
+    hexx.cpp \
+    uuid.cpp
 
 RESOURCES += KeePit.qrc
 
@@ -327,7 +328,8 @@ HEADERS += \
     filehandler.h \
     bytestream.h \
     stdafx.h \
-    hexx.h
+    hexx.h \
+    uuid.h
 
 LIBS += -L$$OUT_PWD/../ziplib/ -lziplib
 

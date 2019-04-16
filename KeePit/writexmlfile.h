@@ -37,15 +37,64 @@ class WriteXmlFile
 public:
     WriteXmlFile(const char*, size_t, Salsa20*);
     ~WriteXmlFile();
-    //QString ToString(vector<TreeNode*>);
     static void CreateNewDatabase(QString fileName);
 
 private:
     size_t m_size;
     Base64 base64;
     Salsa20 *m_salsa;
-    const char * m_xml;
+    const char *m_xml;
     TreeNode *lastRead = 0;
+    static const char * LASTTOPVISIBLEENTRY;
+    static const char * ENABLESEARCHING;
+    static const char * ENABLEAUTOTYPE;
+    static const char * DEFAULTAUTOTYPESEQUENCE;
+    static const char * ISEXPANDED;
+    static const char * LOCATIONCHANGED;
+    static const char * USAGECOUNT;
+    static const char * EXPIRES;
+    static const char * EXPIRYTIME;
+    static const char * LASTACCESSTIME;
+    static const char * LASTMODIFICATIONTIME;
+    static const char * CREATIONTIME;
+    static const char * TIMES;
+    static const char * NOTES;
+    static const char * NAME;
+    static const char * UUID;
+    static const char * DELETEDOBJECTS;
+    static const char * GROUP;
+    static const char * ROOT;
+    static const char * CUSTOMDATA;
+    static const char * BINARIES;
+    static const char * LASTSELECTEDGROUP;
+    static const char * LASTTOPVISIBLEGROUP;
+    static const char * HISTORYMAXSIZE;
+    static const char * HISTORYMAXITEMS;
+    static const char * ENTRYTEMPLATESGROUPCHANGED;
+    static const char * ENTRYTEMPLATESGROUP;
+    static const char * RECYCLEBINCHANGED;
+    static const char * RECYCLEBINUUID;
+    static const char * RECYCLEBINENABLED;
+    static const char * PROTECTNOTES;
+    static const char * PROTECTURL;
+    static const char * PROTECTPASSWORD;
+    static const char * PROTECTUSERNAME;
+    static const char * PROTECTTITLE;
+    static const char * MEMORYPROTECTION;
+    static const char * MASTERKEYCHANGEFORCE;
+    static const char * MASTERKEYCHANGEREC;
+    static const char * MASTERKEYCHANGED;
+    static const char * COLOR;
+    static const char * MAINTENANCEHISTORYDAYS;
+    static const char * DEFAULTUSERNAMECHANGED;
+    static const char * DEFAULTUSERNAME;
+    static const char * DATABASEDESCRIPTIONCHANGED;
+    static const char * DATABASEDESCRIPTION;
+    static const char * DATABASENAMECHANGED;
+    static const char * DATABASENAME;
+    static const char * GENERATOR;
+    static const char * META;
+    static const char * KEEPASSFILE;
 };
 
 #endif // WRITEXMLFILE_H
