@@ -99,6 +99,7 @@ Page {
                     anchors.leftMargin: units.gu(2)
                     anchors.rightMargin: units.gu(2)
                     text: fileName
+                    color: theme.palette.normal.baseText
                 }
 
                 MouseArea {

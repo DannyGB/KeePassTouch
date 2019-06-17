@@ -37,7 +37,7 @@ class WriteXmlFile
 public:
     WriteXmlFile(const char*, size_t, Salsa20*);
     ~WriteXmlFile();
-    static void CreateNewDatabase(QString fileName);
+    static QString CreateNewDatabase(QString fileName);
 
 private:
     size_t m_size;

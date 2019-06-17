@@ -29,4 +29,7 @@
     <qresource prefix="/">
         <file>qml/PasswordInput.qml</file>
     </qresource>
+    <qresource prefix="/">
+        <file>qml/Settings.qml</file>
+    </qresource>
 </RCC>

@@ -111,7 +111,7 @@ WriteXmlFile::~WriteXmlFile()
 /// \brief WriteXmlFile::ToString
 /// \return
 ///
-void WriteXmlFile::CreateNewDatabase(QString filePath)
+QString WriteXmlFile::CreateNewDatabase(QString filePath)
 {
     Base64 base64;
 
@@ -288,5 +288,10 @@ void WriteXmlFile::CreateNewDatabase(QString filePath)
     lastTopVisibleEntry->SetText(UUID::EMPTYUUIDSTRING);
     group->InsertEndChild( lastTopVisibleEntry );
 
-	doc.SaveFile( filePath.toLocal8Bit().data() );
+	//doc.SaveFile( filePath.toLocal8Bit().data() );
+    XMLPrinter printer;
+    doc.Accept( &printer );
+    QString qStr(printer.CStr());
+    
+    return qStr;
 }

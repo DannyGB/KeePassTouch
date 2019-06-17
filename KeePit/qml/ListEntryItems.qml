@@ -56,6 +56,10 @@ Page {
         }
     }
 
+    // onCompleted: {
+    //     themeAction.iconName = switchTheme()
+    // }
+
     // Could be the name of the group
     header: PageHeader {
       id: pageHeader
@@ -70,6 +74,15 @@ Page {
                 } else {
                     sortedEntries.sort.order = Qt.AscendingOrder
                 }
+            }
+          },
+          Action {
+            id: themeAction
+            iconName: ""
+            text: i18n.tr("Swap")
+            onTriggered: {
+                switchTheme()
+                //iconName = iconName == "torch-off" ? "torch-on" : "torch-off"
             }
           },
         /*Action {
@@ -117,9 +130,11 @@ Page {
                       width: 40
                       height: 40
                       name: getIconName(model)
+                      color: theme.palette.normal.baseText
                   }
                   Text {
                     text: title
+                    color: theme.palette.normal.baseText
                   }
                 }
 

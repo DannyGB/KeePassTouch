@@ -22,6 +22,7 @@
 #include <fstream>
 #include <string>
 #include <QVariant>
+#include <QString>
 #include <vector>
 
 #include "aes.h"
@@ -106,7 +107,21 @@ Database::~Database() {
 }
 
 void Database::createNewDatabase(QString filePath) {
-    WriteXmlFile::CreateNewDatabase(filePath);
+    // Create the XML (the file should also be SALSA'ed)
+    /*QString db = WriteXmlFile::CreateNewDatabase(filePath);
+    
+    //GZIP the string
+    char * cpy = new char[db.size()];
+    strncpy(cpy, db.toStdString().c_str(), db.size()); 
+    CA2GZIP gzip(cpy, db.size());
+    LPGZIP pgzip = gzip.pgzip; // zipped data pointer
+    
+    // Generate encryption aes keys and IV
+    // Encrypt it
+    //pgzip.
+
+    //Save it
+    */
 }
 
 ///

@@ -54,7 +54,6 @@ MainView {
     property string keyFileName
     property date currentDate: new Date()
     property var locale: Qt.locale()
-
     property var selectedDatabaseToDelete: ({});
 
    Database {
@@ -72,7 +71,10 @@ MainView {
 
     PageStack {
            id: pageStack
-           Component.onCompleted: push(databaseListView)
+           Component.onCompleted: {
+               theme.name = settings.getSetting("theme")
+               push(databaseListView)
+           }
            onCurrentPageChanged: {
                if(currentPage != null) {
                 currentPage.forceActiveFocus()
@@ -125,6 +127,10 @@ MainView {
 
            CreateDatabase {
                id: createDatabase
+           }
+
+           Settings {
+               id: settings
            }
     }
 
@@ -243,4 +249,16 @@ MainView {
     function resetLogoutTimer() {
         //resetTimer.restart();
     }
+
+    function switchTheme() {
+        theme.name = (theme.name == "Ubuntu.Components.Themes.SuruDark")
+            ? "Ubuntu.Components.Themes.Ambiance"
+            : "Ubuntu.Components.Themes.SuruDark"
+
+        settings.saveSetting("theme", theme.name);
+
+        return (theme.name == "Ubuntu.Components.Themes.SuruDark") 
+            ? "torch-off" 
+            : "torch-on"
+    }    
 }
