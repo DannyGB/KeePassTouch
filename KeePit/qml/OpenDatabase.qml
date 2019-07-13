@@ -28,8 +28,9 @@ import Ubuntu.Components.ListItems 1.3 as ListItem
 import Qt.labs.folderlistmodel 2.1
 
 Page {
-    property alias pass: password;
-    property alias cmbKeySelector: combo;
+    property alias pass: password
+    property alias cmbKeySelector: combo
+    property alias actTheme: themeAction
 
     header: PageHeader {
       id: pageHeader
@@ -40,6 +41,16 @@ Page {
             iconName: "help"
             text: i18n.tr("About")
             onTriggered: PopupUtils.open(about)
+          },
+          Action {
+            id: themeAction
+            iconName: ""
+            text: i18n.tr("Swap")            
+            onTriggered: {                
+                switchTheme()
+                themeAction.iconName = getTheme()
+                saveTheme()
+            }                      
           },
           Action {
                iconName: "import"

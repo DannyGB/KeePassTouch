@@ -38,7 +38,7 @@ Page {
         pageTitle = i18n.tr("Keys")
         folderModel.nameFilters = ["*.*"]
         importer.headerText = i18n.tr('Import key from')
-        actCreateDb.visible = false;
+        //actCreateDb.visible = false;
     }
 
     function setDatabaseMode() {
@@ -46,7 +46,7 @@ Page {
         pageTitle = appTitle + " - " + i18n.tr("Databases")
         folderModel.nameFilters = ["*.kdbx"]
         importer.headerText = i18n.tr('Import database from')
-        actCreateDb.visible = true;
+        //actCreateDb.visible = true;
     }
 
     function onDatabaseSelected(index, model) {
@@ -243,6 +243,7 @@ Page {
                       }
 
                       Button {
+                        visible: false
                         Layout.fillWidth: true
                         id: actCreateDb
                         iconName: "add"

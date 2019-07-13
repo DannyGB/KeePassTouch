@@ -25,6 +25,41 @@ import KeePass3 1.0
 
 Page {
 
+    property alias actTheme: themeAction
+    property alias pageHeaderTitle: pageHeader.title
+    
+    property var searching: false
+
+    function setPageHeader(selectedEntry) {
+        console.debug("ListEntryItems: " + selectedEntry.title)
+        pageHeader.title = !selectedEntry.title 
+            ? i18n.tr(appTitle)
+            : selectedEntry.title
+    }   
+
+    function setPreviousEntry(selectedEntry) {
+        // A variable property on MainView (Main.qml)
+        previousEntry = {
+            entryType : database.selectedEntry.entryType,
+            UUID : database.selectedEntry.uuid,
+            title: database.selectedEntry.title,
+            searching: searching
+        }
+    }
+
+    function resetSearchingState() {
+        searching = false
+    }
+
+    function handlePageStack(selectedEntry) {
+        // See PageStack.onDepthChanged for how the pageStack and entry model are kept in synch
+        if(selectedEntry.entryType === 2) { // is a password entry so push password page            
+            pageStack.push(entry);
+        } else if(selectedEntry.entryType === 1) { // is a further branch push another level
+            pageStack.push(listEntryItems);
+        }   
+    }
+
     /**
       * Handles the MouseArea.onClicked event of the entryDelegate
       */
@@ -32,20 +67,12 @@ Page {
         // A variable property on Database (Main.qml)
         database.selectedEntry = model;
 
-        // A variable property on MainView (Main.qml)
-        previousEntry = {
-            entryType : database.selectedEntry.entryType,
-            UUID : database.selectedEntry.uuid
-        }
+        setPageHeader(database.selectedEntry)
+        setPreviousEntry(database.selectedEntry)
+        resetSearchingState()
+        handlePageStack(database.selectedEntry)
 
-        // See PageStack.onDepthChanged for how the pageStack and entry model are kept in synch
-        if(database.selectedEntry.entryType === 2) { // is a password entry so push password page
-            pageStack.push(entry);
-        } else if(database.selectedEntry.entryType === 1) { // is a further branch push another level
-            pageStack.push(listEntryItems);
-        }
-
-        listView.currentIndex = index;
+        listView.currentIndex = index;        
     }
 
     function getIconName(model) {
@@ -55,10 +82,6 @@ Page {
             return "document-open";
         }
     }
-
-    // onCompleted: {
-    //     themeAction.iconName = switchTheme()
-    // }
 
     // Could be the name of the group
     header: PageHeader {
@@ -79,11 +102,12 @@ Page {
           Action {
             id: themeAction
             iconName: ""
-            text: i18n.tr("Swap")
+            text: i18n.tr("Swap")            
             onTriggered: {
                 switchTheme()
-                //iconName = iconName == "torch-off" ? "torch-on" : "torch-off"
-            }
+                themeAction.iconName = getTheme()
+                saveTheme()
+            }                      
           },
         /*Action {
             text: i18n.tr("Settings")
@@ -94,10 +118,7 @@ Page {
           iconName: "home"
           text: i18n.tr("Home")
           onTriggered: {
-              database.loadHome()
-              previousDepth = null
-              pageStack.clear()
-              pageStack.push(listEntryItems)
+              goHome()
           }
         },
         Action {
@@ -142,7 +163,7 @@ Page {
                     anchors.fill: parent
                     onClicked: onSelected(index, model)
                 }
-            }
+            }            
         }
 
         SortFilterModel {
@@ -157,31 +178,25 @@ Page {
             id: search
             width: parent.width
             placeholderText: i18n.tr("Enter a search term")
-            hasClearButton: false
+            hasClearButton: true
             onAccepted: {
-                database.search(search.text)
-            }
-            secondaryItem: Row {
-                Button {
-                    height: parent.height
-                    width: height
-                    iconName: "clear"
-                    onClicked: {
-                        search.text = ""
-                        database.loadHome()
-                    }
+                if(search.text == "") {
+                    goHome()
+                } else {
+                    database.search(search.text)
+                    searching = true
                 }
-            }
+            }            
         }
 
-        UbuntuListView {
-          id: listView
-          height: parent.height
-          width: parent.width
-          spacing: 5
-          model: sortedEntries
-          delegate: entryDelegate
-          focus: true
+        UbuntuListView {            
+            id: listView
+            height: parent.height
+            width: parent.width
+            spacing: 5
+            model: sortedEntries
+            delegate: entryDelegate
+            focus: true
         }
     }
 }

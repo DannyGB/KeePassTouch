@@ -39,9 +39,6 @@ MainView {
      when the device is rotated. The default is false.
     */
     automaticOrientation: true
-    //backgroundColor: "#000"
-    //headerColor: "#000"
-
     property string appLocation: '/home/phablet/.local/share/keepit.dannygb/Documents'
     property string appTitle: 'KeePit'
     width: units.gu(100)
@@ -55,6 +52,22 @@ MainView {
     property date currentDate: new Date()
     property var locale: Qt.locale()
     property var selectedDatabaseToDelete: ({});
+    property var pageTitleStack: [];
+
+    function goHome() {
+        database.loadHome()
+        previousDepth = null
+        pageTitleStack.length = 0
+        listEntryItems.searching = false
+        pageStack.clear()
+        pageStack.push(listEntryItems)
+    }
+
+    Component.onCompleted: {
+        readTheme()
+        openDatabase.actTheme.iconName = getTheme()
+        listEntryItems.actTheme.iconName = getTheme()
+    }
 
    Database {
         id: database
@@ -71,9 +84,8 @@ MainView {
 
     PageStack {
            id: pageStack
-           Component.onCompleted: {
-               theme.name = settings.getSetting("theme")
-               push(databaseListView)
+           Component.onCompleted: {                
+                push(databaseListView)
            }
            onCurrentPageChanged: {
                if(currentPage != null) {
@@ -90,11 +102,21 @@ MainView {
                    if(previousEntry.UUID !== undefined) {
                        if(previousDepth > depth) { // Backwards
                             previousEntry.UUID = database.reloadBranch(previousEntry.UUID, previousEntry.entryType)
+                            pageTitleStack.pop()
+                            if(previousEntry.searching) {
+                                goHome()
+                            }
                        }
                        else if(previousDepth < depth) { // Forwards
                            database.selectBranch(previousEntry.UUID);
+                           pageTitleStack.push(previousEntry.title)
                        }
-                   }
+                    }
+                    
+                    console.debug("Main: " + pageTitleStack[pageTitleStack.length-1])
+                    listEntryItems.pageHeaderTitle = pageTitleStack.length > 0 
+                        ? pageTitleStack[pageTitleStack.length-1]
+                        : i18n.tr(appTitle)
                }
 
                resetLogoutTimer()
@@ -133,30 +155,7 @@ MainView {
                id: settings
            }
     }
-
-    /*Component {
-            id: settingsDisabledComponent
-
-            Dialog {
-                id: settingsDisabledDialog
-                title: i18n.tr("Settings")
-
-                Button {
-                    color: UbuntuColors.orange
-                    text: i18n.tr("Close Database")
-                    onClicked: {
-                        PopupUtils.close(settingsDisabledDialog)
-                        reset()
-                    }
-                }
-
-                Button {
-                    text: i18n.tr("Cancel")
-                    onClicked: PopupUtils.close(settingsDisabledDialog)
-                }
-            }
-        }*/
-
+    
     Component {
          id: dialog
          Dialog {
@@ -250,15 +249,23 @@ MainView {
         //resetTimer.restart();
     }
 
-    function switchTheme() {
-        theme.name = (theme.name == "Ubuntu.Components.Themes.SuruDark")
-            ? "Ubuntu.Components.Themes.Ambiance"
-            : "Ubuntu.Components.Themes.SuruDark"
-
-        settings.saveSetting("theme", theme.name);
-
+    function getTheme() {
         return (theme.name == "Ubuntu.Components.Themes.SuruDark") 
             ? "torch-off" 
             : "torch-on"
+    }
+
+    function switchTheme() {
+        theme.name = (theme.name == "Ubuntu.Components.Themes.SuruDark")
+            ? "Ubuntu.Components.Themes.Ambiance"
+            : "Ubuntu.Components.Themes.SuruDark" 
     }    
+
+    function saveTheme() {
+        settings.saveSetting("theme", theme.name);
+    }
+
+    function readTheme() {
+        theme.name = settings.getSetting("theme")
+    }
 }
