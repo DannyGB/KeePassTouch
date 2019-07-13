@@ -131,8 +131,9 @@ msgid "Ok"
 msgstr "OK"
 
 #: /home/dan/KeePit/KeePit/Main.qml:172
-msgid "About (KeePit v3.0)"
-msgstr "Über (KeePit v3.0)"
+#, fuzzy
+msgid "About (KeePit v1)"
+msgstr "Über (KeePit v3.1)"
 
 #: /home/dan/KeePit/KeePit/Main.qml:173
 msgid "Copyright &copy; "

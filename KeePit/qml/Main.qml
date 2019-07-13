@@ -173,7 +173,7 @@ MainView {
         id: about
          Dialog {
              id: aboutDialog
-             title: i18n.tr("About (KeePit v3.0)")
+             title: i18n.tr("About (KeePit v3.1)")
              text: i18n.tr("Copyright &copy; "+ currentDate.toLocaleString(locale, "yyyy") +" Dan Beavon<br/>This software is distributed under the terms of the GNU General Public License v3")
              Button {
                  text: i18n.tr("Ok")

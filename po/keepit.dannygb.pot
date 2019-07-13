@@ -130,7 +130,7 @@ msgid "Ok"
 msgstr ""
 
 #: /home/dan/KeePit/KeePit/Main.qml:172
-msgid "About (KeePit v3.0)"
+msgid "About (KeePit v1)"
 msgstr ""
 
 #: /home/dan/KeePit/KeePit/Main.qml:173

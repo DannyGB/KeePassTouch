@@ -1,7 +1,7 @@
 {
     "name": "keepit.dannygb",
     "description": "KeePit an Ubuntu Touch implementation of KeepPass2",
-    "architecture": "@CLICK_ARCH@",
+    "architecture": "armhf",
     "title": "KeePit",
     "hooks": {
         "KeePit": {
@@ -10,7 +10,7 @@
             "content-hub": "KeePit/KeePit.contenthub"
         }
     },
-    "version": "3.0",
+    "version": "3.1",
     "maintainer": "Dan Beavon <dan.beavon@gmail.com>",
     "framework": "ubuntu-sdk-16.04"
 }
