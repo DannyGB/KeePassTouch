@@ -415,10 +415,14 @@ void Database::openFile(QString url, QString password, QString passKey) {
         vKeyFileData = readKeyFile.read(passKeyMemblock, (int)passKeySize);
     }
 
-    string stringKey = password.toStdString();
-    const byte * key = reinterpret_cast<const byte*>(stringKey.c_str());
-    vector<char> vKey = ae.toVector((char*)key, (uint)password.size());
-    vector<char> vKeySeed = ae.toVector(m_pbTransformSeed, TRANSFORMSEEDSIZE);
+    qDebug("password: %s", password.toUtf8().data());
+    const byte * key = reinterpret_cast<const byte*>(password.toUtf8().data());
+    qDebug("key: %s", key);
+
+    vector<char> vKey(key, key + password.toUtf8().size());
+    vector<char> vKeySeed(m_pbTransformSeed, m_pbTransformSeed + TRANSFORMSEEDSIZE);
+
+    qDebug("vKey: %s", &vKey[0]);
 
     uint uNumRounds = ByteStream::ReadByte(m_pwDatabaseKeyEncryptionRounds);
 
