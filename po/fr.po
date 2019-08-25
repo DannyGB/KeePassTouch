@@ -1,0 +1,198 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-11-16 17:09+0000\n"
+"PO-Revision-Date: 2019-07-21 18:50+0000\n"
+"Last-Translator: Anne017 <anneonyme017@openmailbox.org>\n"
+"Language: fr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: /home/dan/KeePit/KeePit/CreateDatabase.qml:38
+msgid "Create Database"
+msgstr "Créer une base de données"
+
+#: /home/dan/KeePit/KeePit/CreateDatabase.qml:60
+#: /home/dan/KeePit/KeePit/CreateDatabase.qml:65
+msgid "Master Password"
+msgstr "Mot de passe maître"
+
+#: /home/dan/KeePit/KeePit/CreateDatabase.qml:76
+msgid "Repeat Password"
+msgstr "Répétez le mot de passe"
+
+#: /home/dan/KeePit/KeePit/CreateDatabase.qml:82
+msgid "Key file"
+msgstr "Fichier clé"
+
+#: /home/dan/KeePit/KeePit/CreateDatabase.qml:95
+msgid "Create Key"
+msgstr "Créer une clé"
+
+#: /home/dan/KeePit/KeePit/CreateDatabase.qml:106
+msgid "Use Existing Key"
+msgstr "Utiliser une clé existante"
+
+#: /home/dan/KeePit/KeePit/Entry.qml:34
+#: /home/dan/KeePit/KeePit/ListEntryItems.qml:98
+msgid "Logout"
+msgstr "Se déconnecter"
+
+#: /home/dan/KeePit/KeePit/Entry.qml:47
+msgid "Copy"
+msgstr "Copier"
+
+#: /home/dan/KeePit/KeePit/Entry.qml:68
+msgid "Username"
+msgstr "Identifiant"
+
+#: /home/dan/KeePit/KeePit/Entry.qml:79
+msgid "Password"
+msgstr "Mot de passe"
+
+#: /home/dan/KeePit/KeePit/Entry.qml:92
+msgid "Url"
+msgstr "Lien"
+
+#: /home/dan/KeePit/KeePit/Entry.qml:104
+msgid "Notes"
+msgstr "Notes"
+
+#: /home/dan/KeePit/KeePit/Importer.qml:116
+msgid "Importing database..."
+msgstr "Import de la base de données..."
+
+#: /home/dan/KeePit/KeePit/Importer.qml:137
+msgid "Waiting"
+msgstr "Attente"
+
+#: /home/dan/KeePit/KeePit/Importer.qml:139
+msgid "Processing"
+msgstr "Traitement"
+
+#: /home/dan/KeePit/KeePit/Importer.qml:141
+#, qt-format
+msgid "Imported to %1"
+msgstr "Importée dans %1"
+
+#: /home/dan/KeePit/KeePit/Importer.qml:143
+#, qt-format
+msgid "Already in library: %1"
+msgstr "Déjà dans la bibliothèque : %1"
+
+#: /home/dan/KeePit/KeePit/Importer.qml:145
+#, qt-format
+msgid "Error: %1"
+msgstr "Erreur : %1"
+
+#: /home/dan/KeePit/KeePit/KeySelector.qml:43
+msgid "Use Key"
+msgstr "Utiliser la clé"
+
+#: /home/dan/KeePit/KeePit/KeySelector.qml:65
+#: /home/dan/KeePit/KeePit/Main.qml:260
+msgid "Select Key"
+msgstr "Sélectionner la clé"
+
+#: /home/dan/KeePit/KeePit/ListEntryItems.qml:67
+msgid "Sort"
+msgstr "Trier"
+
+#: /home/dan/KeePit/KeePit/ListEntryItems.qml:78
+#: /home/dan/KeePit/KeePit/Main.qml:200 /home/dan/KeePit/KeePit/Main.qml:208
+msgid "Search"
+msgstr "Rechercher"
+
+#: /home/dan/KeePit/KeePit/ListEntryItems.qml:88
+msgid "Home"
+msgstr "Accueil"
+
+#: /home/dan/KeePit/KeePit/Main.qml:159
+msgid "Error"
+msgstr "Erreur"
+
+#: /home/dan/KeePit/KeePit/Main.qml:160
+msgid "An error has occurred"
+msgstr "Une erreur s'est produite"
+
+#: /home/dan/KeePit/KeePit/Main.qml:162 /home/dan/KeePit/KeePit/Main.qml:175
+#: /home/dan/KeePit/KeePit/Main.qml:189
+msgid "Ok"
+msgstr "Valider"
+
+#: /home/dan/KeePit/KeePit/Main.qml:172
+msgid "About (KeePit v1)"
+msgstr "À propos (KeePit v1)"
+
+#: /home/dan/KeePit/KeePit/Main.qml:173
+msgid "Copyright &copy; "
+msgstr "Copyright &copy; "
+
+#: /home/dan/KeePit/KeePit/Main.qml:186
+msgid "Info"
+msgstr "Informations"
+
+#: /home/dan/KeePit/KeePit/Main.qml:187
+msgid "Information: "
+msgstr "Informations : "
+
+#: /home/dan/KeePit/KeePit/Main.qml:203
+msgid "search term"
+msgstr "terme recherché"
+
+#: /home/dan/KeePit/KeePit/Main.qml:218 /home/dan/KeePit/KeePit/Main.qml:244
+msgid "Cancel"
+msgstr "Annuler"
+
+#: /home/dan/KeePit/KeePit/Main.qml:229 /home/dan/KeePit/KeePit/Main.qml:236
+msgid "Delete"
+msgstr "Supprimer"
+
+#: /home/dan/KeePit/KeePit/OpenDatabase.qml:42
+msgid "About"
+msgstr "À propos"
+
+#: /home/dan/KeePit/KeePit/OpenDatabase.qml:47
+msgid "Import key"
+msgstr "Importer la clé"
+
+#: /home/dan/KeePit/KeePit/OpenDatabase.qml:55
+msgid "Close"
+msgstr "Fermer"
+
+#: /home/dan/KeePit/KeePit/OpenDatabase.qml:105
+msgid "Open Database"
+msgstr "Ouvrir la base de données"
+
+#: /home/dan/KeePit/KeePit/PasswordInput.qml:43
+msgid "Enter your password"
+msgstr "Saisissez votre mot de passe"
+
+#: /home/dan/KeePit/KeePit/PasswordInput.qml:51
+msgid "Show password"
+msgstr "Afficher le mot de passe"
+
+#: /home/dan/KeePit/KeePit/Selector.qml:34
+#: /home/dan/KeePit/KeePit/Selector.qml:47
+msgid "Databases"
+msgstr "Bases de données"
+
+#: /home/dan/KeePit/KeePit/Selector.qml:39
+msgid "Keys"
+msgstr "Clés"
+
+#: /home/dan/KeePit/KeePit/Selector.qml:239
+msgid "Import"
+msgstr "Importer"
+
+#: /home/dan/KeePit/KeePit/Selector.qml:249
+msgid "Create"
+msgstr "Créer"
