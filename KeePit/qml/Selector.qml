@@ -32,6 +32,7 @@ Page {
 
     property string pageTitle : appTitle + " - " + i18n.tr("Databases")
     property bool keyMode: false
+    signal databaseSelected(string dbName, string dbPath)
 
     function setKeyMode() {
         keyMode = true
@@ -58,6 +59,7 @@ Page {
             databaseFileName = model.fileName
             keyFilePath = ''
             keyFileName = ''
+            databaseSelected(databaseFileName, databaseFilePath)            
         }
 
         pageStack.clear()

@@ -32,4 +32,7 @@
     <qresource prefix="/">
         <file>qml/Settings.qml</file>
     </qresource>
+    <qresource prefix="/">
+        <file>qml/SettingsForm.qml</file>
+    </qresource>
 </RCC>

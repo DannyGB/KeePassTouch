@@ -51,8 +51,12 @@ MainView {
     property string keyFileName
     property date currentDate: new Date()
     property var locale: Qt.locale()
-    property var selectedDatabaseToDelete: ({});
-    property var pageTitleStack: [];
+    property var selectedDatabaseToDelete: ({})
+    property var pageTitleStack: []
+    property var timeoutSettings: {
+        "enabled": false,
+        "interval": 0
+    }
 
     function goHome() {
         database.loadHome()
@@ -63,29 +67,38 @@ MainView {
         pageStack.push(listEntryItems)
     }
 
-    Component.onCompleted: {
-        readTheme()
-        openDatabase.actTheme.iconName = getTheme()
-        listEntryItems.actTheme.iconName = getTheme()
-    }
+    Component.onCompleted: {        
+        setTheme()             
+    }    
 
    Database {
         id: database
         property var selectedEntry
         onError: {
-            PopupUtils.open(dialog, '', {text: i18n.tr(msg)});
+            PopupUtils.open(dialog, '', {text: i18n.tr(msg)})
         }
         onSuccess: {
-            pageStack.clear();
-            pageStack.push(listEntryItems);
-            //resetTimer.start()
+            pageStack.clear()
+            pageStack.push(listEntryItems)
+            setTimer()     
         }
     }
 
     PageStack {
            id: pageStack
-           Component.onCompleted: {                
-                push(databaseListView)
+           Component.onCompleted: { 
+                var lastOpenDb = {
+                    name: settings.getSetting("lastOpenDbName"),
+                    path: settings.getSetting("lastOpenDbPath")
+                }
+
+                if(lastOpenDb.name === "" || lastOpenDb.path === "" ) {              
+                    push(databaseListView)
+                } else {
+                    databaseFileName = lastOpenDb.name
+                    databaseFilePath = lastOpenDb.path
+                    push(openDatabase)
+                }
            }
            onCurrentPageChanged: {
                if(currentPage != null) {
@@ -141,6 +154,10 @@ MainView {
            Selector {
                id: databaseListView
                visible: false
+               onDatabaseSelected: {
+                    settings.saveSetting("lastOpenDbName", dbName)
+                    settings.saveSetting("lastOpenDbPath", dbPath)
+               }
            }
 
            Importer {
@@ -153,8 +170,17 @@ MainView {
 
            Settings {
                id: settings
+               onSettingsChanged: {                   
+                   setTimer()
+                   setTheme()
+               }
            }
-    }
+
+           SettingsForm {
+               id: settingsForm
+               visible: false
+           }
+    }    
     
     Component {
          id: dialog
@@ -224,7 +250,6 @@ MainView {
 
     Timer {
         id: resetTimer
-        interval: 60000
         running: false
         repeat: false
         onTriggered: reset()
@@ -245,20 +270,46 @@ MainView {
         //Clipboard.clear() // Consistently crashes the app on phone (not desktop though) see bug: https://bugs.launchpad.net/ubuntu/+source/ubuntu-ui-toolkit/+bug/1457361
     }
 
+    function setTimer() {
+        getTimeout()
+        startTimer()
+    }
+
+    function startTimer() {
+        console.debug("startTimer: " + timeoutSettings.enabled + "("+timeoutSettings.interval+")")
+        if(timeoutSettings.enabled) {
+            resetTimer.interval = timeoutSettings.interval
+            resetTimer.stop()
+            resetTimer.start()
+        } else {
+            resetTimer.stop()
+        }
+    }
+
     function resetLogoutTimer() {
-        //resetTimer.restart();
+        if(timeoutSettings.enabled) {
+            resetTimer.restart()
+        } else {
+            resetTimer.stop()
+        }
+    }
+
+    function setTheme() {
+        readTheme()
+        openDatabase.actTheme.iconName = getTheme()
+        listEntryItems.actTheme.iconName = getTheme()        
     }
 
     function getTheme() {
-        return (theme.name == "Ubuntu.Components.Themes.SuruDark") 
+        return (theme.name == settings.dark) 
             ? "torch-off" 
             : "torch-on"
     }
 
     function switchTheme() {
-        theme.name = (theme.name == "Ubuntu.Components.Themes.SuruDark")
-            ? "Ubuntu.Components.Themes.Ambiance"
-            : "Ubuntu.Components.Themes.SuruDark" 
+        theme.name = (theme.name == settings.dark)
+            ? settings.light
+            : settings.dark
     }    
 
     function saveTheme() {
@@ -267,5 +318,10 @@ MainView {
 
     function readTheme() {
         theme.name = settings.getSetting("theme")
+    }
+
+    function getTimeout() {
+        timeoutSettings.enabled = settings.getSetting("timeoutEnabled") != "0"
+        timeoutSettings.interval = settings.getSetting("timeout")
     }
 }

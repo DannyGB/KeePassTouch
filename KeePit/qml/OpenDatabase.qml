@@ -52,6 +52,15 @@ Page {
                 saveTheme()
             }                      
           },
+
+        Action {
+            text: i18n.tr("Settings")
+            iconName: "settings"
+            onTriggered: {
+                pageStack.push(settingsForm)
+                settingsForm.loadSettings()
+            }
+        },
           Action {
                iconName: "import"
                text: i18n.tr("Import key")

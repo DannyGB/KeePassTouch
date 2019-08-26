@@ -21,7 +21,18 @@ import QtQuick 2.4
 import QtQuick.LocalStorage 2.0
 
 Item {    
+    signal settingsChanged()
     property var db: null
+    property bool settingsLoaded: false
+    property var values: {
+        "theme": "Ubuntu.Components.Themes.Ambiance",
+        "timeout": "60000",
+        "timeoutEnabled": "1",
+        "lastOpenDbName": "",
+        "lastOpenDbFilePath": ""
+    }
+    property var dark: "Ubuntu.Components.Themes.SuruDark"
+    property var light: "Ubuntu.Components.Themes.Ambiance"
 
     function openDB() {
         if(db !== null) return;
@@ -29,7 +40,7 @@ Item {
         db = LocalStorage.openDatabaseSync(appTitle, "0.1", "KeepIt Password Safe", 100000);
 
         try {
-            db.transaction(function(tx){
+            db.transaction(function(tx) {
                 tx.executeSql('CREATE TABLE IF NOT EXISTS settings(key TEXT UNIQUE, value TEXT)');
                 var table  = tx.executeSql("SELECT * FROM settings");
                 // Seed the table with default values
@@ -44,19 +55,67 @@ Item {
     }
 
     function saveSetting(key, value) {
-        openDB();
-        db.transaction( function(tx){
-            tx.executeSql('INSERT OR REPLACE INTO settings VALUES(?, ?)', [key, value]);
-        });
+        values[key] = value
+        saveSettings(values)
     }
 
     function getSetting(key) {
+        console.debug("getSetting:" + key)
+        if (settingsLoaded) {
+            console.debug(values[key])
+            return values[key]
+        }
+
+        getSettings()
+
+        console.debug(values[key])
+
+        return values[key]
+    }
+
+    function getSettings() {
+
+        if (settingsLoaded) {
+            console.debug("getSettings (cached): " + JSON.stringify(values))
+            return values
+        }
+
         openDB();
-        var res = "";
         db.transaction(function(tx) {
-            var rs = tx.executeSql('SELECT value FROM settings WHERE key=?;', [key]);
-            res = rs.rows.item(0).value;
-        });
-        return res;
+            var rs = tx.executeSql('SELECT key, value FROM settings;');
+            
+            for (var i=0, len=rs.rows.length; i<len; i++) {
+                if(rs.rows.item(i).key !== null) {
+                    values[rs.rows.item(i).key] = rs.rows.item(i).value
+                }
+            }
+
+            settingsLoaded = true
+        });        
+
+        console.debug("getSettings: " + JSON.stringify(values))
+
+        return values;
+    }
+
+    function saveSettings(updatedValues) {
+        console.debug("saveSettings: " + JSON.stringify(updatedValues))
+
+        try {
+            openDB();
+            db.transaction( function(tx){
+                for (var prop in updatedValues) {
+                    if(prop != null && updatedValues[prop] != null) {
+                        console.debug("saveSettings: " + prop + " " + updatedValues[prop])
+                        tx.executeSql('INSERT OR REPLACE INTO settings VALUES(?, ?)', [prop, updatedValues[prop]]);    
+                    }
+                }
+            });
+            settingsLoaded = false
+            settingsChanged()
+        }
+        catch (e) {
+            console.error("Error: " + JSON.stringify(e))
+        }
     }
 }
