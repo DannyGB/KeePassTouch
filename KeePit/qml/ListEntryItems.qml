@@ -109,11 +109,14 @@ Page {
                 saveTheme()
             }                      
           },
-        /*Action {
+        Action {
             text: i18n.tr("Settings")
             iconName: "settings"
-            onTriggered: PopupUtils.open(settingsDisabledComponent)
-        },*/
+            onTriggered: {
+                pageStack.push(settingsForm)
+                settingsForm.loadSettings()
+            }
+        },
         Action {
           iconName: "home"
           text: i18n.tr("Home")
