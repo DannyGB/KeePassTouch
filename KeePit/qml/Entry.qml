@@ -45,7 +45,23 @@ Page {
         Action {
             text: i18n.tr("Copy")
             iconName: "edit-copy"
-            onTriggered: Clipboard.push(password.text);
+            onTriggered: {
+              Clipboard.push(password.text);
+              textCopied.text = i18n.tr("Password copied to clipboard")
+              textCopied.show()
+              textCopiedTimer.start()
+            }
+        }
+        ,
+        Action {
+            text: i18n.tr("Clear")
+            iconName: "burn-after-read"
+            onTriggered: {
+              Clipboard.push("");
+              textCopied.text = i18n.tr("Clipboard Cleared")
+              textCopied.show()
+              textCopiedTimer.start()
+            }
         }
       ]
     }
@@ -64,21 +80,48 @@ Page {
       }
 
       Label {
+       id:usernameLabel
        text: i18n.tr("Username")
-       width: parent.width
       }
-
+      Button {
+       anchors.right: parent.right
+       iconName: "edit-copy"
+       width: 0
+       onClicked: {
+        Clipboard.push(userName.text)
+        textCopied.text = i18n.tr("Username copied to clipboard")
+        textCopied.show()
+        textCopiedTimer.start()
+       }
+      }
+      Timer {
+       id: textCopiedTimer
+       interval: 2000; running: false; repeat: false
+       onTriggered: textCopied.hide()
+      }
       TextField {
         id: userName
         text: database.selectedEntry.username
         readOnly: true
+        width: parent.width
       }
 
       Label {
+       id: passwordLabel
        text: i18n.tr("Password")
-       width: parent.width
       }
-
+      Button {
+       anchors.right: parent.right
+       anchors.top: password.top
+       iconName: "edit-copy"
+       width: 0
+       onClicked: {
+        Clipboard.push(password.text)
+        textCopied.text = i18n.tr("Password copied to clipboard")
+        textCopied.show()
+        textCopiedTimer.start()
+       }
+      }
       PasswordInput {
         id: password
         inputWidth: parent.width
@@ -89,7 +132,18 @@ Page {
 
       Label {
        text: i18n.tr("Url")
-       width: parent.width
+      }
+      Button {
+       anchors.right: parent.right
+       anchors.top: url.top
+       iconName: "edit-copy"
+       width: 0
+       onClicked: {
+        Clipboard.push(url.text)
+        textCopied.text = i18n.tr("URL copied to clipboard")
+        textCopied.show()
+        textCopiedTimer.start()
+       }
       }
 
       TextField {
@@ -97,6 +151,15 @@ Page {
         text: database.selectedEntry.url
         readOnly: true
         width: parent.width
+      }
+      Popover {
+        id: textCopied
+        property alias text: popoverText.text
+        Text {
+          id: popoverText
+          text: "default"
+          anchors.horizontalCenter: parent.horizontalCenter
+        }
       }
 
       Label {
