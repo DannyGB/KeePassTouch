@@ -47,7 +47,7 @@ Page {
             iconName: "edit-copy"
             onTriggered: {
               Clipboard.push(password.text);
-              textCopied.text = "Password copied to clipboard"
+              textCopied.text = i18n.tr("Password copied to clipboard")
               textCopied.show()
               textCopiedTimer.start()
             }
@@ -58,7 +58,7 @@ Page {
             iconName: "burn-after-read"
             onTriggered: {
               Clipboard.push("");
-              textCopied.text = "Clipboard Cleared"
+              textCopied.text = i18n.tr("Clipboard Cleared")
               textCopied.show()
               textCopiedTimer.start()
             }
@@ -89,7 +89,7 @@ Page {
        width: 0
        onClicked: {
         Clipboard.push(userName.text)
-        textCopied.text = "Username copied to clipboard"
+        textCopied.text = i18n.tr("Username copied to clipboard")
         textCopied.show()
         textCopiedTimer.start()
        }
@@ -117,7 +117,7 @@ Page {
        width: 0
        onClicked: {
         Clipboard.push(password.text)
-        textCopied.text = "Password copied to clipboard"
+        textCopied.text = i18n.tr("Password copied to clipboard")
         textCopied.show()
         textCopiedTimer.start()
        }
@@ -140,7 +140,7 @@ Page {
        width: 0
        onClicked: {
         Clipboard.push(url.text)
-        textCopied.text = "URL copied to clipboard"
+        textCopied.text = i18n.tr("URL copied to clipboard")
         textCopied.show()
         textCopiedTimer.start()
        }
