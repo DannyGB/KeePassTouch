@@ -186,11 +186,11 @@ TreeNode* ReadXmlFile::ExtractEntryNode(XMLElement* elem)
 
                 else if(strcmp(key->GetText(), "Notes") == 0) {
                     entry.notes(key->NextSiblingElement("Value")->GetText());
-                }
-				else {
-					// This case covers all other (potentially encrypted) fields.
-					// For the moment, just check whether the field is encrypted,
-					// and if it is, decrypt it.
+				}
+                else {
+                    // This case covers all other (potentially encrypted) fields.
+                    // For the moment, just check whether the field is encrypted,
+                    // and if it is, decrypt it.
                     const char* p = key->NextSiblingElement("Value")->GetText();
                     if(p != 0){
                         std::string strt(p);
