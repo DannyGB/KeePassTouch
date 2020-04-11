@@ -159,7 +159,7 @@ TreeNode* ReadXmlFile::ExtractEntryNode(XMLElement* elem)
                     }
                 }
 
-                if(strcmp(key->GetText(), "Password") == 0) {
+                else if(strcmp(key->GetText(), "Password") == 0) {
                     const char* p = key->NextSiblingElement("Value")->GetText();
                     if(p != 0){
                         std::string strt(p);
@@ -176,16 +176,28 @@ TreeNode* ReadXmlFile::ExtractEntryNode(XMLElement* elem)
                     entry.passwordProtected(key->NextSiblingElement("Value")->Attribute("Protected"));
                 }
 
-                if(strcmp(key->GetText(), "UserName") == 0) {
+                else if(strcmp(key->GetText(), "UserName") == 0) {
                     entry.username(key->NextSiblingElement("Value")->GetText());
                 }
 
-                if(strcmp(key->GetText(), "URL") == 0) {
+                else if(strcmp(key->GetText(), "URL") == 0) {
                     entry.url(key->NextSiblingElement("Value")->GetText());
                 }
 
-                if(strcmp(key->GetText(), "Notes") == 0) {
+                else if(strcmp(key->GetText(), "Notes") == 0) {
                     entry.notes(key->NextSiblingElement("Value")->GetText());
+                }
+                else {
+                    // This case covers all other (potentially encrypted) fields.
+                    // For the moment, just check whether the field is encrypted,
+                    // and if it is, decrypt it.
+                    const char* p = key->NextSiblingElement("Value")->GetText();
+                    if(p != 0){
+                        std::string strt(p);
+                         vector<char> plainEncrypted = base64.base64_decode(strt);
+                         byte* bytes = m_salsa->decrypt(plainEncrypted);
+                    }
+                    entry.passwordProtected(key->NextSiblingElement("Value")->Attribute("Protected"));
                 }
             }
 

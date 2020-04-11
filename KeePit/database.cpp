@@ -415,9 +415,14 @@ void Database::openFile(QString url, QString password, QString passKey) {
         vKeyFileData = readKeyFile.read(passKeyMemblock, (int)passKeySize);
     }
 
+	// 'toStdString' encodes the password string in UTF-8
     string stringKey = password.toStdString();
     const byte * key = reinterpret_cast<const byte*>(stringKey.c_str());
-    vector<char> vKey = ae.toVector((char*)key, (uint)password.size());
+    
+	// Some UTF-8 characters are represented with more than one byte.
+	// Only 'stringKey.length()' returns the length of the string in bytes.
+	// Therefore use the length of 'stringKey' and not the length of 'password'
+	vector<char> vKey = ae.toVector((char*)key, (uint)stringKey.length());
     vector<char> vKeySeed = ae.toVector(m_pbTransformSeed, TRANSFORMSEEDSIZE);
 
     uint uNumRounds = ByteStream::ReadByte(m_pwDatabaseKeyEncryptionRounds);
