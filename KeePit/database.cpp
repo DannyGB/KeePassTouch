@@ -420,7 +420,7 @@ void Database::openFile(QString url, QString password, QString passKey) {
     const byte * key = reinterpret_cast<const byte*>(stringKey.c_str());
     
 	// Some UTF-8 characters are represented with more than one byte.
-	// Only 'strinKey.length()' returns the length of the string in bytes.
+	// Only 'stringKey.length()' returns the length of the string in bytes.
 	// Therefore use the length of 'stringKey' and not the length of 'password'
 	vector<char> vKey = ae.toVector((char*)key, (uint)stringKey.length());
     vector<char> vKeySeed = ae.toVector(m_pbTransformSeed, TRANSFORMSEEDSIZE);

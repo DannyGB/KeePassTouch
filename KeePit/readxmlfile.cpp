@@ -186,7 +186,7 @@ TreeNode* ReadXmlFile::ExtractEntryNode(XMLElement* elem)
 
                 else if(strcmp(key->GetText(), "Notes") == 0) {
                     entry.notes(key->NextSiblingElement("Value")->GetText());
-				}
+                }
                 else {
                     // This case covers all other (potentially encrypted) fields.
                     // For the moment, just check whether the field is encrypted,
@@ -198,8 +198,7 @@ TreeNode* ReadXmlFile::ExtractEntryNode(XMLElement* elem)
                          byte* bytes = m_salsa->decrypt(plainEncrypted);
                     }
                     entry.passwordProtected(key->NextSiblingElement("Value")->Attribute("Protected"));
-				
-				}
+                }
             }
 
             assert(str != 0);
